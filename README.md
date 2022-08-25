@@ -1,6 +1,14 @@
 # Front-End
 Front end para el sistema de encuestas de la UAMI
 
+## TODO Tecnologías
+
+Aquí describimos las tecnologías usadas
+
+## Herramientas
+
+Aquí van las herramientas que recomendamos usar para los nuevos programadores. Por ejemplo, VSCode y extensiones
+
 ## Development
 
 **Nota**: se recomienda crear un directorio llamado `encuestas-uami`.
@@ -31,3 +39,7 @@ npm install
 ```shell
 npm start
 ```
+
+## TODO Estructura del proyecto
+
+Aquí describimos la estructura de carpetas dentro de `src`, qué va en cada carpeta para que todo esté organizado.
