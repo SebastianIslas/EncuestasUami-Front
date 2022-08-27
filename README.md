@@ -5,7 +5,7 @@ Front end para el sistema de encuestas de la UAMI
 
 Aquí describimos las tecnologías usadas
 
-## Herramientas
+## TODO Herramientas
 
 Aquí van las herramientas que recomendamos usar para los nuevos programadores. Por ejemplo, VSCode y extensiones
 
@@ -23,7 +23,7 @@ git clone https://github.com/encuestas-uami/front-end.git
 ```
 
 2. Después, ingresar al directorio o carpeta del repositorio.
-  
+
 ```shell
 cd front-end
 ```
@@ -43,3 +43,7 @@ npm start
 ## TODO Estructura del proyecto
 
 Aquí describimos la estructura de carpetas dentro de `src`, qué va en cada carpeta para que todo esté organizado.
+
+## TODO Tailwind
+
+### TODO Instalación de TailwindCSS
