@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
+import NavBar from '../components/home/NavBar'
 
 function HomePage(){
     return(
     <>
-    <h1>Estamos en la HomePage, <Link to="/login">ir a login</Link></h1>
+    <NavBar />    
     </>)
 }
 export default HomePage
