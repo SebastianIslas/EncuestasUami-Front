@@ -40,9 +40,30 @@ npm install
 npm start
 ```
 
-## TODO Estructura del proyecto
+## Estructura del proyecto
 
-Aquí describimos la estructura de carpetas dentro de `src`, qué va en cada carpeta para que todo esté organizado.
+La carpeta de `src` tiene las siguientes carpetas:
+```
+src
+├── assets
+├── components
+├── context
+├── data
+├── hooks
+├── pages
+├── services
+├── styles
+└── utils
+```
+- **`assets`** almacenará archivos de imágenes, svg y cualquier archivo que no sea código de JS.
+- **`context`** contendrá cualquier [*contexto*](https://reactjs.org/docs/context.html) que se requiera en la aplicación.
+- **`data`** guardará cualquier archivo JSON *placeholder* y el archivo con las constantes utilizadas.
+- **`hooks`** almacenará los [*hooks personalizados*](https://reactjs.org/docs/hooks-custom.html).
+- **`pages`** contendrá los componentes de las *Vistas*.
+- **`styles`** almacenará los archivos css de las vistas y el css global.
+- **`utils`** incluirá las funciones de utilidades (pequeñas, simples y de propósito general).
+- **`services`** contendrá las funciones que hacen peticiones a la API.
+- **`components`** almacenará los componentes que forman nuestras *Vistas* divididos en carpetas con el nombre de la vista; por ejemplo si un conjunto *c* de componentes forman la vist *Home* entonces el conjunto *c* deberá estar en el directorio `src/components/Home`, si el conjunto de componentes *c* se utilizan en mas de una vista entonces estarían en `src/components`.
 
 ## TODO Tailwind
 
