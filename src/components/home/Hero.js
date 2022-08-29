@@ -1,10 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import uamiPrecovid from '../../assets/UAMI.jpg'
 export default function Hero() {
   return (
-    <div className="hero min-h-screen bg-base-200 text-xl text-justify">
+    <>
+    <div className="hero min-h-max bg-base-200 text-xl text-justify">
 
-        <div className="hero-content grid grid-cols-6 gap-2">
+        <div className="hero-content grid grid-cols-6 gap-2 lg:flex-col">
 
             <div className=" col-span-6 col-start-1 pb-24 text-center">
                 <h1 className="text-5xl font-bold">Encuestas UAMI</h1>
@@ -18,10 +20,14 @@ export default function Hero() {
             <div className='col-span-4'>
                 <h1 className="text-5xl font-bold">La App de encuestas UAM!</h1>
                 <p className="py-6">Nuestro objetivo es que abran las materias que los estudiantes desean. ¿Alguna vez te has quedado sin poder inscribir una UEA porque no la abrieron? Vota por las que deseas y logra un cambio en la universidad.</p>
-                <button className="btn btn-primary">Realizar la Encuesta</button>
+                <button className="btn btn-primary"><Link to="/login">Realizar la encuesta</Link></button>
             </div>
         </div>
 
     </div>
+  </>
+
+
+
   )
 }
