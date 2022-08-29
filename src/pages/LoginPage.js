@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-function LoginPage(){
-    return(<><h1>Probando, estoy en LoginPage</h1></>)
-}
-export default LoginPage;
-=======
 import ButtonLogin from '../components/Login/ButtonLogin.js'
 import CardLogin from '../components/Login/CardLogin.js'
 import InfoLogin from '../components/Login/InfoLogin.js'
@@ -19,4 +13,3 @@ export default function LoginPage() {
         </CardLogin>
     );
 }
->>>>>>> origin/josue
