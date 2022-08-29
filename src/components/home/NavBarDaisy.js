@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import Hero from './Hero.js'
 import Footer from './Footer.js'
 
+import Trolleando from './Trolleando.js'
+
 export default function NavBarDaisy() {
   return (
     <>
     <div className="drawer text-xl">
-    <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
+    <input id="my-drawer-3" typse="checkbox" className="drawer-toggle" /> 
     <div className="drawer-content flex flex-col">
     
         <div className="w-full navbar bg-base-300">
@@ -29,7 +31,7 @@ export default function NavBarDaisy() {
         </div>
 
        
-        <Hero />
+        <Trolleando />
         <Footer />
 
     </div> 
