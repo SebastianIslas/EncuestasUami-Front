@@ -1,9 +1,11 @@
-import NavBar from '../components/home/NavBar'
+import NavBarDaisy from '../components/home/NavBarDaisy.js'
 
 function HomePage(){
     return(
     <>
-    <NavBar />    
-    </>)
+    <NavBarDaisy />
+   
+    </>
+    )
 }
 export default HomePage
