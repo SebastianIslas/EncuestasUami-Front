@@ -1,9 +1,10 @@
 import logo from '../logo.svg';
 import React, { useEffect, useState } from "react";
+import ButtonEnviarEncuesta from '../components/Encuesta/ButtonEnviarEncuesta';
 
 // export function Encuesta({ user }) {
 // TODO: esto solo es de prueba
-export function EncuestaPage() {
+function EncuestaPage() {
   // TODO: user se pasa como prop, esto es solo para test
   // O tal vez no, y tenemos que obtener estos datos en esta página desde la API
   let user = Object();
@@ -144,10 +145,6 @@ export function EncuestaPage() {
   //   console.log(listaClavesEncuesta);
   // }, [listaClavesEncuesta]);
 
-  useEffect(() => {
-    setListaClavesEncuesta(Object.keys(materiasEncuesta));
-  }, []);
-
 
   return (<>
     <div id="logo-info"
@@ -172,15 +169,9 @@ export function EncuestaPage() {
     {/* Container de la tabla y botones*/}
     <div id="tabla-materias"
         //  className="overflow-x-auto container px-2 md:px-10 mx-auto">
-         className="overflow-x-auto container px-2 md:px-10 mx-auto">
+        className="overflow-x-auto container px-2 md:px-10 mx-auto">
 
-      <div className='flex flex-row-reverse py-4'>
-        <button type="submit"
-                className='btn btn-primary 
-                           btn-xs sm:btn-sm md:btn-md'>
-          Subir Encuesta
-        </button>
-      </div>
+      <ButtonEnviarEncuesta/>
 
       {/* Tabla */}
       <table className="table table-compact md:table-normal w-full">
@@ -255,14 +246,10 @@ export function EncuestaPage() {
         </tfoot>
       </table>
 
-      <div className='flex flex-row-reverse py-4'>
-        <button type="submit"
-                className='btn btn-primary 
-                           btn-xs sm:btn-sm md:btn-md'>
-          Subir Encuesta
-        </button>
-      </div>
+      <ButtonEnviarEncuesta/>
 
     </div>
   </>);
 }
+
+export default EncuestaPage
