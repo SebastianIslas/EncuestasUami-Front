@@ -1,4 +1,4 @@
-import NavBarDaisy from '../components/home/NavBarDaisy.js'
+import NavBarDaisy from '../components/Home/NavBarDaisy.js'
 
 function HomePage(){
     return(
