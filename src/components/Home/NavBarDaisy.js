@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Trolleando from './Trolleando.js'
-import Hero from './Hero.js'
+// import Hero from './Hero.js'
 import Footer from './Footer.js'
 
 export default function NavBarDaisy() {
@@ -23,8 +23,8 @@ export default function NavBarDaisy() {
                 <ul className="menu menu-horizontal">
         
                 <li><Link to="/login">Login</Link></li>
-                <li><a>Estadísticas</a></li>
-                <li><a>UEAs Abiertas</a></li>
+                <li><Link to="/">Estadísticas</Link></li>
+                <li><Link to="/">UEAs Abiertas</Link></li>
                 </ul>
             </div>
         </div>
@@ -37,11 +37,9 @@ export default function NavBarDaisy() {
     <div className="drawer-side">
         <label for="my-drawer-3" className="drawer-overlay"></label> 
         <ul className="menu p-4 overflow-y-auto w-80 bg-base-100">
-       
             <li><Link to="/login">Login</Link></li>
-            <li><a>Estadísticas</a></li>
-            <li><a>UEAs Abiertas</a></li>
-        
+            <li><Link to="/">Estadísticas</Link></li>
+            <li><Link to="/">UEAs Abiertas</Link></li>
         </ul>
     </div>
 

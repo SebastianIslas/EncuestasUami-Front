@@ -14,7 +14,9 @@ export default function Hero() {
             </div>
         
             <div className='col-span-2 pb-12'>
-                <img src={ uamiPrecovid } className="max-w-sm rounded-lg shadow-2xl" />
+                <img src={ uamiPrecovid } 
+                     alt="Fotografía de las intalaciones de la UAM Iztapalapa"
+                     className="max-w-sm rounded-lg shadow-2xl" />
             </div>
             
             <div className='col-span-4 pb-12'>
