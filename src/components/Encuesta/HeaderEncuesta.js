@@ -16,7 +16,7 @@ function HeaderEncuesta({user, maxMaterias}) {
           <br />
           Gracias por llenar esta encuesta.
           <br />
-          Puedes elegir hasta <span className='font-bold'>{maxMaterias}</span> materias.
+          Puedes elegir hasta <span className='font-bold'>{maxMaterias}</span> materias/UEAs.
         </p>
       </div>
     </div>
