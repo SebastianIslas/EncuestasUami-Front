@@ -1,11 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
-import Trolleando from './Trolleando.js'
 import Hero from './Hero.js'
 import Footer from './Footer.js'
 
-export default function NavBarDaisy() {
+export default function NavDrawer() {
   return (
     <>
     <div className="drawer text-xl">
@@ -22,7 +20,7 @@ export default function NavBarDaisy() {
             <div className="flex-none hidden lg:block">
                 <ul className="menu menu-horizontal">
         
-                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/Login">Login</Link></li>
                 <li><a>Estadísticas</a></li>
                 <li><a>UEAs Abiertas</a></li>
                 </ul>
@@ -30,7 +28,7 @@ export default function NavBarDaisy() {
         </div>
 
        
-        <Trolleando />
+        <Hero />
         <Footer />
 
     </div> 
