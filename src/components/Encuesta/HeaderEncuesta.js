@@ -2,11 +2,10 @@ import React from "react";
 
 import Logo24 from "./Logo24";
 
-function InfoEncuesta({user, maxMaterias}) {
+function HeaderEncuesta({user, maxMaterias}) {
   return (
     <div id="logo-info"
-        // className='hero-content flex-col lg:flex-row px-3 pt-10'>
-        className='hero-content flex-col lg:flex-row px-3 pt-10'>
+         className='hero-content flex-col lg:flex-row px-3 pt-10'>
 
       <Logo24 />
 
@@ -24,4 +23,4 @@ function InfoEncuesta({user, maxMaterias}) {
   );
 }
 
-export default InfoEncuesta
+export default HeaderEncuesta
