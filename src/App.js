@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.js"
 import LoginPage from "./pages/LoginPage.js";
+import AdminLoginPage from "./pages/AdminLoginPage.js";
 import EncuestaPage from "./pages/EncuestaPage.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
 
@@ -12,7 +13,7 @@ function App() {
         <Route index element={ <HomePage /> } />
         <Route path="login" element= { <LoginPage /> } />
         <Route path="encuesta" element= { <EncuestaPage /> } />
-
+        <Route path="admin" element= { <AdminLoginPage /> } />
         <Route path="*" element= { <NotFoundPage /> } />
       </Routes>
     </BrowserRouter>
