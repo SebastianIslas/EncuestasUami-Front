@@ -78,9 +78,6 @@ function EncuestaPage() {
   // useEffect(() => {
   //   console.log(listaClavesEncuesta);
   // }, [listaClavesEncuesta]);
-  // TODO: para desactivar mensajes en la compilación porque no se están usando
-  // ciertos métodos
-
 
   return (
   <div className="bg-base-200">
@@ -93,8 +90,10 @@ function EncuestaPage() {
       <ButtonEnviarEncuesta/>
 
       {/* Tabla */}
-      <TablaMateriasEncuesta materias={materias} maxMaterias={maxMaterias} 
-                            materiasEncuesta={materiasEncuesta} setMateriasEncuesta={setMateriasEncuesta}
+      <TablaMateriasEncuesta materias={materias} 
+                             maxMaterias={maxMaterias} 
+                             materiasEncuesta={materiasEncuesta}
+                             setMateriasEncuesta={setMateriasEncuesta}
       />
       {/* <MateriasEncuestaContext.Consumer>
         <TablaMateriasEncuesta materias={materias} maxMaterias={maxMaterias} />

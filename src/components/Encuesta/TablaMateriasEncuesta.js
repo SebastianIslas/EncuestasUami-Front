@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
+import ModalOpciones from "./ModalOpciones";
 
 // TODO: creo no se necesita
 // import { MateriasEncuestaContext } from "../../pages/EncuestaPage";
@@ -109,16 +110,21 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
 
             {/* Botón Opciones */}
             <th>
-              <div className='flex flex-row-reverse'>
+              {/* <div className='flex flex-row-reverse'>
                 <button className="btn btn-accent
                                   btn-xs sm:btn-sm md:btn-md
                                   before:content-['+']
                                   md:before:content-['Opciones']
-                                  w-8 md:w-24">
+                                  w-8 md:w-24"
+                        disabled={handleDisableCheckbox(materia.clave.toString())}>
                 </button>
-              </div>
+              </div> */}
+              <ModalOpciones clave={materia.clave} 
+                                nombreMateria={materia.nombre}
+                                isDisabled={handleDisableCheckbox(materia.clave.toString())}/>
             </th>
           </tr>)}
+
         </tbody>
 
         {/* Footer de la tabla */}
