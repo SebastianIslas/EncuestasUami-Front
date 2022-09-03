@@ -88,7 +88,7 @@ function EncuestaPage() {
 
       <HeaderEncuesta user={user} maxMaterias={maxMaterias} />
 
-      <ButtonEnviarEncuesta />
+      {/*<ButtonEnviarEncuesta />*/}
 
       <InfoEncuesta />
 

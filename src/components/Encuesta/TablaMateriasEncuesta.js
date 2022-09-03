@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
 import Modal from "../Modal";
@@ -13,10 +13,13 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
   // const [listaClavesEncuesta, setListaClavesEncuesta] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
-
-  const toggleModal = () => {
-    setShowModal(!showModal);;
-  }
+  // Datos que se tienen dentro del modal
+  const [modalData, setModalData] = useState({
+    clave: null,
+    nombre: null,
+    modalidad: null,
+    horario: null
+  });
 
   // Función para desactivar los checkbox si ya alcanzamos el limite de materias
   // y si también el checkbox no está en la lista de materias seleccionadas. Ya
@@ -55,22 +58,54 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
     // Agregar una materia a la encuesta
     }else{
       copyOfMaterias[name] = {
-        "modalidad": "Presencial",
-        "horario": "Sin preferencia"
+        modalidad: "Presencial",
+        horario: "Sin preferencia"
       };
       copyArray = [...listaClavesEncuesta, name];
       // setListaClavesEncuesta([...listaClavesEncuesta, name]);
     }
 
-    // Actualizar el state de llos arreglos
+    // Actualizar el state de los arreglos
     setListaClavesEncuesta(copyArray);
     setMateriasEncuesta(copyOfMaterias);
   }
 
-  // TODO
-  // const handleModalOpciones = (claveMateria, modalidad, horario) => {
+  const toggleModal = (claveElegida, nombreElegida) => {
+    if (!showModal){
+      let newObject = {
+        clave: claveElegida,
+        nombre: nombreElegida,
+        modalidad: materiasEncuesta[claveElegida] ?
+                      materiasEncuesta[claveElegida].modalidad : null,
+        horario: materiasEncuesta[claveElegida] ?
+                    materiasEncuesta[claveElegida].horario : null
+      }
 
-  // }
+      setModalData(newObject);
+    }
+
+    setShowModal(!showModal);
+  }
+
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
+  // Función que cambia los datos de la encuesta según los cambios en el modal
+  const setEncuestaFromModal = (claveMateria, propiedad, valorPropiedad) => {
+    let copyOfMateriasEncuesta = {...materiasEncuesta};
+    copyOfMateriasEncuesta[propiedad] = valorPropiedad;
+    setMateriasEncuesta(copyOfMateriasEncuesta);
+
+    let copyOfModalData = {...modalData};
+    copyOfModalData[propiedad] = valorPropiedad;
+    setModalData(copyOfModalData);
+  }
+
+  useEffect(() => {
+    console.log(modalData);
+  }, [modalData]);
+
 
   return (
     <React.Fragment>
@@ -96,9 +131,9 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                       // Nombre de cada checkbox
                       name={materia.clave.toString()}
                       // Desactivar el checkbox
-                      disabled={handleDisableCheckbox(materia.clave.toString())} 
+                      disabled={handleDisableCheckbox(materia.clave.toString())}
                       // Hacer check si está en la lista de materias
-                      checked={listaClavesEncuesta.includes(materia.clave.toString())} 
+                      checked={listaClavesEncuesta.includes(materia.clave.toString())}
                       // Función que altera la lista de materias
                       onChange={handleCheckbox}/>
               </label>
@@ -143,7 +178,9 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                                   before:content-['+']
                                   md:before:content-['Opciones']
                                   w-8 md:w-24"
-                        onClick={toggleModal}
+                        onClick={() => {
+                            toggleModal(materia.clave, materia.nombre)
+                        }}
                         disabled={handleDisableCheckbox(materia.clave.toString())}
                 ></button>
 
@@ -161,10 +198,63 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
 
       {/* TODO: terminar el estilo y funcionalidad del modal */}
       {showModal ? (<Modal>
-        <div className="bg-base-300 absolute w-full">
+        <div className="absolute w-full h-screen z-50">
+        {/* Botón para cerrar el modal */}
+        <div className="modal-box bg-base-300 mx-auto">
+          <label className="btn btn-sm btn-circle absolute right-2 top-2"
+                  onClick={closeModal}>
+            ✕
+          </label>
+          {/* El título del modal es el nombre de la materia */}
+          <h2 className="font-bold text-lg">{modalData.nombre}</h2>
+          {/* También mostramos la clave de la materia */}
+          <p className="text-sm font-normal text-slate-500">({modalData.clave})</p>
+          <br/>
 
-        <h1>Modal</h1>
-        <p>Este es un modal</p>
+          <p className="text-sm pb-2">¿En qué modalidad te gustaría que se abriera esta UEA?</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
+            <input type="radio" name="modalidad" id="Presencial" checked hidden/>
+            <label htmlFor="Presencial">
+              <button className="btn btn-active btn-ghost">Presencial</button>
+            </label>
+
+            <input type="radio" name="modalidad" id="Virtual" hidden/>
+            <label htmlFor="Virtual">
+              <button className="btn btn-active btn-ghost">Virtual</button>
+            </label>
+          </div>
+          <br/>
+
+          <p className="text-sm pb-2">¿En qué horario te gustaría llevar esta UEA?</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
+            <input type="radio" name="horario" id="Manana" checked hidden/>
+            <label htmlFor="Manana">
+              <button className="btn btn-active btn-ghost">Mañana</button>
+            </label>
+
+            <input type="radio" name="horario" id="Tarde" hidden/>
+            <label htmlFor="Tarde">
+              <button className="btn btn-active btn-ghost">Tarde</button>
+            </label>
+           <label htmlFor="Tade-noche">
+              <button className="btn btn-active btn-ghost">Tarde-noche</button>
+            </label>
+
+            <input type="radio" name="horario" id="Sin-preferencia" hidden/>
+            <label htmlFor="Sin-preferencia">
+              <button className="btn btn-active btn-ghost">Sin preferencia</button>
+            </label>
+          </div>
+
+          <div className="modal-action justify-between">
+            <div>
+            <p className="text-xs font-normal text-slate-500">Mañana: 8:00 a 12:00</p>
+            <p className="text-xs font-normal text-slate-500">Tarde: 12:00 a 16:00</p>
+            <p className="text-xs font-normal text-slate-500">Tarde-noche: 16:00 a 21:00</p>
+            </div>
+            <label className="btn">Aceptar</label>
+          </div>
+        </div>
         </div>
       </Modal>) : null}
 

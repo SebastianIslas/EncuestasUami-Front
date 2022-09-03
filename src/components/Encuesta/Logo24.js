@@ -4,7 +4,7 @@ import logoUAM from "../../assets/logo-uam.png";
 
 function Logo24() {
   return (
-  <div className='avatar w-24'>
+  <div className='w-24 z-0'>
     <img src={logoUAM} alt="Logo de encuestas uami" />
   </div>);
 }
