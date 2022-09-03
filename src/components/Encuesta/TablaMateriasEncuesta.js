@@ -91,8 +91,20 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
     setShowModal(false);
   }
 
+  const handleClassNameButtonModal = (propiedad, valor) => {
+    if (modalData[propiedad] === valor){
+      return "btn btn-active btn-accent";
+    } else {
+      return "btn btn-active btn-ghost";
+    }
+  }
+
   // Función que cambia los datos de la encuesta según los cambios en el modal
-  const setEncuestaFromModal = (claveMateria, propiedad, valorPropiedad) => {
+  const setEncuestaFromModal = (
+    claveMateria,
+    propiedad,
+    valorPropiedad
+  ) => {
     let copyOfMateriasEncuesta = {...materiasEncuesta};
     copyOfMateriasEncuesta[propiedad] = valorPropiedad;
     setMateriasEncuesta(copyOfMateriasEncuesta);
@@ -157,23 +169,8 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
 
             {/* Botón Opciones */}
             <th>
-              {/* <div className='flex flex-row-reverse'>
-                <button className="btn btn-accent
-                                  btn-xs sm:btn-sm md:btn-md
-                                  before:content-['+']
-                                  md:before:content-['Opciones']
-                                  w-8 md:w-24"
-                        disabled={handleDisableCheckbox(materia.clave.toString())}>
-                </button>
-              </div> */}
-              {/* <ModalOpciones clave={materia.clave} 
-                              nombreMateria={materia.nombre}
-                              isDisabled={handleDisableCheckbox(materia.clave.toString())}
-                              // Manda un objeto que contiene la materia si está en la encuesta
-                              materiaElegidaEncuesta={materiasEncuesta[materia.clave]}/> */}
-
               <div className='flex flex-row-reverse'>
-                <button className="btn btn-accent
+                <button className="btn btn-primary
                                   btn-xs sm:btn-sm md:btn-md
                                   before:content-['+']
                                   md:before:content-['Opciones']
@@ -183,7 +180,6 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                         }}
                         disabled={handleDisableCheckbox(materia.clave.toString())}
                 ></button>
-
               </div>
             </th>
           </tr>)}
@@ -212,38 +208,24 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
           <br/>
 
           <p className="text-sm pb-2">¿En qué modalidad te gustaría que se abriera esta UEA?</p>
-          <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
-            <input type="radio" name="modalidad" id="Presencial" checked hidden/>
-            <label htmlFor="Presencial">
-              <button className="btn btn-active btn-ghost">Presencial</button>
-            </label>
 
-            <input type="radio" name="modalidad" id="Virtual" hidden/>
-            <label htmlFor="Virtual">
-              <button className="btn btn-active btn-ghost">Virtual</button>
-            </label>
+          {/* TODO Checar que los botones se activen según las opciones
+elegidas, tal vez no sea necesario usar radios y podemos usar sólo botones
+convencionales y manejamos su estilo para hacerlos parecer activo o
+desactivado */}
+
+          <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
+            <button className={handleClassNameButtonModal("modalidad", "Presencial")}>Presencial</button>
+            <button className={handleClassNameButtonModal("modalidad", "Virtual")}>Virtual</button>
           </div>
           <br/>
 
           <p className="text-sm pb-2">¿En qué horario te gustaría llevar esta UEA?</p>
           <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
-            <input type="radio" name="horario" id="Manana" checked hidden/>
-            <label htmlFor="Manana">
-              <button className="btn btn-active btn-ghost">Mañana</button>
-            </label>
-
-            <input type="radio" name="horario" id="Tarde" hidden/>
-            <label htmlFor="Tarde">
-              <button className="btn btn-active btn-ghost">Tarde</button>
-            </label>
-           <label htmlFor="Tade-noche">
-              <button className="btn btn-active btn-ghost">Tarde-noche</button>
-            </label>
-
-            <input type="radio" name="horario" id="Sin-preferencia" hidden/>
-            <label htmlFor="Sin-preferencia">
-              <button className="btn btn-active btn-ghost">Sin preferencia</button>
-            </label>
+            <button className={handleClassNameButtonModal("horario", "Mañana")}>Mañana</button>
+            <button className={handleClassNameButtonModal("horario", "Tarde")}>Tarde</button>
+            <button className={handleClassNameButtonModal("horario", "Tarde-noche")}>Tarde-noche</button>
+            <button className={handleClassNameButtonModal("horario", "Sin preferencia")}>Sin preferencia</button>
           </div>
 
           <div className="modal-action justify-between">
@@ -252,7 +234,7 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
             <p className="text-xs font-normal text-slate-500">Tarde: 12:00 a 16:00</p>
             <p className="text-xs font-normal text-slate-500">Tarde-noche: 16:00 a 21:00</p>
             </div>
-            <label className="btn">Aceptar</label>
+            <label className="btn btn-primary" onClick={closeModal}>Aceptar</label>
           </div>
         </div>
         </div>
