@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
-import ModalOpciones from "./ModalOpciones";
+import Modal from "../Modal";
 
 // TODO: creo no se necesita
 // import { MateriasEncuestaContext } from "../../pages/EncuestaPage";
@@ -11,6 +11,12 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
   // encuesta, está ligada al JSON que teníamos de materias en la encuesta
   const [listaClavesEncuesta, setListaClavesEncuesta] = useState(Object.keys(materiasEncuesta));
   // const [listaClavesEncuesta, setListaClavesEncuesta] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);;
+  }
 
   // Función para desactivar los checkbox si ya alcanzamos el limite de materias
   // y si también el checkbox no está en la lista de materias seleccionadas. Ya
@@ -61,8 +67,14 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
     setMateriasEncuesta(copyOfMaterias);
   }
 
+  // TODO
+  // const handleModalOpciones = (claveMateria, modalidad, horario) => {
+
+  // }
+
   return (
-    // Container de la tabla
+    <React.Fragment>
+    {/* Container de la tabla */}
     <div id="tabla-materias"
           className="overflow-x-auto rounded-lg">
 
@@ -119,9 +131,23 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                         disabled={handleDisableCheckbox(materia.clave.toString())}>
                 </button>
               </div> */}
-              <ModalOpciones clave={materia.clave} 
-                                nombreMateria={materia.nombre}
-                                isDisabled={handleDisableCheckbox(materia.clave.toString())}/>
+              {/* <ModalOpciones clave={materia.clave} 
+                              nombreMateria={materia.nombre}
+                              isDisabled={handleDisableCheckbox(materia.clave.toString())}
+                              // Manda un objeto que contiene la materia si está en la encuesta
+                              materiaElegidaEncuesta={materiasEncuesta[materia.clave]}/> */}
+
+              <div className='flex flex-row-reverse'>
+                <button className="btn btn-accent
+                                  btn-xs sm:btn-sm md:btn-md
+                                  before:content-['+']
+                                  md:before:content-['Opciones']
+                                  w-8 md:w-24"
+                        onClick={toggleModal}
+                        disabled={handleDisableCheckbox(materia.clave.toString())}
+                ></button>
+
+              </div>
             </th>
           </tr>)}
 
@@ -132,7 +158,18 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
           <TitleRowTablaMaterias />
         </tfoot>
       </table>
+
+      {/* TODO: terminar el estilo y funcionalidad del modal */}
+      {showModal ? (<Modal>
+        <div className="bg-base-300 absolute w-full">
+
+        <h1>Modal</h1>
+        <p>Este es un modal</p>
+        </div>
+      </Modal>) : null}
+
     </div>
+    </React.Fragment>
   );
 } 
 
