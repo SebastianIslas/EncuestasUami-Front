@@ -73,9 +73,9 @@ function EncuestaPage() {
   }, []);
 
   // TODO: Pruebas de las estructuras que tenemos para enviar
-  // useEffect(() => {
-  //   console.log(materiasEncuesta);
-  // }, [materiasEncuesta]);
+  useEffect(() => {
+    console.log(materiasEncuesta);
+  }, [materiasEncuesta]);
   // useEffect(() => {
   //   console.log(listaClavesEncuesta);
   // }, [listaClavesEncuesta]);

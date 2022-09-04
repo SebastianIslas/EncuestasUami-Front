@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
 import Modal from "../Modal";
@@ -12,8 +12,11 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
   const [listaClavesEncuesta, setListaClavesEncuesta] = useState(Object.keys(materiasEncuesta));
   // const [listaClavesEncuesta, setListaClavesEncuesta] = useState([]);
 
+  // Controlar si se muestra el modal
   const [showModal, setShowModal] = useState(false);
-  // Datos que se tienen dentro del modal
+
+  // Datos que se tienen dentro del modal, es decir aquellos datos que le
+  // pertenecen a la materia que mandó a llamar al modal
   const [modalData, setModalData] = useState({
     clave: null,
     nombre: null,
@@ -70,54 +73,106 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
     setMateriasEncuesta(copyOfMaterias);
   }
 
+  // Cambiar entre mostrar o no el modal, pero cada que se va a mostrar el
+  // modal cargamos los datos de la materia que mandó a llamar al modal para
+  // mostrar las opciones elegidas si es que anteriormente ya estaba dentro de
+  // las materias seleccionadas para la encuesta.
   const toggleModal = (claveElegida, nombreElegida) => {
+    // Vemos el estado de mostrar el modal
     if (!showModal){
+      // Cremos un nuevo objeto para guardar los datos a usar en el modal
       let newObject = {
+        // La clave de la materia que está en el renglón que mandó a llamar el
+        // modal
         clave: claveElegida,
+        // Nombre de la materia en el renglón que mandó a llamar el modal
         nombre: nombreElegida,
+        // Tratamos de obtener datos del objeto que guarda las materias de la
+        // encuesta, si no está la materia en el arreglo materiasEncuesta el
+        // campo tiene un valor nulo dentro del modal
         modalidad: materiasEncuesta[claveElegida] ?
                       materiasEncuesta[claveElegida].modalidad : null,
         horario: materiasEncuesta[claveElegida] ?
                     materiasEncuesta[claveElegida].horario : null
       }
 
+      // Actualizamos los valores dentro del modal
       setModalData(newObject);
     }
 
+    // Cambiar el estado del modal
     setShowModal(!showModal);
   }
 
+  // Función a ejecutar al presionar el botón dentro del modal, se encargar de
+  // guardar los datos en el objeto materiasEncuesta y cierra el modal
   const closeModal = () => {
+    // Copiamos el objeto de materiasEncuesta
+    let copyMateriasEncuesta = {...materiasEncuesta};
+
+    // Copía de la lista de claves de materias elegidas para ser usadas en los
+    // checkbox
+    let copyListaClavesEncuesta;
+
+    // Agregamos la clave dentro del modal a la lista de claves de
+    // materiasEncuesta
+    copyListaClavesEncuesta = [...listaClavesEncuesta,
+                                modalData.clave.toString()]
+
+    // Checamos si la clave existe en el objeto de la encuesta
+    if (copyMateriasEncuesta[modalData.clave] == null){
+      copyMateriasEncuesta[modalData.clave] = {};
+    }
+
+    // Actualizamos la copia del objeto con los nuevos valores
+    copyMateriasEncuesta[modalData.clave].modalidad = modalData.modalidad;
+    copyMateriasEncuesta[modalData.clave].horario = modalData.horario;
+
+    // Actualizamos los valores de cada variable
+    setListaClavesEncuesta(copyListaClavesEncuesta);
+    setMateriasEncuesta(copyMateriasEncuesta);
+
+    // Cerramo el modal
     setShowModal(false);
   }
 
+  // Función para cambiar el estilo de los botones del modal dependiendo si
+  // están dentro de las opciones elegidas anteriormente por el usuario. Se
+  // basa en tomar una propiedad (modalidad o horario) y también considera el
+  // valor de esa proiedad
   const handleClassNameButtonModal = (propiedad, valor) => {
+    // Si la opción en esa propiedad ha sido elegida activamos el botón
     if (modalData[propiedad] === valor){
       return "btn btn-active btn-accent";
+    // Desactivamos el botón si no está elegida esa opción
     } else {
       return "btn btn-active btn-ghost";
     }
   }
 
-  // Función que cambia los datos de la encuesta según los cambios en el modal
-  const setEncuestaFromModal = (
-    claveMateria,
-    propiedad,
-    valorPropiedad
-  ) => {
-    let copyOfMateriasEncuesta = {...materiasEncuesta};
-    copyOfMateriasEncuesta[propiedad] = valorPropiedad;
-    setMateriasEncuesta(copyOfMateriasEncuesta);
-
-    let copyOfModalData = {...modalData};
-    copyOfModalData[propiedad] = valorPropiedad;
-    setModalData(copyOfModalData);
+  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
+  // se deja pulsar el botón de guardar opciones elegidas.
+  const handleBtnAceptar = () => {
+    if (modalData["modalidad"] == null
+         || modalData["horario"] == null){
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  useEffect(() => {
-    console.log(modalData);
-  }, [modalData]);
+  // Función que permite cambiar dentro del modal los valores de cada propiedad
+  // o campo relacionado con la encuesta
+  const changePropModal = (propiedad, valor) => {
+    let copyObjectModalData = {...modalData};
 
+    copyObjectModalData[propiedad] = valor;
+    setModalData(copyObjectModalData);
+  }
+
+  // useEffect(() => {
+  //   console.log(modalData);
+  // }, [modalData]);
 
   return (
     <React.Fragment>
@@ -165,6 +220,13 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
               <div className="text-md break-word font-bold">
                 {materia.nombre}
               </div>
+              {materiasEncuesta[materia.clave] ? (
+              <div className="text-xs break-word text-base-content">
+                Modalidad: {materiasEncuesta[materia.clave].modalidad}
+                <br/>
+                Horario: {materiasEncuesta[materia.clave].horario}
+              </div>) : null}
+
             </td>
 
             {/* Botón Opciones */}
@@ -192,9 +254,10 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
         </tfoot>
       </table>
 
-      {/* TODO: terminar el estilo y funcionalidad del modal */}
+      {/* Template del modal de Opciones */}
       {showModal ? (<Modal>
-        <div className="absolute w-full h-screen z-50">
+        {/* div que cubre toda la pantalla del modal */}
+        <div className="fixed bg-black/80 w-full h-screen z-50 pt-10">
         {/* Botón para cerrar el modal */}
         <div className="modal-box bg-base-300 mx-auto">
           <label className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -207,34 +270,56 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
           <p className="text-sm font-normal text-slate-500">({modalData.clave})</p>
           <br/>
 
+          {/* Primera propiedad: modalidad */}
           <p className="text-sm pb-2">¿En qué modalidad te gustaría que se abriera esta UEA?</p>
 
-          {/* TODO Checar que los botones se activen según las opciones
-elegidas, tal vez no sea necesario usar radios y podemos usar sólo botones
-convencionales y manejamos su estilo para hacerlos parecer activo o
-desactivado */}
-
+          {/* Grupo de botones relacionados con la modalidad del curso */}
           <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
-            <button className={handleClassNameButtonModal("modalidad", "Presencial")}>Presencial</button>
-            <button className={handleClassNameButtonModal("modalidad", "Virtual")}>Virtual</button>
+            <button className={handleClassNameButtonModal("modalidad", "Presencial")}
+                      onClick={() => {
+                        changePropModal("modalidad", "Presencial")}}>
+                  Presencial</button>
+            <button className={handleClassNameButtonModal("modalidad", "Virtual")}
+                      onClick={() => {
+                        changePropModal("modalidad", "Virtual")}}>
+                  Virtual</button>
           </div>
           <br/>
 
+          {/* Segunda propiedad: horario */}
           <p className="text-sm pb-2">¿En qué horario te gustaría llevar esta UEA?</p>
+
+          {/* Grupo de botones relacionados con el horario del curso */}
           <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
-            <button className={handleClassNameButtonModal("horario", "Mañana")}>Mañana</button>
-            <button className={handleClassNameButtonModal("horario", "Tarde")}>Tarde</button>
-            <button className={handleClassNameButtonModal("horario", "Tarde-noche")}>Tarde-noche</button>
-            <button className={handleClassNameButtonModal("horario", "Sin preferencia")}>Sin preferencia</button>
+            <button className={handleClassNameButtonModal("horario", "Mañana")}
+                      onClick={() => {
+                        changePropModal("horario", "Mañana")}}>
+              Mañana</button>
+            <button className={handleClassNameButtonModal("horario", "Tarde")}
+                      onClick={() => {
+                        changePropModal("horario", "Tarde")}}>
+              Tarde</button>
+            <button className={handleClassNameButtonModal("horario", "Tarde-noche")}
+                      onClick={() => {
+                        changePropModal("horario", "Tarde-noche")}}>
+                  Tarde-noche</button>
+            <button className={handleClassNameButtonModal("horario", "Sin preferencia")}
+                      onClick={() => {
+                        changePropModal("horario", "Sin preferencia")}}>
+                  Sin preferencia</button>
           </div>
 
           <div className="modal-action justify-between">
+            {/* Alguna información de ayuda para el usuario */}
             <div>
             <p className="text-xs font-normal text-slate-500">Mañana: 8:00 a 12:00</p>
             <p className="text-xs font-normal text-slate-500">Tarde: 12:00 a 16:00</p>
             <p className="text-xs font-normal text-slate-500">Tarde-noche: 16:00 a 21:00</p>
             </div>
-            <label className="btn btn-primary" onClick={closeModal}>Aceptar</label>
+            {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
+            <label className="btn btn-primary"
+                      onClick={closeModal}
+                      disabled={handleBtnAceptar()}>Guardar elección</label>
           </div>
         </div>
         </div>
@@ -243,6 +328,6 @@ desactivado */}
     </div>
     </React.Fragment>
   );
-} 
+}
 
 export default TablaMateriasEncuesta
