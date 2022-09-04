@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage.js"
 import LoginPage from "./pages/LoginPage.js";
 import EncuestaPage from "./pages/EncuestaPage.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
-
+import AdminPage from "./pages/AdminPage.js"
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Route index element={ <HomePage /> } />
         <Route path="login" element= { <LoginPage /> } />
         <Route path="encuesta" element= { <EncuestaPage /> } />
-
+        <Route path="admin" element= { <AdminPage /> } />
         <Route path="*" element= { <NotFoundPage /> } />
       </Routes>
     </BrowserRouter>
