@@ -82,7 +82,7 @@ function EncuestaPage() {
 
   return (
   <div className="bg-base-200">
-  <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
+  <div className="min-h-screen bg-base-200 max-w-4xl container px-2 md:px-10 mx-auto">
 
     {/* <MateriasEncuestaContext.Provider value={{materiasEncuesta, setMateriasEncuesta}}> */}
 
