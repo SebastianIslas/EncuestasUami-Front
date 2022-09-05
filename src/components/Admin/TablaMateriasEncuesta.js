@@ -68,7 +68,7 @@ function TablaMateriasEncuesta({ materias, materiasEncuesta, setMateriasEncuesta
     <React.Fragment>
     {/* Container de la tabla */}
     <div id="tabla-materias"
-          className="overflow-x-auto rounded-lg">
+          className="overflow-x-auto rounded-lg bg-base-400">
 
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
@@ -114,7 +114,7 @@ function TablaMateriasEncuesta({ materias, materiasEncuesta, setMateriasEncuesta
                 <button className="btn btn-primary
                                   btn-xs sm:btn-sm md:btn-md
                                   before:content-['Edit']
-                                  md:before:content-['Opciones']
+                                  md:before:content-['Editar']
                                   w-8 md:w-24 right-0"
                         onClick={() => {
                             toggleModal(materia.clave, materia.nombre)

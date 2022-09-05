@@ -59,13 +59,10 @@ function EncuestaPage() {
     //       no sé si eso venga desde el Login
 
     setMaterias([
-      {clave: 11111111, nombre: "Taller Balsamiq 1"},
-      {clave: 22222222, nombre: "Taller Balsamiq 2"},
-      {clave: 33333333, nombre: "Taller Balsamiq 3"},
-      {clave: 44444444, nombre: "Taller Balsamiq 4"},
-      {clave: 55555555, nombre: "Taller Balsamiq 5"},
-      {clave: 66666666, nombre: "Taller Balsamiq 6"},
-      {clave: 77777777, nombre: "Taller Balsamiq 7"}
+      {clave: 11111111, nombre: "Licenciatura en Balsamiq 1"},
+      {clave: 22222222, nombre: "Licenciatura en Balsamiq 2"},
+      {clave: 33333333, nombre: "Licenciatura en Balsamiq 3"},
+      {clave: 44444444, nombre: "Licenciatura en Balsamiq 4"}
     ]);
 
   }, []);

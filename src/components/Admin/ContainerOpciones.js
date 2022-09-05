@@ -8,11 +8,26 @@ function ContainerOpciones({
   changePropModal
 }){
   return (<div>
-    <p className="text-sm pb-2">
+    <p className="text-xl pb-2">
       {text}</p>
 
+      {/* POR EL MOMENTO NO SIRVE DE NA' */}
+      <div className="form-control">
+            <label className="label">
+                <span className="label-text">{prop.name}</span>
+            </label> 
+            <input type="text" placeholder={prop.placeHolderText} className="input input-bordered" />
+                {prop.info}
+        </div>    
 
-    {/* Grupo de botones relacionados con la modalidad del curso */}
+
+    <br/>
+
+  </div>)
+}
+
+// CAMBIAR ESTO POR EL DIV DE ARRIBA, INTENTAR ADAPTAR LAS FUNCIONALIDADES DE VALDO
+    /* {/*Grupo de botones relacionados con la modalidad del curso * /} 
     <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
       {opciones.map(opcion =>
       <button key={opcion} className={handleClassBtnModal(prop, opcion)}
@@ -21,9 +36,6 @@ function ContainerOpciones({
         {opcion}</button>
       )}
     </div>
-    <br/>
-
-  </div>)
-}
+    */
 
 export default ContainerOpciones
