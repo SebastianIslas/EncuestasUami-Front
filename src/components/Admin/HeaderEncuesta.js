@@ -1,9 +1,8 @@
 import React from "react";
-
 import Logo24 from "./Logo24";
 
 // Head Board
-function HeaderEncuesta({user, maxMaterias}) {
+function HeaderEncuesta({user}) {
   return (
     <>
         {/* Title Welcome */}
@@ -20,22 +19,25 @@ function HeaderEncuesta({user, maxMaterias}) {
 
 
       {/*Board options*/}
-      <div class="navbar bg-base-100">
-        <div class="flex-1">
-          {/*Limiter Option*/}
-          <label class="input-group">
+      <div className="navbar bg-base-100">
+        
+        {/*Limiter Option*/}
+        <div className="flex-1">
+          <label className="input-group">
                   <span>NUM. UEAS ENCUESTA</span>
-                  <input type="number" placeholder="Número" class="input input-bordered" />
+                  <input type="number" placeholder="Número" className="input input-bordered" />
           </label>
         </div>
-        <div class="flex-none">
-          {/*Group Buttons*/}
-          <ul class="menu menu-horizontal p-0">
+
+        {/*Group Buttons*/}
+        <div className="flex-none">
+          <ul className="menu menu-horizontal text-xl p-0">
             <li><a>Activar Encuesta</a></li>
             <li><a>UEAS Abiertas</a></li>
             <li><a>Estadísticas</a></li>
           </ul>
         </div>
+
       </div>
 
     </>

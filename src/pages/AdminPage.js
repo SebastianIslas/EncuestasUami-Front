@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import ButtonEnviarEncuesta from '../components/Admin/ButtonEnviarEncuesta';
 import HeaderEncuesta from '../components/Admin/HeaderEncuesta';
 import TablaMateriasEncuesta from "../components/Admin/TablaMateriasEncuesta";
@@ -19,9 +18,6 @@ function EncuestaPage() {
   let user = Object();
   user.matricula = 2183011316;
   user.licenciatura = "Computación";
-
-  // Variables de materias máximas que se pueden elegir
-  const [maxMaterias, setMaxMaterias] = useState(0);
 
   // Lista de las materias de la licenciatura
   // En esta vista solo usamos la clave y el nombre
@@ -72,7 +68,6 @@ function EncuestaPage() {
       {clave: 77777777, nombre: "Taller Balsamiq 7"}
     ]);
 
-    setMaxMaterias(5);
   }, []);
 
   // TODO: Pruebas de las estructuras que tenemos para enviar
@@ -89,18 +84,18 @@ function EncuestaPage() {
 
     {/* <MateriasEncuestaContext.Provider value={{materiasEncuesta, setMateriasEncuesta}}> */}
 
-      <HeaderEncuesta user={user} maxMaterias={maxMaterias} />
+      <HeaderEncuesta user={user} />
 
       {/*<ButtonEnviarEncuesta />*/}
 
    
 
       {/* Tabla */}
-      <TablaMateriasEncuesta materias={materias} 
-                             maxMaterias={maxMaterias} 
+      <TablaMateriasEncuesta materias={materias}  
                              materiasEncuesta={materiasEncuesta}
                              setMateriasEncuesta={setMateriasEncuesta}
       />
+      
       {/* <MateriasEncuestaContext.Consumer>
         <TablaMateriasEncuesta materias={materias} maxMaterias={maxMaterias} />
       </MateriasEncuestaContext.Consumer> */}

@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
 import ModalOpciones from "./ModalOpciones";
 
-// TODO: creo no se necesita
-// import { MateriasEncuestaContext } from "../../pages/EncuestaPage";
 
-function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMateriasEncuesta }) {
+function TablaMateriasEncuesta({ materias, materiasEncuesta, setMateriasEncuesta }) {
+  
   // Para manejar las checkboxes usamos lista con las claves que tenemos en la
   // encuesta, está ligada al JSON que teníamos de materias en la encuesta
   const [listaClavesEncuesta, setListaClavesEncuesta] = useState(Object.keys(materiasEncuesta));
@@ -23,20 +22,6 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
     modalidad: null,
     horario: null
   });
-
-  // Función para desactivar los checkbox si ya alcanzamos el limite de materias
-  // y si también el checkbox no está en la lista de materias seleccionadas. Ya
-  // que tenemos que desactivar aquellos que no están checked y dejar activos
-  // los que están checked puedan ser unchecked
-  const handleDisableCheckbox = (claveMateria) => {
-    if((listaClavesEncuesta.length >= maxMaterias) 
-          && (listaClavesEncuesta.indexOf(claveMateria) < 0)){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
 
   // Cambiar entre mostrar o no el modal, pero cada que se va a mostrar el
   // modal cargamos los datos de la materia que mandó a llamar al modal para
@@ -110,13 +95,6 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
               <div className="text-md break-word font-bold">
                 {materia.nombre}
               </div>
-              {materiasEncuesta[materia.clave] ? (
-              <div className="text-xs break-word text-base-content">
-                Modalidad: {materiasEncuesta[materia.clave].modalidad}
-                <br/>
-                Horario: {materiasEncuesta[materia.clave].horario}
-              </div>) : null}
-
             </td>
 
             <th>
@@ -141,7 +119,7 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                         onClick={() => {
                             toggleModal(materia.clave, materia.nombre)
                         }}
-                        disabled={handleDisableCheckbox(materia.clave.toString())}
+
                 ></button>
 
                 <button className="btn btn-primary

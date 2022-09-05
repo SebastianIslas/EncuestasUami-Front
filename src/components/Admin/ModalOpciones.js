@@ -15,6 +15,7 @@ function ModalOpciones({
   listaClavesEncuesta,
   setListaClavesEncuesta
 }) {
+  
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
   // guardar los datos en el objeto materiasEncuesta y cierra el modal
   const closeModal = () => {
@@ -46,7 +47,7 @@ function ModalOpciones({
       setMateriasEncuesta(copyMateriasEncuesta);
     }
 
-    // Cerramo el modal
+    // Cerramos el modal
     setShowModal(false);
   }
 
@@ -54,6 +55,7 @@ function ModalOpciones({
   // están dentro de las opciones elegidas anteriormente por el usuario. Se
   // basa en tomar una propiedad (modalidad o horario) y también considera el
   // valor de esa proiedad
+
   const handleClassBtnModal = (propiedad, valor) => {
     // Si la opción en esa propiedad ha sido elegida activamos el botón
     if (modalData[propiedad] === valor){
@@ -105,7 +107,7 @@ function ModalOpciones({
 
         {/* Primera propiedad: modalidad */}
         <ContainerOpciones 
-            text={"¿En qué modalidad te gustaría que se abriera esta UEA?"}
+            text={"Ingrese el nombre correcto de la Licenciatura"}
             prop={"modalidad"}
             opciones={["Presencial", "Virtual"]}
             handleClassBtnModal={handleClassBtnModal}
@@ -114,7 +116,7 @@ function ModalOpciones({
 
         {/* Segunda propiedad: horario */}
         <ContainerOpciones 
-            text={"¿En qué horario te gustaría llevar esta UEA?"}
+            text={"Ingrese el ID correcto de la Licenciatura"}
             prop={"horario"}
             opciones={["Mañana", "Tarde", "Tarde-noche", "Sin preferencia"]}
             handleClassBtnModal={handleClassBtnModal}
@@ -124,14 +126,14 @@ function ModalOpciones({
         <div className="modal-action justify-between">
           {/* Alguna información de ayuda para el usuario */}
           <div className="text-xs font-normal text-slate-500">
-            <p>Mañana: 8:00 a 12:00</p>
-            <p>Tarde: 12:00 a 16:00</p>
-            <p>Tarde-noche: 16:00 a 21:00</p>
+            <p>Va a cambiar el nombre de la UEA</p>
+            <p>Debe seleccionar el botón editar </p>
           </div>
+
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
           <label className="btn btn-primary"
                     onClick={closeModal}
-                    disabled={handleBtnAceptar()}>Guardar elección</label>
+                    disabled={handleBtnAceptar()}>Editar nombre</label>
         </div>
       </div>
       </div>
