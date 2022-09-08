@@ -60,7 +60,7 @@ function EncuestaPage() {
     //       no sé si eso venga desde el Login
 
     setMaterias([
-      {clave: 11111111, nombre: "Taller Balsamiq 1"},
+      {clave: 11111111, nombre: "Taller Balsamiq 1 Taller Balsamiq 1 Taller Balsamiq 1"},
       {clave: 22222222, nombre: "Taller Balsamiq 2"},
       {clave: 33333333, nombre: "Taller Balsamiq 3"},
       {clave: 44444444, nombre: "Taller Balsamiq 4"},
@@ -69,7 +69,7 @@ function EncuestaPage() {
       {clave: 77777777, nombre: "Taller Balsamiq 7"}
     ]);
 
-    setMaxMaterias(5);
+    setMaxMaterias(4);
   }, []);
 
   // TODO: Pruebas de las estructuras que tenemos para enviar
