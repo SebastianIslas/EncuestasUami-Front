@@ -2,7 +2,7 @@ import React from "react";
 import Logo24 from "./Logo24";
 
 // Head Board
-function HeaderEncuesta({user}) {
+function AdminHomeHeader({user}) {
   return (
     <>
         {/* Title Welcome */}
@@ -33,7 +33,7 @@ function HeaderEncuesta({user}) {
         <div className="flex-none">
           <ul className="menu menu-horizontal text-ml w-fit md:text-xl p-0">
             <li><a>Activar Encuesta</a></li>
-            <li><a>UEAS Abiertas</a></li>
+            <li><a>Abrir UEAs</a></li>
             <li><a>Estadísticas</a></li>
           </ul>
         </div>
@@ -44,4 +44,4 @@ function HeaderEncuesta({user}) {
   );
 }
 
-export default HeaderEncuesta
+export default AdminHomeHeader

@@ -26,8 +26,7 @@ function ModalOpciones({
     // checkbox
     let copyListaClavesEncuesta;
 
-    if (modalData["modalidad"] != null
-         || modalData["horario"] != null){
+    if (modalData["modalidad"] != null || modalData["horario"] != null){
       // Agregamos la clave dentro del modal a la lista de claves de
       // materiasEncuesta
       copyListaClavesEncuesta = [...listaClavesEncuesta,
@@ -105,7 +104,7 @@ function ModalOpciones({
         <br/>
 
 
-        {/* Primera propiedad: modalidad */}
+        {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
             text={"Ingrese el nombre correcto de la Licenciatura"}
             prop={"modalidad"}
@@ -114,7 +113,7 @@ function ModalOpciones({
             changePropModal={changePropModal}
             />
 
-        {/* Segunda propiedad: horario */}
+        {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
             text={"Ingrese el ID correcto de la Licenciatura"}
             prop={"horario"}

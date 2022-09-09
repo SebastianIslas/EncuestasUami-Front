@@ -1,4 +1,4 @@
-export default function ButtonEnviarEncuesta() {
+export default function ButtonAddLic() {
   return (  
     <div className='flex flex-row-reverse py-4'>
       <button type="submit"

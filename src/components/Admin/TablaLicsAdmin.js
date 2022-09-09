@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
 import ModalOpciones from "./ModalOpciones";
+import RowOptions from "./RowOptions.js";
 
 
-function TablaMateriasEncuesta({ materias, materiasEncuesta, setMateriasEncuesta }) {
+function TablaLicsAdmin({ materias, materiasEncuesta, setMateriasEncuesta }) {
   
   // Para manejar las checkboxes usamos lista con las claves que tenemos en la
   // encuesta, está ligada al JSON que teníamos de materias en la encuesta
@@ -60,9 +61,6 @@ function TablaMateriasEncuesta({ materias, materiasEncuesta, setMateriasEncuesta
     setListaClavesEncuesta(Object.keys(materiasEncuesta));
   }, [materiasEncuesta])
 
-  // useEffect(() => {
-  //   console.log(modalData);
-  // }, [modalData]);
 
   return (
     <React.Fragment>
@@ -98,38 +96,7 @@ function TablaMateriasEncuesta({ materias, materiasEncuesta, setMateriasEncuesta
             </td>
 
             <th>
-              {/* Botón Opciones */}
-              <div className='flex justify-end gap-6'>
-                
-                {/*Este botón lo que hará es mandar un link con la id de la lic para verla*/}
-                <button className="btn btn-primary
-                                  btn-xs sm:btn-sm md:btn-md
-                                  before:content-['Ver']
-                                  md:before:content-['Ver']
-                                  w-8 md:w-24 right-0"
-                ></button>
-
-                
-                {/* Este boton despliega un modal para cambiar el nombre de la uea*/}
-                <button className="btn btn-primary
-                                  btn-xs sm:btn-sm md:btn-md
-                                  before:content-['Edit']
-                                  md:before:content-['Editar']
-                                  w-8 md:w-24 right-0"
-                        onClick={() => {
-                            toggleModal(materia.clave, materia.nombre)
-                        }}
-
-                ></button>
-
-                <button className="btn btn-primary
-                                  btn-xs sm:btn-sm md:btn-md
-                                  before:content-['Elim']
-                                  md:before:content-['Eliminar']
-                                  w-8 md:w-24 right-0"
-                ></button>
-
-              </div>
+              <RowOptions materia={materia} toggleModal={toggleModal} />
             </th>
           </tr>)}
 
@@ -157,4 +124,4 @@ function TablaMateriasEncuesta({ materias, materiasEncuesta, setMateriasEncuesta
   );
 }
 
-export default TablaMateriasEncuesta
+export default TablaLicsAdmin
