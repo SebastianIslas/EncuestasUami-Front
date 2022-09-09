@@ -5,11 +5,11 @@ import ModalOpciones from "./ModalOpciones";
 import RowOptions from "./RowOptions.js";
 
 
-function TablaLicsAdmin({ materias, materiasEncuesta, setMateriasEncuesta }) {
+function TablaLicsAdmin({ licenciaturas, licenciaturasEncuesta, setLicenciaturasEncuesta }) {
   
   // Para manejar las checkboxes usamos lista con las claves que tenemos en la
-  // encuesta, está ligada al JSON que teníamos de materias en la encuesta
-  const [listaClavesEncuesta, setListaClavesEncuesta] = useState(Object.keys(materiasEncuesta));
+  // encuesta, está ligada al JSON que teníamos de licenciaturas en la encuesta
+  const [listaClavesEncuesta, setListaClavesEncuesta] = useState(Object.keys(licenciaturasEncuesta));
   // const [listaClavesEncuesta, setListaClavesEncuesta] = useState([]);
 
   // Controlar si se muestra el modal
@@ -19,15 +19,13 @@ function TablaLicsAdmin({ materias, materiasEncuesta, setMateriasEncuesta }) {
   // pertenecen a la materia que mandó a llamar al modal
   const [modalData, setModalData] = useState({
     clave: null,
-    nombre: null,
-    modalidad: null,
-    horario: null
+    nombre: null
   });
 
   // Cambiar entre mostrar o no el modal, pero cada que se va a mostrar el
   // modal cargamos los datos de la materia que mandó a llamar al modal para
   // mostrar las opciones elegidas si es que anteriormente ya estaba dentro de
-  // las materias seleccionadas para la encuesta.
+  // las licenciaturas seleccionadas para la encuesta.
   const toggleModal = (claveElegida, nombreElegida) => {
     // Vemos el estado de mostrar el modal
     if (!showModal){
@@ -36,15 +34,10 @@ function TablaLicsAdmin({ materias, materiasEncuesta, setMateriasEncuesta }) {
         // La clave de la materia que está en el renglón que mandó a llamar el
         // modal
         clave: claveElegida,
-        // Nombre de la materia en el renglón que mandó a llamar el modal
+        // Nombre de la licenciatura en el renglón que mandó a llamar el modal
         nombre: nombreElegida,
-        // Tratamos de obtener datos del objeto que guarda las materias de la
-        // encuesta, si no está la materia en el arreglo materiasEncuesta el
-        // campo tiene un valor nulo dentro del modal
-        modalidad: materiasEncuesta[claveElegida] ?
-                      materiasEncuesta[claveElegida].modalidad : null,
-        horario: materiasEncuesta[claveElegida] ?
-                    materiasEncuesta[claveElegida].horario : null
+        
+        
       }
 
       // Actualizamos los valores dentro del modal
@@ -55,11 +48,11 @@ function TablaLicsAdmin({ materias, materiasEncuesta, setMateriasEncuesta }) {
     setShowModal(!showModal);
   }
 
-  // Actualiza automáticamente la lista de claves cada que se insertan materias
-  // en el objeto de materiasEncuesta
+  // Actualiza automáticamente la lista de claves cada que se insertan licenciaturas
+  // en el objeto de licenciaturasEncuesta
   useEffect(() => {
-    setListaClavesEncuesta(Object.keys(materiasEncuesta));
-  }, [materiasEncuesta])
+    setListaClavesEncuesta(Object.keys(licenciaturasEncuesta));
+  }, [licenciaturasEncuesta])
 
 
   return (
@@ -77,26 +70,26 @@ function TablaLicsAdmin({ materias, materiasEncuesta, setMateriasEncuesta }) {
         {/* Cuerpo de la tabla */}
         <tbody>
           {/* Renglón */}
-          {materias.map(materia => <tr className="hover" key={materia.clave}>
+          {licenciaturas.map(licenciatura => <tr className="hover" key={licenciatura.clave}>
 
-            {/* Campo de la clave de la materia */}
+            {/* Campo de la clave de la licenciatura */}
             <td>
               <div className="text-md w-10 opacity-80">
                 <p className='break-all'>
-                  {materia.clave}
+                  {licenciatura.clave}
                 </p>
               </div>
             </td>
 
-            {/* Campo del nombre de la materia */}
+            {/* Campo del nombre de la licenciatura */}
             <td>
               <div className="text-md break-word font-bold">
-                {materia.nombre}
+                {licenciatura.nombre}
               </div>
             </td>
 
             <th>
-              <RowOptions materia={materia} toggleModal={toggleModal} />
+              <RowOptions licenciatura={licenciatura} toggleModal={toggleModal} />
             </th>
           </tr>)}
 
@@ -114,8 +107,8 @@ function TablaLicsAdmin({ materias, materiasEncuesta, setMateriasEncuesta }) {
           setModalData={setModalData}
           showModal={showModal}
           setShowModal={setShowModal}
-          materiasEncuesta={materiasEncuesta}
-          setMateriasEncuesta={setMateriasEncuesta}
+          licenciaturasEncuesta={licenciaturasEncuesta}
+          setLicenciaturasEncuesta={setLicenciaturasEncuesta}
           listaClavesEncuesta={listaClavesEncuesta}
           setListaClavesEncuesta={setListaClavesEncuesta} /> : null}
 

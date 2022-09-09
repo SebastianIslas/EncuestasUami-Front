@@ -1,12 +1,15 @@
 import React from "react";
+import {useState} from "react";
 
 function ContainerOpciones({
   text,
   prop,
-  opciones,
+  inputValue,
   handleClassBtnModal,
   changePropModal
 }){
+  const [valueContent, setValueContent] = useState(inputValue);
+
   return (<div>
     <p className="text-xl pb-2">
       {text}</p>
@@ -16,7 +19,13 @@ function ContainerOpciones({
             <label className="label">
                 <span className="label-text">{prop.name}</span>
             </label> 
-            <input type="text" placeholder={prop.placeHolderText} className="input input-bordered" />
+            <input type="text" 
+                placeholder={prop.placeHolderText} 
+                value={valueContent} 
+                onChange={(e)=>{setValueContent(e.target.value)
+                                changePropModal(prop, e.target.value)
+                                }} 
+                className="input input-bordered" />
                 {prop.info}
         </div>    
 

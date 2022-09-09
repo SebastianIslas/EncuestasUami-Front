@@ -10,40 +10,40 @@ function ModalOpciones({
   setModalData,
   showModal,
   setShowModal,
-  materiasEncuesta,
-  setMateriasEncuesta,
+  licenciaturasEncuesta,
+  setLicenciaturasEncuesta,
   listaClavesEncuesta,
   setListaClavesEncuesta
 }) {
   
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
-  // guardar los datos en el objeto materiasEncuesta y cierra el modal
+  // guardar los datos en el objeto licenciaturasEncuesta y cierra el modal
   const closeModal = () => {
-    // Copiamos el objeto de materiasEncuesta
-    let copyMateriasEncuesta = {...materiasEncuesta};
+    // Copiamos el objeto de licenciaturasEncuesta
+    let copyLicenciaturasEncuesta = {...licenciaturasEncuesta};
 
-    // Copía de la lista de claves de materias elegidas para ser usadas en los
+    // Copía de la lista de claves de licenciaturas elegidas para ser usadas en los
     // checkbox
     let copyListaClavesEncuesta;
 
-    if (modalData["modalidad"] != null || modalData["horario"] != null){
+    if (modalData["clave"] != null || modalData["nombre"] != null){
       // Agregamos la clave dentro del modal a la lista de claves de
-      // materiasEncuesta
+      // licenciaturasEncuesta
       copyListaClavesEncuesta = [...listaClavesEncuesta,
                                   modalData.clave.toString()]
 
       // Checamos si la clave existe en el objeto de la encuesta
-      if (copyMateriasEncuesta[modalData.clave] == null){
-        copyMateriasEncuesta[modalData.clave] = {};
+      if (copyLicenciaturasEncuesta[modalData.clave] == null){
+        copyLicenciaturasEncuesta[modalData.clave] = {};
       }
-
+      // POSIBLEMENTE LO BORREMOS
       // Actualizamos la copia del objeto con los nuevos valores
-      copyMateriasEncuesta[modalData.clave].modalidad = modalData.modalidad;
-      copyMateriasEncuesta[modalData.clave].horario = modalData.horario;
-
+      console.log(modalData)
+      copyLicenciaturasEncuesta[modalData.clave].nombre = modalData.nombre;
+    
       // Actualizamos los valores de cada variable
       setListaClavesEncuesta(copyListaClavesEncuesta);
-      setMateriasEncuesta(copyMateriasEncuesta);
+      setLicenciaturasEncuesta(copyLicenciaturasEncuesta);
     }
 
     // Cerramos el modal
@@ -68,8 +68,7 @@ function ModalOpciones({
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
-    if (modalData["modalidad"] == null
-         || modalData["horario"] == null){
+    if (modalData["clave"] == null || modalData["nombre"] == null){
       return true;
     } else {
       return false;
@@ -95,10 +94,10 @@ function ModalOpciones({
           <BtnCancelar functionOnClick={closeModal} />
         </div>
 
-        {/* El título del modal es el nombre de la materia */}
+        {/* El título del modal es el nombre de la licenciatura */}
         <h2 className="font-bold text-lg">
           {modalData.nombre}</h2>
-        {/* También mostramos la clave de la materia */}
+        {/* También mostramos la clave de la licenciatura */}
         <p className="text-sm font-normal text-slate-500">
           ({modalData.clave})</p>
         <br/>
@@ -107,8 +106,8 @@ function ModalOpciones({
         {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
             text={"Ingrese el nombre correcto de la Licenciatura"}
-            prop={"modalidad"}
-            opciones={["Presencial", "Virtual"]}
+            prop={"nombre"}
+            inputValue={modalData.nombre}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
@@ -116,8 +115,8 @@ function ModalOpciones({
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
             text={"Ingrese el ID correcto de la Licenciatura"}
-            prop={"horario"}
-            opciones={["Mañana", "Tarde", "Tarde-noche", "Sin preferencia"]}
+            prop={"id"}
+            inputValue={modalData.clave}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />

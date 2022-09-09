@@ -10,15 +10,15 @@ function AdminPage() {
   user.matricula = 2183011316;
   user.licenciatura = "Computación";
 
-  // Lista de las materias de la licenciatura solo usamos la clave y el nombre
-  const [materias, setMaterias] = useState([]);
+  // Lista la licenciatura solo usamos la clave y el nombre
+  const [licenciaturas, setLicenciaturas] = useState([]);
 
-  const [materiasEncuesta, setMateriasEncuesta] = useState({});
+  const [licenciaturasEncuesta, setLicenciaturasEncuesta] = useState({});
 
   useEffect(() => {
     document.title = "UEAncuestas UAMI";
 
-    setMaterias([
+    setLicenciaturas([
       {clave: 11111111, nombre: "Licenciatura en Balsamiq 1"},
       {clave: 22222222, nombre: "Licenciatura en Balsamiq 2"},
       {clave: 33333333, nombre: "Licenciatura en Balsamiq 3"},
@@ -29,8 +29,8 @@ function AdminPage() {
 
   // Aqui Valdo Guarda la seleccion de las opciones del usuario
   useEffect(() => {
-    console.log(materiasEncuesta);
-  }, [materiasEncuesta]);
+    console.log(licenciaturasEncuesta);
+  }, [licenciaturasEncuesta]);
 
   return (
   <div className="bg-base-200">
@@ -39,9 +39,9 @@ function AdminPage() {
       <AdminHomeHeader user={user} />
  
       {/* Tabla */}
-      <TablaLicsAdmin materias={materias}  
-                             materiasEncuesta={materiasEncuesta}
-                             setMateriasEncuesta={setMateriasEncuesta}
+      <TablaLicsAdmin licenciaturas={licenciaturas}  
+                             licenciaturasEncuesta={licenciaturasEncuesta}
+                             setLicenciaturasEncuesta={setLicenciaturasEncuesta}
       />
 
       <ButtonAddLic />
