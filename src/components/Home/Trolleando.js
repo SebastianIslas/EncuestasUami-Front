@@ -20,7 +20,9 @@ export default function Trolleando() {
         <div className="hero min-h-max bg-base-200 pb-16">
 
             <div className="hero-content flex-col lg:flex-row">
-                <img src={ uamiPrecovid } className="max-w-sm rounded-lg shadow-2xl" />
+                <img src={ uamiPrecovid }
+                     alt="Fotografía de las intalaciones de la UAM Iztapalapa"
+                     className="max-w-sm rounded-lg shadow-2xl" />
                 <div>
                     <h1 className="text-5xl font-bold">La App de encuestas UAM!</h1>
                     <p className="py-6">Nuestro objetivo es que abran las materias que los estudiantes desean. ¿Alguna vez te has quedado sin poder inscribir una UEA porque no la abrieron? Vota por las que deseas y logra un cambio en la universidad.</p>
