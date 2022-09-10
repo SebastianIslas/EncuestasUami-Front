@@ -5,12 +5,8 @@ import ModalOpciones from "./ModalOpciones";
 import RowOptions from "./RowOptions.js";
 
 
-function TablaLicsAdmin({ licenciaturas, licenciaturasEncuesta, setLicenciaturasEncuesta }) {
+function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
   
-  // Para manejar las checkboxes usamos lista con las claves que tenemos en la
-  // encuesta, está ligada al JSON que teníamos de licenciaturas en la encuesta
-  const [listaClavesEncuesta, setListaClavesEncuesta] = useState(Object.keys(licenciaturasEncuesta));
-  // const [listaClavesEncuesta, setListaClavesEncuesta] = useState([]);
 
   // Controlar si se muestra el modal
   const [showModal, setShowModal] = useState(false);
@@ -22,10 +18,7 @@ function TablaLicsAdmin({ licenciaturas, licenciaturasEncuesta, setLicenciaturas
     nombre: null
   });
 
-  // Cambiar entre mostrar o no el modal, pero cada que se va a mostrar el
-  // modal cargamos los datos de la materia que mandó a llamar al modal para
-  // mostrar las opciones elegidas si es que anteriormente ya estaba dentro de
-  // las licenciaturas seleccionadas para la encuesta.
+
   const toggleModal = (claveElegida, nombreElegida) => {
     // Vemos el estado de mostrar el modal
     if (!showModal){
@@ -48,12 +41,7 @@ function TablaLicsAdmin({ licenciaturas, licenciaturasEncuesta, setLicenciaturas
     setShowModal(!showModal);
   }
 
-  // Actualiza automáticamente la lista de claves cada que se insertan licenciaturas
-  // en el objeto de licenciaturasEncuesta
-  useEffect(() => {
-    setListaClavesEncuesta(Object.keys(licenciaturasEncuesta));
-  }, [licenciaturasEncuesta])
-
+ 
 
   return (
     <React.Fragment>
@@ -107,10 +95,9 @@ function TablaLicsAdmin({ licenciaturas, licenciaturasEncuesta, setLicenciaturas
           setModalData={setModalData}
           showModal={showModal}
           setShowModal={setShowModal}
-          licenciaturasEncuesta={licenciaturasEncuesta}
-          setLicenciaturasEncuesta={setLicenciaturasEncuesta}
-          listaClavesEncuesta={listaClavesEncuesta}
-          setListaClavesEncuesta={setListaClavesEncuesta} /> : null}
+          licenciaturas={licenciaturas}
+          setLicenciaturas={setLicenciaturas}
+           /> : null}
 
     </div>
     </React.Fragment>

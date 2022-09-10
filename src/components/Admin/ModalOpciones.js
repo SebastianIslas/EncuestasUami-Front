@@ -1,5 +1,6 @@
 // TODO: separar los botones en más componentes
 import React from "react";
+import {useState} from "react"
 
 import Modal from "../Modal";
 import BtnCancelar from "./BtnCancelar";
@@ -10,50 +11,32 @@ function ModalOpciones({
   setModalData,
   showModal,
   setShowModal,
-  licenciaturasEncuesta,
-  setLicenciaturasEncuesta,
-  listaClavesEncuesta,
-  setListaClavesEncuesta
+  licenciaturas,
+  setLicenciaturas
 }) {
   
+  const [licName] = useState(modalData.nombre)
+  const [licCalve] = useState(modalData.clave)
+
+
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
   // guardar los datos en el objeto licenciaturasEncuesta y cierra el modal
-  const closeModal = () => {
-    // Copiamos el objeto de licenciaturasEncuesta
-    let copyLicenciaturasEncuesta = {...licenciaturasEncuesta};
-
-    // Copía de la lista de claves de licenciaturas elegidas para ser usadas en los
-    // checkbox
-    let copyListaClavesEncuesta;
-
-    if (modalData["clave"] != null || modalData["nombre"] != null){
-      // Agregamos la clave dentro del modal a la lista de claves de
-      // licenciaturasEncuesta
-      copyListaClavesEncuesta = [...listaClavesEncuesta,
-                                  modalData.clave.toString()]
-
-      // Checamos si la clave existe en el objeto de la encuesta
-      if (copyLicenciaturasEncuesta[modalData.clave] == null){
-        copyLicenciaturasEncuesta[modalData.clave] = {};
-      }
-      // POSIBLEMENTE LO BORREMOS
-      // Actualizamos la copia del objeto con los nuevos valores
-      console.log(modalData)
-      copyLicenciaturasEncuesta[modalData.clave].nombre = modalData.nombre;
-    
-      // Actualizamos los valores de cada variable
-      setListaClavesEncuesta(copyListaClavesEncuesta);
-      setLicenciaturasEncuesta(copyLicenciaturasEncuesta);
+  const closeModal = (e) => {
+    //Verficamos que el boton con el que se llama no es el de "Cerrar"
+    if (e.target.className !== "btn btn-sm btn-circle"){
+       let arr = [...licenciaturas]
+       let foundIndex = arr.findIndex(x => x.clave === licCalve);
+       arr[foundIndex] = modalData;
+       console.log(modalData)
+       console.log(arr)
+       /* Peticion al API */
+       
+       setLicenciaturas(arr)
     }
-
     // Cerramos el modal
     setShowModal(false);
   }
 
-  // Función para cambiar el estilo de los botones del modal dependiendo si
-  // están dentro de las opciones elegidas anteriormente por el usuario. Se
-  // basa en tomar una propiedad (modalidad o horario) y también considera el
-  // valor de esa proiedad
 
   const handleClassBtnModal = (propiedad, valor) => {
     // Si la opción en esa propiedad ha sido elegida activamos el botón
@@ -68,7 +51,7 @@ function ModalOpciones({
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
-    if (modalData["clave"] == null || modalData["nombre"] == null){
+    if (modalData["clave"] === "" || modalData["nombre"] === ""){
       return true;
     } else {
       return false;
@@ -96,10 +79,10 @@ function ModalOpciones({
 
         {/* El título del modal es el nombre de la licenciatura */}
         <h2 className="font-bold text-lg">
-          {modalData.nombre}</h2>
+          {licName}</h2>
         {/* También mostramos la clave de la licenciatura */}
         <p className="text-sm font-normal text-slate-500">
-          ({modalData.clave})</p>
+          ({licCalve})</p>
         <br/>
 
 
@@ -115,7 +98,7 @@ function ModalOpciones({
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
             text={"Ingrese el ID correcto de la Licenciatura"}
-            prop={"id"}
+            prop={"clave"}
             inputValue={modalData.clave}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}

@@ -13,10 +13,9 @@ function AdminPage() {
   // Lista la licenciatura solo usamos la clave y el nombre
   const [licenciaturas, setLicenciaturas] = useState([]);
 
-  const [licenciaturasEncuesta, setLicenciaturasEncuesta] = useState({});
 
   useEffect(() => {
-    document.title = "UEAncuestas UAMI";
+    document.title = "Panel de Administracion";
 
     setLicenciaturas([
       {clave: 11111111, nombre: "Licenciatura en Balsamiq 1"},
@@ -27,11 +26,6 @@ function AdminPage() {
 
   }, []);
 
-  // Aqui Valdo Guarda la seleccion de las opciones del usuario
-  useEffect(() => {
-    console.log(licenciaturasEncuesta);
-  }, [licenciaturasEncuesta]);
-
   return (
   <div className="bg-base-200">
   <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
@@ -40,8 +34,7 @@ function AdminPage() {
  
       {/* Tabla */}
       <TablaLicsAdmin licenciaturas={licenciaturas}  
-                             licenciaturasEncuesta={licenciaturasEncuesta}
-                             setLicenciaturasEncuesta={setLicenciaturasEncuesta}
+                      setLicenciaturas={setLicenciaturas}
       />
 
       <ButtonAddLic />
