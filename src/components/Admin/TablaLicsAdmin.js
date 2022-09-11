@@ -5,7 +5,7 @@ import ModalOpciones from "./ModalOpciones";
 import RowOptions from "./RowOptions.js";
 
 
-function TablaLicsAdmin({ licenciaturas, licenciaturasEncuesta, setLicenciaturasEncuesta }) {
+function TablaLicsAdmin({ licenciaturas, licenciaturasEncuesta, setLicenciaturasEncuesta, setLicenciaturas }) {
   
   // Para manejar las checkboxes usamos lista con las claves que tenemos en la
   // encuesta, está ligada al JSON que teníamos de licenciaturas en la encuesta

@@ -39,7 +39,8 @@ function AdminPage() {
       <AdminHomeHeader user={user} />
  
       {/* Tabla */}
-      <TablaLicsAdmin licenciaturas={licenciaturas}  
+      <TablaLicsAdmin licenciaturas={licenciaturas}
+                             setLicenciaturas={setLicenciaturas}  
                              licenciaturasEncuesta={licenciaturasEncuesta}
                              setLicenciaturasEncuesta={setLicenciaturasEncuesta}
       />

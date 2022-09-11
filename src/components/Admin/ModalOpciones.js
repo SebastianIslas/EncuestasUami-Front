@@ -40,7 +40,8 @@ function ModalOpciones({
       // Actualizamos la copia del objeto con los nuevos valores
       console.log(modalData)
       copyLicenciaturasEncuesta[modalData.clave].nombre = modalData.nombre;
-    
+      copyLicenciaturasEncuesta[modalData.clave].clave = modalData.clave;
+
       // Actualizamos los valores de cada variable
       setListaClavesEncuesta(copyListaClavesEncuesta);
       setLicenciaturasEncuesta(copyLicenciaturasEncuesta);
@@ -115,7 +116,7 @@ function ModalOpciones({
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
             text={"Ingrese el ID correcto de la Licenciatura"}
-            prop={"id"}
+            prop={"clave"}
             inputValue={modalData.clave}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
