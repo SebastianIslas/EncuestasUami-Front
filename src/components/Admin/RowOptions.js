@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function RowOptions({licenciatura, toggleModal}) {
+export default function RowOptions(props) {
     
   return (
     <>
@@ -23,7 +23,7 @@ export default function RowOptions({licenciatura, toggleModal}) {
                             md:before:content-['Editar']
                             w-8 md:w-24 right-0"
                             onClick={() => {
-                                toggleModal(licenciatura.clave, licenciatura.nombre) 
+                                props.toggleModal(props.licenciatura.clave, props.licenciatura.nombre)
                             }}
         ></button>
 
