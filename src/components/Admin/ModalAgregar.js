@@ -5,32 +5,24 @@ import Modal from "../Modal";
 import BtnCancelar from "./BtnCancelar";
 import ContainerOpciones from "./ContainerOpciones";
 
-function ModalOpciones({
-  modalData,
-  setModalData,
-  showModal,
+function ModalAgregar({
   setShowModal,
   licenciaturas,
   setLicenciaturas
 }) {
   
-  const [licName] = useState(modalData.nombre)
-  const [licCalve] = useState(modalData.clave)
+  const [modalData,setModalData] = useState({
+    clave: "",
+    nombre: ""
+  })
 
 
-  // Función a ejecutar al presionar el botón dentro del modal, se encargar de
-  // guardar los datos en el objeto licenciaturasEncuesta y cierra el modal
   const closeModal = (e) => {
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
-       let arr = [...licenciaturas]
-       let foundIndex = arr.findIndex(x => x.clave === licCalve);
-       arr[foundIndex] = modalData;
-       console.log(modalData)
-       console.log(arr)
-       /* Peticion al API */
-       
-       setLicenciaturas(arr)
+       let newLicenciaturas=[...licenciaturas]
+       newLicenciaturas.push(modalData)
+       setLicenciaturas(newLicenciaturas)
     }
     // Cerramos el modal
     setShowModal(false);
@@ -76,44 +68,33 @@ function ModalOpciones({
           <BtnCancelar functionOnClick={closeModal} />
         </div>
 
-        {/* El título del modal es el nombre de la licenciatura */}
-        <h2 className="font-bold text-lg">
-          {licName}</h2>
-        {/* También mostramos la clave de la licenciatura */}
-        <p className="text-sm font-normal text-slate-500">
-          ({licCalve})</p>
-        <br/>
-
-
-        {/* Primera propiedad: modalidad  --> nombre  */}
-        <ContainerOpciones 
-            text={"Ingrese el nombre correcto de la Licenciatura"}
-            prop={"nombre"}
-            inputValue={modalData.nombre}
-            handleClassBtnModal={handleClassBtnModal}
-            changePropModal={changePropModal}
-            />
-
+       
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
-            text={"Ingrese el ID correcto de la Licenciatura"}
+            text={"Ingrese la clave de la nueva licenciatura"}
             prop={"clave"}
             inputValue={modalData.clave}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
+        {/* Primera propiedad: modalidad  --> nombre  */}
+        <ContainerOpciones 
+            text={"Ingrese el nombre de la nueva licenciatura"}
+            prop={"nombre"}
+            inputValue={modalData.nombre}
+            handleClassBtnModal={handleClassBtnModal}
+            changePropModal={changePropModal}
+            />
+
+        
+
         <div className="modal-action justify-between">
-          {/* Alguna información de ayuda para el usuario */}
-          <div className="text-xs font-normal text-slate-500">
-            <p>Va a cambiar el nombre de la UEA</p>
-            <p>Debe seleccionar el botón Guardar </p>
-          </div>
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
           <label className="btn btn-primary"
                     onClick={closeModal}
-                    disabled={handleBtnAceptar()}>Guardar</label>
+                    disabled={handleBtnAceptar()}>Agregar</label>
         </div>
       </div>
       </div>
@@ -121,4 +102,4 @@ function ModalOpciones({
   )
 }
 
-export default ModalOpciones
+export default ModalAgregar

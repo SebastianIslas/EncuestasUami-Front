@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
 import ModalOpciones from "./ModalOpciones";
 import RowOptions from "./RowOptions.js";
+import ModalConfirmacion from "./ModalConfirmacion";
+
 
 
 function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
@@ -10,6 +12,10 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
 
   // Controlar si se muestra el modal
   const [showModal, setShowModal] = useState(false);
+
+  const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
+
+ 
 
   // Datos que se tienen dentro del modal, es decir aquellos datos que le
   // pertenecen a la materia que mandó a llamar al modal
@@ -41,7 +47,17 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
     setShowModal(!showModal);
   }
 
- 
+  const toggleModalConfirmacion = (claveElegida, nombreElegida) => {
+    if (!showModalConfirmacion){
+      let newObject = {
+        clave: claveElegida,
+        nombre: nombreElegida,  
+      }
+      setModalData(newObject);
+    }
+    setShowModalConfirmacion(!showModalConfirmacion);
+  }
+
 
   return (
     <React.Fragment>
@@ -77,7 +93,7 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
             </td>
 
             <th>
-              <RowOptions licenciatura={licenciatura} toggleModal={toggleModal} />
+              <RowOptions licenciatura={licenciatura} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
             </th>
           </tr>)}
 
@@ -89,12 +105,18 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
         </tfoot>
       </table>
 
-      {/* Template del modal de Opciones */}
       {showModal ? <ModalOpciones
           modalData={modalData}
           setModalData={setModalData}
           showModal={showModal}
           setShowModal={setShowModal}
+          licenciaturas={licenciaturas}
+          setLicenciaturas={setLicenciaturas}
+           /> : null}
+      
+      {showModalConfirmacion ? <ModalConfirmacion
+          modalData={modalData}
+          setShowModal={setShowModalConfirmacion}
           licenciaturas={licenciaturas}
           setLicenciaturas={setLicenciaturas}
            /> : null}
