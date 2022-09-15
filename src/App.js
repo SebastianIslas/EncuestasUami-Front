@@ -5,8 +5,7 @@ import AdminLoginPage from "./pages/AdminLoginPage.js";
 import EncuestaPage from "./pages/EncuestaPage.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
 import AdminPage from "./pages/AdminPage.js"
-import AdminUeasPage1 from "./pages/AdminUeasPage1.js";
-import AdminUeasTablaPage from "./pages/AdminUeasTablaPage.js";
+import AdminUeasPage from "./pages/AdminUeasPage.js";
 
 function App() {
   return (
@@ -17,8 +16,7 @@ function App() {
         <Route path="encuesta" element= { <EncuestaPage /> } />
         <Route path="admin" element= { <AdminPage /> } />
 
-        {/* <Route path="/admin/ueas1" element= { <AdminUeasPage1 /> } /> */}
-        <Route path="/admin/licenciatura/:claveLic" element= { <AdminUeasTablaPage /> } />
+        <Route path="/admin/licenciatura/:claveLic" element= { <AdminUeasPage /> } />
 
         <Route path="*" element= { <NotFoundPage /> } />
       </Routes>

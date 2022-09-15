@@ -1,12 +1,11 @@
-// TODO: implementar el onChange del checkbox
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { getUeasByLic } from "../utils/getUeasByLic";
 import Logo24 from "../components/Logo24";
-import ModalAgregar from "../components/AdminUeas1/ModalAgregar";
-import ModalConfirmacion from "../components/AdminUeas1/ModalConfirmacion";
-import ModalEditar from "../components/AdminUeas1/ModalEditar";
+import ModalAgregar from "../components/AdminUeas/ModalAgregar";
+import ModalConfirmacion from "../components/AdminUeas/ModalConfirmacion";
+import ModalEditar from "../components/AdminUeas/ModalEditar";
 
 function AdminUeasTablaPage() {
 
