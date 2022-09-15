@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // Componentes
-import Logo24 from "../components/Logo24";
 import ModalAgregar from "../components/AdminUeas/ModalAgregar";
 import ModalConfirmacion from "../components/AdminUeas/ModalConfirmacion";
 import ModalEditar from "../components/AdminUeas/ModalEditar";
@@ -10,6 +9,10 @@ import ModalEditar from "../components/AdminUeas/ModalEditar";
 // Utils
 import { getUeasByLic } from "../services/getUeasByLic";
 import { getLicNameByClave } from "../services/getLicNameByClave";
+import { Header } from "../components/AdminUeas/Header";
+import { Info } from "../components/AdminUeas/Info";
+import { Btn } from "../components/AdminUeas/Btn";
+import { TablaUeasByLic } from "../components/AdminUeas/TablaUeasByLic";
 
 function AdminUeasTablaPage() {
 
@@ -180,124 +183,4 @@ function AdminUeasTablaPage() {
 }
 
 
-function Header({ user }) {
-  return (<div className="hero-content flex-col lg:flex-row px-3 pt-10">
-  <Logo24 />
-
-  <div className="text-center">
-    <h1 className="text-mg md:text-xl">Bienvenido Administrador <b>{user.id}</b></h1>
-  </div>
-</div>);
-}
-
-
-function Info({licNombre}) {
-  return (<div className="bg-base-200 pb-10">
-  <h2 className="text-center">Licenciatura: <b>{licNombre}</b></h2>
-  <p className="text-center">Aquí puedes agregar, eliminar, editar y abrir materias/UEAs</p>
-</div>);
-}
-
-
-function Btn({btnFunction, text}) {
-  return (
-    <button className="btn btn-primary
-                       btn-xs sm:btn-sm md:btn-md"
-            onClick={() => { btnFunction(); }}>
-      { text }</button>);
-}
-
-
-function TablaUeasByLic({
-  materias,
-  handleCheckbox,
-  toggleModalEditar,
-  toggleModalEliminar
-}) {
-  return (
-    <div id="tabla-materias" className="overflow-x-auto rounded-lg pb-10">
-      <table className="table table-compact md:table-normal w-full">
-        { /* Header de la tabla */ }
-        <thead>
-          <HeaderTable />
-        </thead>
-
-        { /* Cuerpo de la tabla */ }
-        <tbody>
-          { /* Renglón */ }
-          {materias.map(materia => <tr className="hover" key={materia.clave}>
-            { /* Checkbox */ }
-            <th className='w-8'>
-              <div className="flex justify-center">
-                <input
-                  type="checkbox"
-                  className="checkbox" // Nombre de cada checkbox
-                  name={materia.clave.toString()} // Hacer check si está en la lista de materias
-                  checked={materia.activa} // Función que altera la lista de materia
-                  onChange={() => { handleCheckbox(materia.clave, materia.nombre); }} /> 
-              </div>
-            </th>
-
-            { /* Campo de la clave de la materia */ }
-            <td>
-              <p className="text-md opacity-80">
-                {materia.clave}</p>
-            </td>
-
-            { /* Campo del nombre de la materia */ }
-            <td className="break-words">
-              <p className="text-md font-bold whitespace-pre-wrap">
-                {materia.nombre}</p>
-            </td>
-
-            { /* Botones */ }
-            <th>
-              <div className='flex justify-end gap-2'>
-                { /* Botón Editar */ }
-                <button 
-                  className="btn btn-primary
-                              btn-xs sm:btn-sm md:btn-md
-                              before:content-['✎']
-                              md:before:content-['Editar']
-                              w-8 md:w-24 right-0"
-                  onClick={() => { toggleModalEditar(materia.clave, materia.nombre); }}>
-                </button>
-                { /* Botón Eliminar */ }
-                <button 
-                  className="btn btn-primary
-                              btn-xs sm:btn-sm md:btn-md
-                              before:content-['✖']
-                              md:before:content-['Eliminar']
-                              w-8 md:w-24 right-0" 
-                  onClick={() => { toggleModalEliminar(materia.clave, materia.nombre); }}>
-
-                </button>
-              </div>
-            </th>
-          </tr>)}
-        </tbody>
-
-        { /* Footer de la tabla */ }
-        <tfoot>
-          <HeaderTable />
-        </tfoot>
-      </table>
-    </div>
-  );
-}
-
-function HeaderTable() {
-  return (
-    <tr>
-      { /* Columna Checkbox */ }
-      <th><span className="text-xs">Activa</span></th>
-      { /* Columna Clave de la UEA */ }
-      <th><span className="text-xs">Clave</span></th>
-      { /* Columna Nombre de la UEA */ }
-      <th><span className="text-xs">Nombre</span></th>
-      { /* Columna de botones */ }
-      <th><span className="text-xs"></span></th>
-    </tr>
-  );
-}
-        export default AdminUeasTablaPage
+export default AdminUeasTablaPage

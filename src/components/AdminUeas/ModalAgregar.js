@@ -88,8 +88,7 @@ function ModalAgregar({
             changePropModal={changePropModal}
             />
 
-        <div className="modal-action justify-between">
-
+        <div className="modal-action text-right">
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
           <label className="btn btn-primary"
                     onClick={closeModal}
