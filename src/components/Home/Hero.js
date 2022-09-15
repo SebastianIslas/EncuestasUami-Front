@@ -17,7 +17,7 @@ export default function Hero() {
             </div>
         </div>
 
-        <div className="hero min-h-max bg-base-800 pt-8 pb-16">
+        <div className="hero min-h-max bg-base-200 pt-8 pb-16">
 
             <div className="hero-content flex-col lg:flex-row">
                 <img src={ uamiPrecovid } 

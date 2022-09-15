@@ -17,7 +17,7 @@ export default function Trolleando() {
             </div>
         </div>
 
-        <div className="hero min-h-max bg-base-800 pt-8 pb-16">
+        <div className="hero min-h-max bg-base-300 pt-8 pb-16">
 
             <div className="hero-content flex-col lg:flex-row">
                 <img src={ uamiPrecovid } 
