@@ -6,8 +6,6 @@
 //    nombre de la materia - string
 //    la materia está activa - booleano
 export function getUeasByLic(claveLic) {
-  console.log("Obteniendo las materias de la Licenciatura " + claveLic);
-
   return [
     { clave: 1111, nombre: `Materia 1 de la Lic ${claveLic}`, activa: true},
     { clave: 1112, nombre: `Materia 2 de la Lic ${claveLic}`, activa: true},
