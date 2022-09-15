@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ajustes para que las tablas se vean bien */
+.table thead th,
+.table tfoot th{
+  @apply bg-base-300;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
