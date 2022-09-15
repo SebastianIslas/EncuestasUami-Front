@@ -3,7 +3,6 @@ import React, {useState} from "react";
 
 import Modal from "../Modal";
 import BtnCancelar from "./BtnCancelar";
-import ContainerOpciones from "./ContainerOpciones";
 
 function ModalEditar({
   modalData,
@@ -24,7 +23,7 @@ function ModalEditar({
     let newArray = [];
 
     for (let i = 0; i < materias.length; i++){
-      if (materias[i].clave == lastLicClave && materias[i].nombre == lastLicName){
+      if (materias[i].clave === lastLicClave && materias[i].nombre === lastLicName){
         newArray.push({
           clave: licClave,
           nombre: licName,
@@ -46,7 +45,7 @@ function ModalEditar({
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
-    if (licClave == "" || licName == ""){
+    if (licClave === "" || licName === ""){
       return true;
     } else {
       return false;

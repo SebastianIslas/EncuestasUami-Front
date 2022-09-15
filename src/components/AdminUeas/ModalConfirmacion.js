@@ -1,6 +1,4 @@
 // TODO: separar los botones en más componentes
-import { getNextKeyDef } from "@testing-library/user-event/dist/keyboard/getNextKeyDef";
-import { list } from "postcss";
 import React, {useState} from "react";
 
 import Modal from "../Modal";
@@ -22,7 +20,7 @@ function ModalConfirmacion({
     let newArray = [];
 
     for (let i = 0; i < materias.length; i++){
-      if (materias[i].clave == licClave && materias[i].nombre == licName){
+      if (materias[i].clave === licClave && materias[i].nombre === licName){
         continue;
       } else {
         newArray.push(materias[i]);
