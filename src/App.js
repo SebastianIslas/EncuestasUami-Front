@@ -17,8 +17,8 @@ function App() {
         <Route path="encuesta" element= { <EncuestaPage /> } />
         <Route path="admin" element= { <AdminPage /> } />
 
-        <Route path="/admin/ueas1" element= { <AdminUeasPage1 /> } />
-        <Route path="/admin/ueas1/:claveLic" element= { <AdminUeasTablaPage /> } />
+        {/* <Route path="/admin/ueas1" element= { <AdminUeasPage1 /> } /> */}
+        <Route path="/admin/licenciatura/:claveLic" element= { <AdminUeasTablaPage /> } />
 
         <Route path="*" element= { <NotFoundPage /> } />
       </Routes>

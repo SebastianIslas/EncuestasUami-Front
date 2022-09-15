@@ -1,6 +1,6 @@
 // TODO: tanto el botón, como la clave y el nombre deben enviar a la page de abrir ueas
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Logo24 from "../components/Logo24";
 
