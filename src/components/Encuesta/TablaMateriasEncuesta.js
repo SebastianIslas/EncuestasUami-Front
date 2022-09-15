@@ -60,6 +60,9 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
       }
     // Agregar una materia a la encuesta
     }else{
+      // Evitar que si se modifica el fuente del html se agreguen más materias
+      if (listaClavesEncuesta.length >= maxMaterias) return
+
       copyOfMaterias[name] = {
         modalidad: "Presencial",
         horario: "Sin preferencia"
@@ -148,25 +151,19 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
 
             {/* Campo de la clave de la materia */}
             <td>
-              <div className="text-md w-10 opacity-80">
-                <p className='break-all'>
-                  {materia.clave}
-                </p>
-              </div>
+              <p className="text-md opacity-80">
+                {materia.clave}</p>
             </td>
 
             {/* Campo del nombre de la materia */}
-            <td>
-              <div className="text-md break-word font-bold">
-                {materia.nombre}
-              </div>
+            <td className="break-words">
+              <p className="text-md font-bold whitespace-pre-wrap">{materia.nombre}</p>
               {materiasEncuesta[materia.clave] ? (
-              <div className="text-xs break-word text-base-content">
+              <p className="text-xs break-words text-base-content">
                 Modalidad: {materiasEncuesta[materia.clave].modalidad}
                 <br/>
                 Horario: {materiasEncuesta[materia.clave].horario}
-              </div>) : null}
-
+              </p>) : null}
             </td>
 
             <th>
@@ -178,9 +175,9 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                                   md:before:content-['Opciones']
                                   w-8 md:w-24 right-0"
                         onClick={() => {
-                            toggleModal(materia.clave, materia.nombre)
-                        }}
-                        disabled={handleDisableCheckbox(materia.clave.toString())}
+                            toggleModal(materia.clave, materia.nombre)}}
+                        disabled={
+                            handleDisableCheckbox(materia.clave.toString())}
                 ></button>
               </div>
             </th>
