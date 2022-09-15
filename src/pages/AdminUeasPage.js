@@ -286,7 +286,7 @@ function TablaUeasByLic({
   );
 }
 
-function HeaderTable({}) {
+function HeaderTable() {
   return (
     <tr>
       { /* Columna Checkbox */ }
