@@ -33,7 +33,8 @@ function AdminHomeHeader({user}) {
         <div className="flex-none">
           <ul className="menu menu-horizontal text-ml w-fit md:text-xl p-0">
             <li><a>Activar Encuesta</a></li>
-            <li><a>Abrir UEAs</a></li>
+            {/* Luis: se accede a esto a través de el Botón *Ver* */}
+            {/* <li><a>Abrir UEAs</a></li> */}
             <li><a>Estadísticas</a></li>
           </ul>
         </div>

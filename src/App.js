@@ -5,6 +5,7 @@ import AdminLoginPage from "./pages/AdminLoginPage.js";
 import EncuestaPage from "./pages/EncuestaPage.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
 import AdminPage from "./pages/AdminPage.js"
+import AdminUeasPage from "./pages/AdminUeasPage.js";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         <Route path="login" element= { <LoginPage /> } />
         <Route path="encuesta" element= { <EncuestaPage /> } />
         <Route path="admin" element= { <AdminPage /> } />
+
+        <Route path="/admin/licenciatura/:claveLic" element= { <AdminUeasPage /> } />
+
         <Route path="*" element= { <NotFoundPage /> } />
       </Routes>
     </BrowserRouter>

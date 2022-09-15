@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Link } from "react-router-dom";
+
 export default function RowOptions(props) {
     
   return (
@@ -8,12 +10,13 @@ export default function RowOptions(props) {
     <div className='flex justify-end gap-6'>
                 
         {/*Este botón lo que hará es mandar un link con la id de la lic para verla*/}
-        <button className="btn btn-primary
-                            btn-xs sm:btn-sm md:btn-md
-                            before:content-['Ver']
-                            md:before:content-['Ver']
-                            w-8 md:w-24 right-0"
-        ></button>
+        <Link to={`/admin/licenciatura/${props.licenciatura.clave}`}>
+            <button className="btn btn-primary
+                                btn-xs sm:btn-sm md:btn-md
+                                w-8 md:w-24 right-0"
+            >
+                Ver</button>
+        </Link>
 
                 
         {/* Este boton despliega un modal para cambiar el nombre de la uea*/}
