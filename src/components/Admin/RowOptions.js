@@ -32,6 +32,9 @@ export default function RowOptions(props) {
                             before:content-['Elim']
                             md:before:content-['Eliminar']
                             w-8 md:w-24 right-0"
+                            onClick={() => {
+                                props.toggleModalConfirmacion(props.licenciatura.clave, props.licenciatura.nombre)
+                            }}
         ></button>
 
     </div>
