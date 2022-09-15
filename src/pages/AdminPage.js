@@ -20,6 +20,7 @@ function AdminPage() {
 
   useEffect(() => {
     document.title = "Panel de Administracion";
+    // Peticion a la API (aqui pa, esta linea ^-^)
     setLicenciaturas(LICENCIATURAS);
   }, []);
 
