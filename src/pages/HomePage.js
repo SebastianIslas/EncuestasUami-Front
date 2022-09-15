@@ -1,9 +1,10 @@
-import NavDrawer from '../components/Home/NavDrawer.js'
+import NavBarDaisy from '../components/Home/NavBarDaisy.js'
+//import NavDrawer from '../components/Home/NavDrawer.js'
 
 function HomePage(){
     return(
     <>
-    <NavDrawer />
+    <NavBarDaisy />
    
     </>
     )
