@@ -5,7 +5,8 @@ import HeaderEncuesta from '../components/Encuesta/HeaderEncuesta';
 import InfoEncuesta from "../components/Encuesta/InfoEncuesta";
 import TablaMateriasEncuesta from "../components/Encuesta/TablaMateriasEncuesta";
 
-import UEAS from "../data/UEAS-COMPUTACION.js"
+// import UEAS from "../data/UEAS-COMPUTACION.js"
+import { getUeasEncuestaByLic } from "../services/getUeasEncuestaByLic";
 
 // Context de las materias en elegidas por el usuario
 // export const MateriasEncuestaContext = React.createContext({});
@@ -61,7 +62,7 @@ function EncuestaPage() {
     // TODO: Tal vez tengamos que obtener la licenciatura y boleta del alumno,
     //       no sé si eso venga desde el Login
 
-    setMaterias(UEAS);
+    setMaterias(getUeasEncuestaByLic(user.licenciatura));
 
     setMaxMaterias(4);
   }, []);
