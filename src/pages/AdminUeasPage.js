@@ -14,6 +14,9 @@ import { Info } from "../components/AdminUeas/Info";
 import { Btn } from "../components/AdminUeas/Btn";
 import { TablaUeasByLic } from "../components/AdminUeas/TablaUeasByLic";
 
+//Services
+import { getUEASByLic } from "../services/getUeasEncuesta.js";
+
 function AdminUeasTablaPage() {
 
   // Obtenemos los parámetros pasados por URL
@@ -118,7 +121,8 @@ function AdminUeasTablaPage() {
     document.title = "Panel de Administracion";
 
     // Función que obtiene los datos de la API
-    setMaterias(getUeasByLic(claveLic));
+    //setMaterias(getUeasByLic(claveLic));
+    getUEASByLic(30).then(setMaterias)
 
     // Obtener el Nombre de la Licenciatura por su clave
     setLicNombre(getLicNameByClave(claveLic));

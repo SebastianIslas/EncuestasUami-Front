@@ -5,6 +5,10 @@ import Modal from "../Modal";
 import BtnCancelar from "./BtnCancelar";
 import ContainerOpciones from "./ContainerOpciones";
 
+//Services
+import { addUEA } from "../../services/addUEA.js";
+
+
 function ModalAgregar({
   setShowModalAgregar,
   materias,
@@ -51,10 +55,12 @@ function ModalAgregar({
   // Función que permite cambiar dentro del modal los valores de cada propiedad
   // o campo relacionado con la encuesta
   const changePropModal = (propiedad, valor) => {
-    let copyObjectModalData = {...modalData};
 
+    let copyObjectModalData = {...modalData};
     copyObjectModalData[propiedad] = valor;
     setModalData(copyObjectModalData);
+    sendData = { "clave_carrera": 30, "nombre_UEA": modalData.nombre, "clave": modalData.clave}
+    addUEA(sendData)
   }
 
 

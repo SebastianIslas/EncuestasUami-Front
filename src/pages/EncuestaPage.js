@@ -6,7 +6,7 @@ import InfoEncuesta from "../components/Encuesta/InfoEncuesta";
 import TablaMateriasEncuesta from "../components/Encuesta/TablaMateriasEncuesta";
 
 // import UEAS from "../data/UEAS-COMPUTACION.js"
-import { getUEAS } from "../services/getUeasEncuesta.js";
+import { getUEASByLic } from "../services/getUeasEncuesta.js";
 
 // Context de las materias en elegidas por el usuario
 // export const MateriasEncuestaContext = React.createContext({});
@@ -63,7 +63,7 @@ function EncuestaPage() {
     //       no sé si eso venga desde el Login
 
     //setMaterias(getUeasEncuestaByLic(user.licenciatura));
-    getUEAS().then(setMaterias);
+    getUEASByLic(30).then(setMaterias);
 
     setMaxMaterias(4);
   }, []);

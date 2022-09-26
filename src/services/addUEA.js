@@ -1,15 +1,13 @@
 const ENDPOINT = 'http://localhost:4000/api'
 
 
-export function getUEASByLic (id_licenciatura) {
-  return fetch(`${ENDPOINT}/PlanEstudios`, {
+export function addUEA (_body) {
+  return fetch(`${ENDPOINT}/PlanEstudio`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      claveCarrera: id_licenciatura,
-    }),
+    body: _body,
   }).then(res => {
     if (!res.ok) throw new Error("Ha ocurrido un error, al recuperar los datos");
     return res.json()
@@ -17,7 +15,6 @@ export function getUEASByLic (id_licenciatura) {
     console.log(res.materias);
     let results = res.materias.map(({claveUEA, nombre}) => {
                             return {clave: claveUEA, nombre: nombre}; })
-    console.log()
-    return results;
+    return;
   })
 }
