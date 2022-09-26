@@ -7,12 +7,14 @@ import ModalConfirmacion from "../components/AdminUeas/ModalConfirmacion";
 import ModalEditar from "../components/AdminUeas/ModalEditar";
 
 // Utils
-import { getUeasByLic } from "../services/getUeasByLic";
 import { getLicNameByClave } from "../services/getLicNameByClave";
 import { Header } from "../components/AdminUeas/Header";
 import { Info } from "../components/AdminUeas/Info";
 import { Btn } from "../components/AdminUeas/Btn";
 import { TablaUeasByLic } from "../components/AdminUeas/TablaUeasByLic";
+
+// Services
+import { getUEASByLic } from "../services/getUeasByLic.js";
 
 function AdminUeasTablaPage() {
 
@@ -118,8 +120,9 @@ function AdminUeasTablaPage() {
     document.title = "Panel de Administracion";
 
     // Función que obtiene los datos de la API
-    setMaterias(getUeasByLic(claveLic));
-
+    //setMaterias(getUeasByLic(claveLic));
+    getUEASByLic(30).then(setMaterias)
+    
     // Obtener el Nombre de la Licenciatura por su clave
     setLicNombre(getLicNameByClave(claveLic));
   }, [claveLic]);

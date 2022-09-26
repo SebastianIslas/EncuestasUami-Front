@@ -3,6 +3,8 @@ import React, {useState} from "react";
 
 import Modal from "../Modal";
 
+import { borrarUEA } from "../../services/deleteUea.js";
+
 
 function ModalConfirmacion({
   modalData,
@@ -29,7 +31,7 @@ function ModalConfirmacion({
 
     // Actualiza la lista de materias
     setMaterias(newArray);
-
+    borrarUEA(30, licClave)
     // Cerramos el modal
     setShowModalConfirmacion(false);
   }

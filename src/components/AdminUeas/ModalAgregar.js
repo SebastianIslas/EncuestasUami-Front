@@ -4,6 +4,8 @@ import React, {useState} from "react";
 import Modal from "../Modal";
 import BtnCancelar from "./BtnCancelar";
 import ContainerOpciones from "./ContainerOpciones";
+import { addUEA } from "../../services/addUea.js";
+
 
 function ModalAgregar({
   setShowModalAgregar,
@@ -23,6 +25,7 @@ function ModalAgregar({
        let newMaterias=[...materias]
        newMaterias.push(modalData)
        setMaterias(newMaterias)
+       addUEA(modalData.nombre, modalData.clave, 30)
     }
     // Cerramos el modal
     setShowModalAgregar(false);
