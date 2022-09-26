@@ -7,6 +7,7 @@ import ContainerOpciones from "./ContainerOpciones";
 import { addUEA } from "../../services/addUea.js";
 
 
+
 function ModalAgregar({
   setShowModalAgregar,
   materias,
@@ -54,10 +55,12 @@ function ModalAgregar({
   // Función que permite cambiar dentro del modal los valores de cada propiedad
   // o campo relacionado con la encuesta
   const changePropModal = (propiedad, valor) => {
-    let copyObjectModalData = {...modalData};
 
+    let copyObjectModalData = {...modalData};
     copyObjectModalData[propiedad] = valor;
     setModalData(copyObjectModalData);
+  
+    addUEA(modalData.nombre, modalData.clave, 30)
   }
 
 
