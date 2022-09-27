@@ -15,6 +15,7 @@ function App() {
         <Route path="login" element= { <LoginPage /> } />
         <Route path="encuesta" element= { <EncuestaPage /> } />
         <Route path="admin" element= { <AdminPage /> } />
+        <Route path="admin/login" element= { <AdminLoginPage /> } />
 
         <Route path="/admin/licenciatura/:claveLic" element= { <AdminUeasPage /> } />
 
