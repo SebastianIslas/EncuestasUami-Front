@@ -9,6 +9,23 @@ Aquí describimos las tecnologías usadas
 
 Aquí van las herramientas que recomendamos usar para los nuevos programadores. Por ejemplo, VSCode y extensiones
 
+## Deploy
+
+Toda la aplicación está en un container.
+Para crear el container de la aplicación final y correrla en producción o en local, pueden usar los siguiente comandos:
+
+Crear el contenedor desde el archivo `Dockerfile`:
+
+```shell
+sudo docker -t encuestas-front .
+```
+
+Iniciar el contenedor en el puerto 8080:
+
+```shell
+sudo docker run -p 8080:80 encuestas-front
+```
+
 ## Development
 
 **Nota**: se recomienda crear un directorio llamado `encuestas-uami`.
