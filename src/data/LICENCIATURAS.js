@@ -24,7 +24,7 @@ const LICENCIATURAS =[
     "nombre": "Licenciatura en Ciencia Política"
   },
   {
-    "clave": 7,
+    "clave": 30,
     "nombre": "Licenciatura en Computación"
   },
   {

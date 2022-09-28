@@ -7,5 +7,7 @@ export function addUEA(_nombre,_clave, id_licenciatura){
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({nombre_UEA: _nombre, clave_carrera: id_licenciatura, clave: _clave}),
-});
+}).catch(res => {
+  console.warn("Posible fallo de conexion en AGREGAR UEA")
+});;
 }

@@ -21,7 +21,11 @@ function AdminPage() {
   useEffect(() => {
     document.title = "Panel de Administracion";
     // Peticion a la API (aqui pa, esta linea ^-^)
-    setLicenciaturas(LICENCIATURAS);
+    console.warn("Se procede a cargar la unica licenciatura")
+    setLicenciaturas([{
+      "clave": 30,
+      "nombre": "Licenciatura en Computación"
+    }]);
   }, []);
 
 

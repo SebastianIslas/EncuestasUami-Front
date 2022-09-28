@@ -15,6 +15,9 @@ export function getUEASByLic (licenciatura_id) {
     let results = res.materias.map(({claveUEA, nombre}) => {
       return {clave: claveUEA, nombre: nombre}; })
     return results;
+  }).catch(res => {
+    console.warn("Posible fallo de conexion")
+    return [{clave: "ERROR", nombre: "ERROR"}]
   })
 }
 
