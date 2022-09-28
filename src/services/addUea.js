@@ -1,4 +1,4 @@
-const ENDPOINT = 'http://localhost:4000/api';
+const ENDPOINT = process.env.REACT_APP_ENDPOINT_API+'/api';
 
 export function addUEA(_nombre,_clave, id_licenciatura){
     return fetch(ENDPOINT+'/PlanEstudio', {

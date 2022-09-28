@@ -1,4 +1,4 @@
-const ENDPOINT = 'http://localhost:4000/api'
+const ENDPOINT = process.env.REACT_APP_ENDPOINT_API+'/api';
 
 
 export function getUEASByLic (licenciatura_id) {
