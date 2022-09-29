@@ -60,7 +60,6 @@ function ModalAgregar({
     copyObjectModalData[propiedad] = valor;
     setModalData(copyObjectModalData);
   
-    addUEA(modalData.nombre, modalData.clave, 30)
   }
 
 
