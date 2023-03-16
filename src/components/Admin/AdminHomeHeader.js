@@ -32,6 +32,8 @@ function AdminHomeHeader({user}) {
         {/*Group Buttons*/}
         <div className="flex-none">
           <ul className="menu menu-horizontal text-ml w-fit md:text-xl p-0">
+            <li><a href="/admin/cursos/">Cursos</a></li>
+            <li><a href="/admin/profesores/">Profesores</a></li>
             <li><a href=".">Activar Encuesta</a></li>
             {/* Luis: se accede a esto a través de el Botón *Ver* */}
             {/* <li><a>Abrir UEAs</a></li> */}

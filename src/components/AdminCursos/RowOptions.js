@@ -12,15 +12,15 @@ export default function RowOptions(props) {
     {/*Opciones de cada row dentro de la tabla */}
     <div className='flex justify-end gap-6'>
 
-        <Link to={`/admin/licenciatura/${props.licenciatura.clave}`}>
+        <Link to={`/admin/curso/${props.curso.clave}`}>
           <Button text={<FontAwesomeIcon icon={faEye} />} />
         </Link>
         <Button text={<FontAwesomeIcon icon={faEdit} />} onClick={() => {
-            props.toggleModal(props.licenciatura.clave, props.licenciatura.nombre)
+            props.toggleModal(props.curso.clave, props.curso.nombre)
           }          
         } />
         <Button text={<FontAwesomeIcon icon={faTrashCan} />} onClick={() => {
-            props.toggleModalConfirmacion(props.licenciatura.clave, props.licenciatura.nombre)
+            props.toggleModalConfirmacion(props.curso.clave, props.curso.nombre)
         }} />
 
 
