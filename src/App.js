@@ -6,8 +6,8 @@ import EncuestaPage from "./pages/EncuestaPage.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
 import AdminPage from "./pages/AdminPage.js"
 import AdminUeasPage from "./pages/AdminUeasPage.js";
-import AdminCursosPage from "./pages/AdminCursosPage.js";
-import AdminProfesoresPage from "./pages/AdminProfesoresPage.js";
+import AdminCursosPage from "./pages/Admin/AdminCursosPage.js";
+import AdminProfesoresPage from "./pages/Admin/AdminProfesoresPage.js";
 
 function App() {
   return (

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
-import ModalOpciones from "../Admin/ModalOpciones";
+import ModalOpciones from "../AdminCursos/ModalOpciones";
 import RowOptions from "../AdminCursos/RowOptions.js";
-import ModalConfirmacion from "../Admin/ModalConfirmacion";
+import ModalConfirmacion from "../AdminCursos/ModalConfirmacion";
 
 
 
@@ -21,11 +21,12 @@ function TablaCursosAdmin({ cursos, setCursos }) {
   // pertenecen a la materia que mandó a llamar al modal
   const [modalData, setModalData] = useState({
     clave: null,
-    nombre: null
+    nombre: null,
+    tipo: null
   });
 
 
-  const toggleModal = (claveElegida, nombreElegida) => {
+  const toggleModal = (claveElegida, nombreElegida, tipoElegido) => {
     // Vemos el estado de mostrar el modal
     if (!showModal){
       // Cremos un nuevo objeto para guardar los datos a usar en el modal
@@ -35,7 +36,7 @@ function TablaCursosAdmin({ cursos, setCursos }) {
         clave: claveElegida,
         // Nombre del curso en el renglón que mandó a llamar el modal
         nombre: nombreElegida,
-        
+        tipo: tipoElegido
         
       }
 

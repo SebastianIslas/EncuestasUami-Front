@@ -16,7 +16,7 @@ export default function RowOptions(props) {
           <Button text={<FontAwesomeIcon icon={faEye} />} />
         </Link>
         <Button text={<FontAwesomeIcon icon={faEdit} />} onClick={() => {
-            props.toggleModal(props.curso.clave, props.curso.nombre)
+            props.toggleModal(props.curso.clave, props.curso.nombre, props.curso.tipo)
           }          
         } />
         <Button text={<FontAwesomeIcon icon={faTrashCan} />} onClick={() => {

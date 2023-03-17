@@ -2,8 +2,8 @@
 import React, {useState} from "react";
 
 import Modal from "../Modal";
-import BtnCancelar from "./BtnCancelar";
-import ContainerOpciones from "./ContainerOpciones";
+import BtnCancelar from "../BtnCancelar";
+import ContainerOpciones from "../ContainerOpciones";
 
 function ModalAgregar({
   setShowModal,

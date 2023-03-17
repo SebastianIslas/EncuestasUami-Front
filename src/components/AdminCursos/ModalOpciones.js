@@ -87,7 +87,7 @@ function ModalOpciones({
 
         {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
-            text={"Ingrese el nombre correcto de la Licenciatura"}
+            text={"Ingrese el nuevo nombre del curso"}
             prop={"nombre"}
             inputValue={modalData.nombre}
             handleClassBtnModal={handleClassBtnModal}
@@ -96,18 +96,26 @@ function ModalOpciones({
 
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
-            text={"Ingrese el ID correcto de la Licenciatura"}
+            text={"Ingrese la nueva clave del curso"}
             prop={"clave"}
             inputValue={modalData.clave}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
+        <ContainerOpciones 
+            text={"Ingrese el tipo de la UEA: (Obligatoria, Optativa)"}
+            prop={"tipo"}
+            inputValue={modalData.tipo}
+            handleClassBtnModal={handleClassBtnModal}
+            changePropModal={changePropModal}
+            type="list"
+            />
         <div className="modal-action justify-between">
           {/* Alguna información de ayuda para el usuario */}
           <div className="text-xs font-normal text-slate-500">
-            <p>Va a cambiar el nombre de la UEA</p>
-            <p>Debe seleccionar el botón Guardar </p>
+            <p>Seleccione el boton de guardar</p>
+            <p>Para guardar los cambios </p>
           </div>
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}

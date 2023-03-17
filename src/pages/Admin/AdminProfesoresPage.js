@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Button from '../components/Button';
-import AdminHomeHeader from '../components/Admin/AdminHomeHeader';
-import TablaCursosAdmin from "../components/AdminCursos/TablaCursosAdmin";
-import ModalAgregar from "../components/Admin/ModalAgregar.js";
+import Button from '../../components/Button';
+import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
+import TablaCursosProfesores from "../../components/AdminProfesores/TablaProfesoresAdmin";
+import ModalAgregar from "../../components/Admin/ModalAgregar.js";
 
-//import Cursos from "../data/Cursos.js";
+//import PROFESORES from "../data/PROFESORES.js";
 
-function AdminCursosPage() {
+function AdminProfesoresPage() {
 
   let user = Object();
   user.matricula = 2183011316;
   user.licenciatura = "Computación";
 
-  // Lista los cursos solo usamos la clave y el nombre
-  const [cursos, setCursos] = useState([]);
+  // Lista la licenciatura solo usamos la clave y el nombre
+  const [profesores, setProfesores] = useState([]);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
 
@@ -22,9 +22,9 @@ function AdminCursosPage() {
     document.title = "Panel de Administracion";
     // Peticion a la API (aqui pa, esta linea ^-^)
     console.warn("Se procede a cargar la unica licenciatura")
-    setCursos([{
-      "clave": 2100001,
-      "nombre": "Arte y ciencia"
+    setProfesores([{
+      "claveEmpleado": 22211536,
+      "nombre": "Valdo valdo "
     }]);
   }, []);
 
@@ -41,21 +41,21 @@ function AdminCursosPage() {
       <AdminHomeHeader user={user} />
  
       {/* Tabla */}
-      <TablaCursosAdmin cursos={cursos}  
-                      setCursos={setCursos}
+      <TablaCursosProfesores profesores={profesores}  
+                      setProfesores={setProfesores}
       />
 
-      <Button text={"Agregar Curso"} onClick={toggleModalAgregar} />
+      <Button text={"Agregar Profesor"} onClick={toggleModalAgregar} />
 
       {showModalAgregar ? <ModalAgregar
           showModal={showModalAgregar}
           setShowModal={setShowModalAgregar}
-          cursos={cursos}
-          setCursos={setCursos}
+          profesores={profesores}
+          setProfesores={setProfesores}
            /> : null}
 
   </div>
   </div>);
 }
 
-export default AdminCursosPage
+export default AdminProfesoresPage
