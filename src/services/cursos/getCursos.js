@@ -2,7 +2,7 @@ const ENDPOINT = process.env.REACT_APP_ENDPOINT_API;
 
 
 export function getCursos() {
-  return fetch(`${ENDPOINT}/admin/cursos`, {
+  return fetch(`${ENDPOINT}/administrador/cursos`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   })

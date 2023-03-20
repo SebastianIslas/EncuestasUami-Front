@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
 import ModalOpciones from "./ModalOpciones";
-import RowOptions from "./RowOptions.js";
+import RowOptions from "../RowOptions.js";
 import ModalConfirmacion from "./ModalConfirmacion";
 
 
@@ -93,7 +93,8 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
             </td>
 
             <th>
-              <RowOptions licenciatura={licenciatura} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+              <RowOptions objeto={{clave:licenciatura.clave, nombre:licenciatura.nombre, btnVer:`/admin/licenciatura/${licenciatura.clave}`}} 
+              toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
             </th>
           </tr>)}
 

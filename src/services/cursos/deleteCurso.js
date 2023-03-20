@@ -2,7 +2,7 @@ const ENDPOINT = process.env.REACT_APP_ENDPOINT_API;
 
 
 export function deleteCurso(cursoClave) {
-  return fetch(`${ENDPOINT}/admin/materias/eliminar/`+cursoClave, {
+  return fetch(`${ENDPOINT}/administrador/materias/eliminar/`+cursoClave, {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   })

@@ -34,7 +34,7 @@ function AdminProfesoresPage() {
 
   return (
   <div className="bg-base-200">
-  <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
+    <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
 
       <AdminHomeHeader user={user} />
  
@@ -42,8 +42,9 @@ function AdminProfesoresPage() {
       <TablaCursosProfesores profesores={profesores}  
                       setProfesores={setProfesores}
       />
-
-      <Button text={"Agregar Profesor"} onClick={toggleModalAgregar} />
+      <div class="fixed bottom-4 right-4">
+        <Button text={"Agregar Profesor"} onClick={toggleModalAgregar} />
+      </div>
 
       {showModalAgregar ? <ModalAgregar
           showModal={showModalAgregar}
@@ -52,7 +53,7 @@ function AdminProfesoresPage() {
           setProfesores={setProfesores}
            /> : null}
 
-  </div>
+    </div>
   </div>);
 }
 

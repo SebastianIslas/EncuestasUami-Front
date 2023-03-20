@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import ModalOpciones from "../AdminCursos/ModalOpciones";
-import RowOptions from "../AdminCursos/RowOptions.js";
+import RowOptions from "../../components/RowOptions.js";
 import ModalConfirmacion from "../AdminCursos/ModalConfirmacion";
 
-
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function TablaCursosAdmin({ cursos, setCursos }) {
   
@@ -15,7 +16,23 @@ function TablaCursosAdmin({ cursos, setCursos }) {
 
   const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
 
- 
+
+  ///************* BARRA DE BUSQUEDA *************/
+  const [query, setQuery] = useState("");
+
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
+
+  const filteredData = Object.keys(cursos).filter((key) => {
+    const curso = cursos[key];
+    return (
+      curso.nombre.toLowerCase().includes(query.toLowerCase()) ||
+      curso.clave.toString().includes(query.toLowerCase())
+    );
+  }).map((key) => cursos[key]);
+  ///************* BARRA DE BUSQUEDA *************/
+
 
   // Datos que se tienen dentro del modal, es decir aquellos datos que le
   // pertenecen a la materia que mandó a llamar al modal
@@ -65,6 +82,23 @@ function TablaCursosAdmin({ cursos, setCursos }) {
     {/* Container de la tabla */}
     <div id="tabla-materias"
           className="overflow-x-auto rounded-lg bg-base-400">
+   
+      {/*//************* BARRA DE BUSQUEDA *************/}
+
+      <div className="relative w-full mb-4">
+        <input
+          type="text"
+          className="w-full input input-bordered"
+          placeholder="Buscar"
+          value={query}
+          onChange={handleInputChange}
+        />
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+          <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
+        </div>
+      </div>
+     {/*//************* BARRA DE BUSQUEDA *************/}
+
 
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
@@ -74,9 +108,9 @@ function TablaCursosAdmin({ cursos, setCursos }) {
 
         {/* Cuerpo de la tabla */}
         <tbody>
-          {/* Renglón */}
-          {cursos.map(curso => <tr className="hover" key={curso.clave}>
-
+          {/* Renglón con ************* BARRA DE BUSQUEDA  */}
+          {filteredData.map(curso => 
+          <tr className="hover" key={curso.clave}>
             {/* Campo de la clave del curso */}
             <td>
               <div className="text-md w-10 opacity-80">
@@ -94,7 +128,7 @@ function TablaCursosAdmin({ cursos, setCursos }) {
             </td>
 
             <th>
-              <RowOptions curso={curso} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+              <RowOptions objeto={{clave:curso.clave, nombre:curso.nombre, tipo:curso.tipo}} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
             </th>
           </tr>)}
 

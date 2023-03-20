@@ -36,25 +36,26 @@ function AdminCursosPage() {
 
   return (
   <div className="bg-base-200">
-  <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
+    <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
 
-      <AdminHomeHeader user={user} />
- 
-      {/* Tabla */}
-      <TablaCursosAdmin cursos={cursos}  
-                      setCursos={setCursos}
-      />
+        <AdminHomeHeader user={user} />
+  
+        {/* Tabla */}
+        <TablaCursosAdmin cursos={cursos}  
+                        setCursos={setCursos}
+        />
 
-      <Button text={"Agregar Curso"} onClick={toggleModalAgregar} />
-
+      <div class="fixed bottom-4 right-4">
+        <Button text={"Agregar Curso"} onClick={toggleModalAgregar} />
+      </div>
       {showModalAgregar ? <ModalAgregar
           showModal={showModalAgregar}
           setShowModal={setShowModalAgregar}
           cursos={cursos}
           setCursos={setCursos}
-           /> : null}
+          /> : null}
 
-  </div>
+    </div>
   </div>);
 }
 

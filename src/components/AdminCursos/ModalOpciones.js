@@ -17,9 +17,10 @@ function ModalOpciones({
   setCursos
 }) {
   
+
   const [cursoName] = useState(modalData.nombre)
   const [cursoClave] = useState(modalData.clave)
-
+  console.log(modalData);
 
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
   // guardar los datos en el objeto cursoEncuesta y cierra el modal

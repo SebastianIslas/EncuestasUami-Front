@@ -3,7 +3,7 @@ const ENDPOINT = process.env.REACT_APP_ENDPOINT_API;
 
 export function crearProfesor(modalData) {
   console.log(modalData);
-  return fetch(`${ENDPOINT}/admin/materias/crear`, {
+  return fetch(`${ENDPOINT}/administrador/materias/crear`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({nombre_UEA: modalData.nombre, clave: modalData.clave,  tipo: modalData.tipo}),

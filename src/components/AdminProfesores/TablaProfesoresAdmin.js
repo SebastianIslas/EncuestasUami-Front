@@ -2,9 +2,11 @@ import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import ModalOpciones from "../Admin/ModalOpciones";
-import RowOptions from "./RowOptions.js";
+import RowOptions from "../../components/RowOptions";
 import ModalConfirmacion from "../Admin/ModalConfirmacion";
 
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 function TablaProfesoresAdmin({ profesores, setProfesores }) {
@@ -15,7 +17,25 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
 
   const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
 
- 
+
+
+   ///************* BARRA DE BUSQUEDA *************/
+  const [query, setQuery] = useState("");
+
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
+
+  const filteredData = Object.keys(profesores).filter((key) => {
+    const profesor = profesores[key];
+    return (
+      profesor.nombre.toLowerCase().includes(query.toLowerCase()) ||
+      profesor.claveEmpleado.toString().includes(query.toLowerCase())
+    );
+  }).map((key) => profesores[key]);
+  ///************* BARRA DE BUSQUEDA *************/
+
+
 
   // Datos que se tienen dentro del modal, es decir aquellos datos que le
   // pertenecen a la materia que mandó a llamar al modal
@@ -65,6 +85,23 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
     <div id="tabla-materias"
           className="overflow-x-auto rounded-lg bg-base-400">
 
+        {/*//************* BARRA DE BUSQUEDA *************/}
+
+        <div className="relative w-full mb-4">
+          <input
+            type="text"
+            className="w-full input input-bordered"
+            placeholder="Buscar"
+            value={query}
+            onChange={handleInputChange}
+          />
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+            <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
+          </div>
+        </div>
+        {/*//************* BARRA DE BUSQUEDA *************/}
+
+
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
@@ -73,8 +110,9 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
 
         {/* Cuerpo de la tabla */}
         <tbody>
-          {/* Renglón */}
-          {profesores.map(profesor => <tr className="hover" key={profesor.claveEmpleado}>
+          {/* Renglón con ************* BARRA DE BUSQUEDA  */}
+          {filteredData.map(profesor => 
+          <tr className="hover" key={profesor.claveEmpleado}>
 
             {/* Campo de la clave del profesor */}
             <td>
@@ -93,7 +131,7 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
             </td>
 
             <th>
-              <RowOptions profesor={profesor} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+              <RowOptions objeto={{clave:profesor.claveEmpleado, nombre:profesor.nombre}} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
             </th>
           </tr>)}
 
