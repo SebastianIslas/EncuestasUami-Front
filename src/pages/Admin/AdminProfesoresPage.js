@@ -4,7 +4,9 @@ import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
 import TablaCursosProfesores from "../../components/AdminProfesores/TablaProfesoresAdmin";
 import ModalAgregar from "../../components/Admin/ModalAgregar.js";
 
-//import PROFESORES from "../data/PROFESORES.js";
+//Services
+import { getProfesores } from "../../services/profesores/getProfesores";
+
 
 function AdminProfesoresPage() {
 
@@ -21,11 +23,7 @@ function AdminProfesoresPage() {
   useEffect(() => {
     document.title = "Panel de Administracion";
     // Peticion a la API (aqui pa, esta linea ^-^)
-    console.warn("Se procede a cargar la unica licenciatura")
-    setProfesores([{
-      "claveEmpleado": 22211536,
-      "nombre": "Valdo valdo "
-    }]);
+    getProfesores().then(setProfesores);
   }, []);
 
 

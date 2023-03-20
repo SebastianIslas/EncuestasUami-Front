@@ -12,9 +12,6 @@ export default function RowOptions(props) {
     {/*Opciones de cada row dentro de la tabla */}
     <div className='flex justify-end gap-6'>
 
-        <Link to={`/admin/curso/${props.curso.clave}`}>
-          <Button text={<FontAwesomeIcon icon={faEye} />} />
-        </Link>
         <Button text={<FontAwesomeIcon icon={faEdit} />} onClick={() => {
             props.toggleModal(props.curso.clave, props.curso.nombre, props.curso.tipo)
           }          

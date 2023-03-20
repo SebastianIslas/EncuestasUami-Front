@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 import { Link } from "react-router-dom";
@@ -12,9 +13,6 @@ export default function RowOptions(props) {
     {/*Opciones de cada row dentro de la tabla */}
     <div className='flex justify-end gap-6'>
 
-        <Link to={`/admin/profesor/${props.profesor.claveEmpleado}`}>
-          <Button text={<FontAwesomeIcon icon={faEye} />} />
-        </Link>
         <Button text={<FontAwesomeIcon icon={faEdit} />} onClick={() => {
             props.toggleModal(props.profesor.clave, props.profesor.nombre)
           }          
