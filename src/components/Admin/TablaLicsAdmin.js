@@ -68,7 +68,7 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
-          <TitleRowTablaMaterias />
+          <TitleRowTablaMaterias titles={["Clave", "Nombre", ""]} />
         </thead>
 
         {/* Cuerpo de la tabla */}
@@ -97,13 +97,7 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
               toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
             </th>
           </tr>)}
-
         </tbody>
-
-        {/* Footer de la tabla */}
-        <tfoot>
-          <TitleRowTablaMaterias />
-        </tfoot>
       </table>
 
       {showModal ? <ModalOpciones

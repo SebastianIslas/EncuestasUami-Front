@@ -105,7 +105,7 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
-          <TitleRowTablaMaterias />
+          <TitleRowTablaMaterias titles={["Clave", "Nombre", ""]} />
         </thead>
 
         {/* Cuerpo de la tabla */}

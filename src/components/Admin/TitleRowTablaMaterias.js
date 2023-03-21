@@ -1,15 +1,12 @@
 import React from "react";
 
-function TitleRowTablaMaterias() {
+function TitleRowTablaMaterias({titles}) {
+  const th = titles ? titles.map((title) =>
+    <th key={title} className="text-md">{title}</th>
+  ) : null;
+  
   return (<>
-      <tr>
-        {/* Columna Clave de la UEA */}
-        <th><span className="text-xs">Clave</span></th>
-        {/* Columna Nombre de la UEA */}
-        <th><span className="text-xs">Nombre</span></th>
-        {/* Columna botón Opciones */}
-        <th><span className="text-xs"></span></th>
-      </tr>
+      <tr>{th}</tr>
     </>
   );
 }

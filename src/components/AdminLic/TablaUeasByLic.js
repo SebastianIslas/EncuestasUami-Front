@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderTable } from "./HeaderTable";
+import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 
 export function TablaUeasByLic({
   materias, handleCheckbox, toggleModalEditar, toggleModalEliminar
@@ -9,7 +9,7 @@ export function TablaUeasByLic({
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
-          <HeaderTable />
+          <TitleRowTablaMaterias titles={["Activa", "Clave", "Nombre", ""]} />
         </thead>
 
         {/* Cuerpo de la tabla */}
@@ -66,11 +66,6 @@ export function TablaUeasByLic({
             </th>
           </tr>)}
         </tbody>
-
-        {/* Footer de la tabla */}
-        <tfoot>
-          <HeaderTable />
-        </tfoot>
       </table>
     </div>
   );

@@ -33,28 +33,28 @@ function AdminProfesoresPage() {
   }
 
   return (
-  <div className="bg-base-200">
-    <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
+    <div className="bg-base-200">
+      <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
 
-      <AdminHomeHeader user={user} />
- 
-      {/* Tabla */}
-      <TablaCursosProfesores profesores={profesores}  
-                      setProfesores={setProfesores}
-      />
-      <div class="fixed bottom-4 right-4">
-        <Button text={"Agregar Profesor"} onClick={toggleModalAgregar} />
-      </div>
+        <AdminHomeHeader user={user} />
+  
+        {/* Tabla */}
+        <TablaCursosProfesores profesores={profesores} setProfesores={setProfesores}/>
 
-      {showModalAgregar ? <ModalAgregar
+        <div class="fixed bottom-4 right-4">
+          <Button text={"Agregar Profesor"} onClick={toggleModalAgregar} />
+        </div>
+
+        {showModalAgregar ? <ModalAgregar
           showModal={showModalAgregar}
           setShowModal={setShowModalAgregar}
           profesores={profesores}
           setProfesores={setProfesores}
-           /> : null}
+            /> : null}
 
+      </div>
     </div>
-  </div>);
+  );
 }
 
 export default AdminProfesoresPage

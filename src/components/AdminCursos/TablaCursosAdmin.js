@@ -103,7 +103,7 @@ function TablaCursosAdmin({ cursos, setCursos }) {
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
-          <TitleRowTablaMaterias />
+          <TitleRowTablaMaterias titles={["Clave", "Nombre", ""]} />
         </thead>
 
         {/* Cuerpo de la tabla */}
@@ -134,10 +134,6 @@ function TablaCursosAdmin({ cursos, setCursos }) {
 
         </tbody>
 
-        {/* Footer de la tabla */}
-        <tfoot>
-          <TitleRowTablaMaterias />
-        </tfoot>
       </table>
 
       {showModal ? <ModalOpciones
