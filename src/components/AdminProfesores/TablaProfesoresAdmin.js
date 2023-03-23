@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
-import ModalOpciones from "../Admin/ModalOpciones";
+import ModalOpciones from "../AdminProfesores/ModalOpciones";
 import RowOptions from "../../components/RowOptions";
-import ModalConfirmacion from "../Admin/ModalConfirmacion";
+import ModalConfirmacion from "../AdminProfesores/ModalConfirmacion";
 
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,7 +40,7 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
   // Datos que se tienen dentro del modal, es decir aquellos datos que le
   // pertenecen a la materia que mandó a llamar al modal
   const [modalData, setModalData] = useState({
-    clave: null,
+    claveEmpleado: null,
     nombre: null
   });
 
@@ -52,7 +52,7 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
       let newObject = {
         // La clave de la materia que está en el renglón que mandó a llamar el
         // modal
-        clave: claveElegida,
+        claveEmpleado: claveElegida,
         // Nombre del profesor en el renglón que mandó a llamar el modal
         nombre: nombreElegida,
         
@@ -70,7 +70,7 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
   const toggleModalConfirmacion = (claveElegida, nombreElegida) => {
     if (!showModalConfirmacion){
       let newObject = {
-        clave: claveElegida,
+        claveEmpleado: claveElegida,
         nombre: nombreElegida,  
       }
       setModalData(newObject);

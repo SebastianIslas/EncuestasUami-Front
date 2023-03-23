@@ -1,19 +1,18 @@
 const ENDPOINT = process.env.REACT_APP_ENDPOINT_API;
 
 
-export function editProfesor(modalData) {
+export function editProfesor(claveProfesor, modalData) {
   console.log(modalData);
-  return fetch(`${ENDPOINT}/administrador/curso/`+modalData.clave, {
+  ////////////////////////////////////////////////////////////////
+  //////////////////////////////// FALTA SERVICIO
+  return fetch(`${ENDPOINT}/administrador/profesor/`+claveProfesor, {
     method: 'PUT',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({nombre: modalData.nombre, clave: modalData.clave,  tipo: modalData.tipo}),
+    body: JSON.stringify({nombre: modalData.nombre, claveEmpleado: modalData.claveEmpleado}),
   })
-  .then(response => response.json())
-  .then(res => {
-    console.log(res);
-    return res;
-  }).catch(err => {
-    console.warn("Posible fallo de conexion")
+  .then(response => { return response})
+  .catch(err => {
+    console.log("Posible fallo de conexion")
     return err;
   })
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from '../../components/Button';
 import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
 import TablaCursosProfesores from "../../components/AdminProfesores/TablaProfesoresAdmin";
-import ModalAgregar from "../../components/Admin/ModalAgregar.js";
+import ModalAgregar from "../../components/AdminProfesores/ModalAgregar.js";
 
 //Services
 import { getProfesores } from "../../services/profesores/getProfesores";

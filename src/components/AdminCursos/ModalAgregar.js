@@ -24,15 +24,19 @@ function ModalAgregar({
   const closeModal = (e) => {
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
-      let newCursos=[...cursos]
-      newCursos.push(modalData)
       
       crearCurso(modalData).then(res => {
-        alert(res.message);
-        setCursos(newCursos)
+        if (res.status == 200) {
+          let newCursos=[...cursos]
+          newCursos.push(modalData)    
+          setCursos(newCursos)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
       });
 
-        console.log("AGREGAR")
+        console.log("AGREGAR CURSO")
 
     }
     // Cerramos el modal

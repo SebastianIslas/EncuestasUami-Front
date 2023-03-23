@@ -6,12 +6,9 @@ export function deleteCurso(cursoClave) {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   })
-  .then(response => response.json())
-  .then(res => {
-    console.log(res);
-    return res;
-  }).catch(err => {
-    console.warn("Posible fallo de conexion")
+  .then(response => { return response})
+  .catch(err => {
+    console.log("Posible fallo de conexion")
     return err;
   })
 }

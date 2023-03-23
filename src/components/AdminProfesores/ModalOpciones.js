@@ -6,19 +6,19 @@ import BtnCancelar from "../BtnCancelar";
 import ContainerOpciones from "../ContainerOpciones";
 
 //Services
-import { editCurso } from "../../services/cursos/editCurso";
+import { editProfesor } from "../../services/profesores/editProfesor";
 
 function ModalOpciones({
   modalData,
   setModalData,
   showModal,
   setShowModal,
-  cursos,
-  setCursos
+  profesores,
+  setProfesores
 }) {
-  
-  const [cursoName] = useState(modalData.nombre)
-  const [cursoClave] = useState(modalData.clave)
+  console.log(modalData);
+  const [profesorName] = useState(modalData.nombre)
+  const [profesorClave] = useState(modalData.claveEmpleado)
 
 
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
@@ -26,17 +26,21 @@ function ModalOpciones({
   const closeModal = (e) => {
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
-       let arr = [...cursos]
-       let foundIndex = arr.findIndex(x => x.clave === cursoClave);
-       arr[foundIndex] = modalData;
        console.log(modalData);
        /* Peticion al API */
-       
-       editCurso(modalData).then(res => {
-        alert(res.message);
-        setCursos(arr)
-      });
-      
+
+      editProfesor(profesorClave, modalData).then(res => {
+        if (res.status == 200) {
+          let arr = [...profesores]
+          let foundIndex = arr.findIndex(x => x.claveEmpleado === profesorClave);
+          arr[foundIndex] = modalData;
+          console.log(arr);
+          setProfesores(arr)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
+      });    
        
     }
     // Cerramos el modal
@@ -57,7 +61,7 @@ function ModalOpciones({
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
-    if (modalData["clave"] === "" || modalData["nombre"] === ""){
+    if (modalData["claveEmpleado"] === "" || modalData["nombre"] === ""){
       return true;
     } else {
       return false;
@@ -85,10 +89,10 @@ function ModalOpciones({
 
         {/* El título del modal es el nombre del curso */}
         <h2 className="font-bold text-lg">
-          {cursoName}</h2>
+          {profesorName}</h2>
         {/* También mostramos la clave del curso */}
         <p className="text-sm font-normal text-slate-500">
-          ({cursoClave})</p>
+          ({profesorClave})</p>
         <br/>
 
 
@@ -104,19 +108,12 @@ function ModalOpciones({
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
             text={"Ingrese la nueva clave del curso"}
-            prop={"clave"}
-            inputValue={modalData.clave}
+            prop={"claveEmpleado"}
+            inputValue={modalData.claveEmpleado}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
-        <ContainerOpciones 
-            text={"Ingrese el tipo de la UEA: (Obligatoria, Optativa)"}
-            prop={"tipo"}
-            inputValue={modalData.tipo}
-            handleClassBtnModal={handleClassBtnModal}
-            changePropModal={changePropModal}
-            />
         <div className="modal-action justify-between">
           {/* Alguna información de ayuda para el usuario */}
           <div className="text-xs font-normal text-slate-500">

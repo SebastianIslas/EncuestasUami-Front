@@ -25,21 +25,25 @@ function ModalConfirmacion({
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-error"){
       
-      let newCursos = cursos.filter((curso) => {
-          if (curso.clave !== cursoClave){
-              return curso
-          }else{
-              return null
-          }
-      })
-
-       
+      
+      
       /* Peticion al API */
       console.log("newCursos")
       deleteCurso(cursoClave).then(res => {
-        alert(res.message);
-        setCursos(newCursos)
-      });
+        if (res.status == 200) {
+          let newCursos = cursos.filter((curso) => {
+              if (curso.clave !== cursoClave){
+                  return curso
+              }else{
+                  return null
+              }
+          })
+          setCursos(newCursos)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
+      }); 
     }
     // Cerramos el modal
     setShowModal(false);

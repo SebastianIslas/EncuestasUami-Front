@@ -1,17 +1,14 @@
 const ENDPOINT = process.env.REACT_APP_ENDPOINT_API;
 
 
-export function deleteProfesor(cursoClave) {
-  return fetch(`${ENDPOINT}/administrador/materias/eliminar/`+cursoClave, {
+export function deleteProfesor(profesorClave) {
+  return fetch(`${ENDPOINT}/administrador/profesor/eliminarProfesor/`+profesorClave, {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   })
-  .then(response => response.json())
-  .then(res => {
-    console.log(res);
-    return res;
-  }).catch(err => {
-    console.warn("Posible fallo de conexion")
+  .then(response => { return response})
+  .catch(err => {
+    console.log("Posible fallo de conexion")
     return err;
   })
 }

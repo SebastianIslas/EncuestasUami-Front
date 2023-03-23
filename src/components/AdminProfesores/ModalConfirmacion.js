@@ -4,19 +4,18 @@ import React, {useState} from "react";
 import Modal from "../Modal";
 
 //Services
-import { deleteCurso } from "../../services/cursos/deleteCurso";
-import { getCursos } from "../../services/cursos/getCursos";
+import { deleteProfesor } from "../../services/profesores/deleteProfesor";
 
 
 function ModalConfirmacion({
   modalData,
   setShowModal,
-  cursos,
-  setCursos
+  profesores,
+  setProfesores
 }) {
   
-  const [cursoName] = useState(modalData.nombre)
-  const [cursoClave] = useState(modalData.clave)
+  const [profesorName] = useState(modalData.nombre)
+  const [profesorClave] = useState(modalData.claveEmpleado)
 
 
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
@@ -25,21 +24,21 @@ function ModalConfirmacion({
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-error"){
       
-      let newCursos = cursos.filter((curso) => {
-          if (curso.clave !== cursoClave){
-              return curso
-          }else{
-              return null
-          }
-      })
-
-       
-      /* Peticion al API */
-      console.log("newCursos")
-      deleteCurso(cursoClave).then(res => {
-        alert(res.message);
-        setCursos(newCursos)
-      });
+      deleteProfesor(profesorClave).then(res => {
+        if (res.status == 200) {
+          let newProfesores = profesores.filter((profesor) => {
+            if (profesor.claveEmpleado !== profesorClave){
+                return profesor
+            }else{
+                return null
+            }
+          })
+          setProfesores(newProfesores)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
+      }); 
     }
     // Cerramos el modal
     setShowModal(false);
@@ -49,7 +48,7 @@ function ModalConfirmacion({
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
-    if (modalData["clave"] === "" || modalData["nombre"] === ""){
+    if (modalData["claveEmpleado"] === "" || modalData["nombre"] === ""){
       return true;
     } else {
       return false;
@@ -64,7 +63,7 @@ function ModalConfirmacion({
       <div className="modal-box bg-base-300 mx-auto">
 
         <h3 className="text-lg font-bold">
-            ¿Desea eliminar la <strong>{cursoName}</strong> con clave <strong>{cursoClave}</strong>?
+            ¿Desea eliminar la <strong>{profesorName}</strong> con clave <strong>{profesorClave}</strong>?
         </h3>
         <div className="modal-action justify-between">
 

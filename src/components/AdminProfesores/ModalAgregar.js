@@ -6,17 +6,17 @@ import BtnCancelar from "../BtnCancelar";
 import ContainerOpciones from "../ContainerOpciones";
 
 //services
-import { crearCurso } from "../../services/cursos/crearCurso";
+import { crearProfesor } from "../../services/profesores/crearProfesor";
 
 
 function ModalAgregar({
   setShowModal,
-  cursos,
-  setCursos
+  profesores,
+  setProfesores
 }) {
   
   const [modalData,setModalData] = useState({
-    clave: "",
+    claveEmpleado: "",
     nombre: ""
   })
 
@@ -24,15 +24,17 @@ function ModalAgregar({
   const closeModal = (e) => {
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
-      let newCursos=[...cursos]
-      newCursos.push(modalData)
       
-      crearCurso(modalData).then(res => {
-        alert(res.message);
-        setCursos(newCursos)
+      crearProfesor(modalData).then(res => {
+        if (res.status == 200) {
+          let newProfesores=[...profesores]
+          newProfesores.push(modalData)
+          setProfesores(newProfesores)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
       });
-
-        console.log("AGREGAR")
 
     }
     // Cerramos el modal
@@ -53,7 +55,7 @@ function ModalAgregar({
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
-    if (modalData["clave"] === "" || modalData["nombre"] === "" || modalData["tipo"] === ""){
+    if (modalData["claveEmpleado"] === "" || modalData["nombre"] === ""){
       return true;
     } else {
       return false;
@@ -82,26 +84,18 @@ function ModalAgregar({
        
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
-            text={"Ingrese la clave del nuevo curso"}
-            prop={"clave"}
-            inputValue={modalData.clave}
+            text={"Ingrese la clave del nuevo profesor"}
+            prop={"claveEmpleado"}
+            inputValue={modalData.claveEmpleado}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
         {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
-            text={"Ingrese el nombre del nuevo curso"}
+            text={"Ingrese el nombre del nuevo profesor"}
             prop={"nombre"}
             inputValue={modalData.nombre}
-            handleClassBtnModal={handleClassBtnModal}
-            changePropModal={changePropModal}
-            />
-
-        <ContainerOpciones 
-            text={"Ingrese el tipo del curso: (Obligatoria, Optativa)"}
-            prop={"tipo"}
-            inputValue={modalData.tipo}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />

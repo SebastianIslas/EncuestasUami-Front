@@ -27,17 +27,19 @@ function ModalOpciones({
   const closeModal = (e) => {
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
-       let arr = [...cursos]
-       let foundIndex = arr.findIndex(x => x.clave === cursoClave);
-       arr[foundIndex] = modalData;
-       console.log(modalData);
-       /* Peticion al API */
-       
-       editCurso(modalData).then(res => {
-        alert(res.message);
-        setCursos(arr)
-      });
-      
+      console.log(modalData);
+      /* Peticion al API */
+      editCurso(cursoClave, modalData).then(res => {
+        if (res.status == 200) {
+          let arr = [...cursos]
+          let foundIndex = arr.findIndex(x => x.clave === cursoClave);
+          arr[foundIndex] = modalData;
+          setCursos(arr)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
+      });      
        
     }
     // Cerramos el modal
