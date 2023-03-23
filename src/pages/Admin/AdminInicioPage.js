@@ -4,6 +4,9 @@ import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
 import TablaLicsAdmin from "../../components/Admin/TablaLicsAdmin";
 import ModalAgregar from "../../components/Admin/ModalAgregar.js";
 
+//Services
+import { getLics } from "../../services/licenciaturas/getLics";
+
 
 function AdminInicioPage() {
 
@@ -20,11 +23,7 @@ function AdminInicioPage() {
   useEffect(() => {
     document.title = "Panel de Administracion";
     // Peticion a la API (aqui pa, esta linea ^-^)
-    console.warn("Se procede a cargar la unica licenciatura")
-    setLicenciaturas([{
-      "clave": 30,
-      "nombre": "Licenciatura en Computación"
-    }]);
+    getLics().then(setLicenciaturas);
   }, []);
 
 

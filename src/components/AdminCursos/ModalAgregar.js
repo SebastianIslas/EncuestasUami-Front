@@ -35,8 +35,7 @@ function ModalAgregar({
       }).then(res => {  //Msg error o exito
         alert(res.message)
       });
-
-        console.log("AGREGAR CURSO")
+      console.log("AGREGAR CURSO")
 
     }
     // Cerramos el modal

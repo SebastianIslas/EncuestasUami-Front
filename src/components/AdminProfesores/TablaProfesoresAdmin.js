@@ -88,9 +88,7 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
         {/*//************* BARRA DE BUSQUEDA *************/}
 
         <div className="relative w-full mb-4">
-          <input
-            type="text"
-            className="w-full input input-bordered"
+          <input type="text" className="w-full input input-bordered"
             placeholder="Buscar"
             value={query}
             onChange={handleInputChange}

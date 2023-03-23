@@ -5,6 +5,9 @@ import Modal from "../Modal";
 import BtnCancelar from "../BtnCancelar";
 import ContainerOpciones from "../ContainerOpciones";
 
+//Services
+import { editLicenciatura } from "../../services/licenciaturas/editLicenciatura";
+
 function ModalOpciones({
   modalData,
   setModalData,
@@ -15,7 +18,7 @@ function ModalOpciones({
 }) {
   
   const [licName] = useState(modalData.nombre)
-  const [licCalve] = useState(modalData.clave)
+  const [licClave] = useState(modalData.clave)
 
 
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
@@ -23,14 +26,21 @@ function ModalOpciones({
   const closeModal = (e) => {
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
-       let arr = [...licenciaturas]
-       let foundIndex = arr.findIndex(x => x.clave === licCalve);
-       arr[foundIndex] = modalData;
-       console.log(modalData)
-       console.log(arr)
        /* Peticion al API */
        
-       setLicenciaturas(arr)
+
+             /* Peticion al API */
+      editLicenciatura(licClave, modalData).then(res => {
+        if (res.status == 200) {
+          let arr = [...licenciaturas]
+          let foundIndex = arr.findIndex(x => x.clave === licClave);
+          arr[foundIndex] = modalData;   
+          setLicenciaturas(arr)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
+      });      
     }
     // Cerramos el modal
     setShowModal(false);
@@ -81,7 +91,7 @@ function ModalOpciones({
           {licName}</h2>
         {/* También mostramos la clave de la licenciatura */}
         <p className="text-sm font-normal text-slate-500">
-          ({licCalve})</p>
+          ({licClave})</p>
         <br/>
 
 

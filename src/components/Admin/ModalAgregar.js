@@ -5,6 +5,9 @@ import Modal from "../Modal";
 import BtnCancelar from "../BtnCancelar";
 import ContainerOpciones from "../ContainerOpciones";
 
+//services
+import { crearLicenciatura } from "../../services/licenciaturas/crearLicenciatura";
+
 function ModalAgregar({
   setShowModal,
   licenciaturas,
@@ -20,9 +23,18 @@ function ModalAgregar({
   const closeModal = (e) => {
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
-       let newLicenciaturas=[...licenciaturas]
-       newLicenciaturas.push(modalData)
-       setLicenciaturas(newLicenciaturas)
+       crearLicenciatura(modalData).then(res => {
+        if (res.status == 200) {
+          let newLicenciaturas=[...licenciaturas]
+          newLicenciaturas.push(modalData)
+          setLicenciaturas(newLicenciaturas)   
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
+      });
+      console.log("AGREGAR LICENCIATURA");
+
     }
     // Cerramos el modal
     setShowModal(false);

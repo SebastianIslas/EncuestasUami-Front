@@ -5,7 +5,6 @@ import Modal from "../Modal";
 
 //Services
 import { deleteCurso } from "../../services/cursos/deleteCurso";
-import { getCursos } from "../../services/cursos/getCursos";
 
 
 function ModalConfirmacion({
@@ -28,7 +27,6 @@ function ModalConfirmacion({
       
       
       /* Peticion al API */
-      console.log("newCursos")
       deleteCurso(cursoClave).then(res => {
         if (res.status == 200) {
           let newCursos = cursos.filter((curso) => {

@@ -124,6 +124,7 @@ function AdminUeasTablaPage() {
     getUEASByLic(30).then(setMaterias)
     
     // Obtener el Nombre de la Licenciatura por su clave
+    console.log(getLicNameByClave(claveLic));
     setLicNombre(getLicNameByClave(claveLic));
   }, [claveLic]);
 

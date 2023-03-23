@@ -3,6 +3,9 @@ import React, {useState} from "react";
 
 import Modal from "../Modal";
 
+//Services
+import { deleteLicenciatura } from "../../services/licenciaturas/deleteLicenciatura";
+
 
 function ModalConfirmacion({
   modalData,
@@ -12,7 +15,7 @@ function ModalConfirmacion({
 }) {
   
   const [licName] = useState(modalData.nombre)
-  const [licCalve] = useState(modalData.clave)
+  const [licClave] = useState(modalData.clave)
 
 
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
@@ -20,18 +23,25 @@ function ModalConfirmacion({
   const closeModal = (e) => {
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-error"){
-       let newLicenciaturas = licenciaturas.filter((lic) => {
-            if (lic.clave !== licCalve){
+
+
+       /* Peticion al API */
+       deleteLicenciatura(licClave).then(res => {
+        if (res.status == 200) {
+          let newLicenciaturas = licenciaturas.filter((lic) => {
+            if (lic.clave !== licClave){
                 return lic
             }else{
                 return null
             }
-       })
+          })
+          setLicenciaturas(newLicenciaturas)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
+      }); 
 
-       console.log(newLicenciaturas)
-       /* Peticion al API */
-       
-       setLicenciaturas(newLicenciaturas)
     }
     // Cerramos el modal
     setShowModal(false);
@@ -56,7 +66,7 @@ function ModalConfirmacion({
       <div className="modal-box bg-base-300 mx-auto">
 
         <h3 className="text-lg font-bold">
-            ¿Desea eliminar la <strong>{licName}</strong> con clave <strong>{licCalve}</strong>?
+            ¿Desea eliminar la <strong>{licName}</strong> con clave <strong>{licClave}</strong>?
         </h3>
         <div className="modal-action justify-between">
 
