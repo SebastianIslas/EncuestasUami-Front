@@ -44,7 +44,7 @@ function AdminCursosPage() {
                         setCursos={setCursos}
         />
 
-      <div class="fixed bottom-4 right-4">
+      <div className="fixed bottom-4 right-4">
         <Button text={"Agregar Curso"} onClick={toggleModalAgregar} />
       </div>
       {showModalAgregar ? <ModalAgregar

@@ -41,7 +41,7 @@ function AdminProfesoresPage() {
         {/* Tabla */}
         <TablaCursosProfesores profesores={profesores} setProfesores={setProfesores}/>
 
-        <div class="fixed bottom-4 right-4">
+        <div className="fixed bottom-4 right-4">
           <Button text={"Agregar Profesor"} onClick={toggleModalAgregar} />
         </div>
 

@@ -139,7 +139,7 @@ function AdminUeasTablaPage() {
         <AdminHomeHeader _user={user} />
         {/* Información */}
         <div className="bg-base-200 pb-10">
-          <h2 class="text-2xl">Licenciatura: <b>{licNombre}</b></h2>
+          <h2 className="text-2xl">Licenciatura: <b>{licNombre}</b></h2>
           <p>Aquí puedes agregar, eliminar, editar y abrir materias/UEAs</p>
         </div>
         {/* Tabla */}
