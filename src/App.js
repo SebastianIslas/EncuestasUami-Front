@@ -8,9 +8,11 @@ import AdminInicioPage from "./pages/Admin/AdminInicioPage.js"
 import AdminLicPage from "./pages/Admin/AdminLicPage.js";
 import AdminCursosPage from "./pages/Admin/AdminCursosPage.js";
 import AdminProfesoresPage from "./pages/Admin/AdminProfesoresPage.js";
+import {AuthProvider} from "./context/AuthContext.js";
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
         <Route index element={ <HomePage /> } />
@@ -26,6 +28,7 @@ function App() {
         <Route path="*" element= { <NotFoundPage /> } />
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
