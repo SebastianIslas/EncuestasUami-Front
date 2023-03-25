@@ -1,8 +1,11 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import Logo24 from "./Logo24";
 
 // Head Board
 function AdminHomeHeader({user}) {
+  const {pathname, hash} = useLocation()
+
   return (
     <>
       {/* Title Welcome */}
@@ -30,13 +33,13 @@ function AdminHomeHeader({user}) {
         {/*Group Buttons*/}
         <div className="flex-none">
           <ul className="menu menu-horizontal text-ml w-fit md:text-xl p-0">
-            <li><a href="/admin/">Inicio</a></li>
-            <li><a href="/admin/cursos/">Cursos</a></li>
-            <li><a href="/admin/profesores/">Profesores</a></li>
-            <li><a href=".">Activar Encuesta</a></li>
+            <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
+            <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
+            <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
+            <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta">Activar Encuesta</Link></li>
             {/* Luis: se accede a esto a través de el Botón *Ver* */}
             {/* <li><a>Abrir UEAs</a></li> */}
-            <li><a href=".">Estadísticas</a></li>
+            <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
           </ul>
         </div>
       </div>
