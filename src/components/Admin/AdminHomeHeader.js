@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Logo24 from "./Logo24";
 
 // Head Board
-function AdminHomeHeader({user}) {
+function AdminHomeHeader({_user}) {
   const {pathname, hash} = useLocation()
 
   return (
@@ -16,7 +16,7 @@ function AdminHomeHeader({user}) {
 
         <div className="flex-1 space-x-2">
           <h1 className="text-mg md:text-xl">Bienvenido Administrador</h1>
-          <h1 className="text-lg md:text-xl"><span className='font-bold'>{user.matricula}</span></h1>
+          <h1 className="text-lg md:text-xl"><span className='font-bold'>{_user.matricula}</span></h1>
         </div>
       </div>
 

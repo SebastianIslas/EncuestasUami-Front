@@ -136,7 +136,7 @@ function AdminUeasTablaPage() {
     <div className="bg-base-200">
       <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
         {/* Header */}
-        <AdminHomeHeader user={user} />
+        <AdminHomeHeader _user={user} />
         {/* Información */}
         <div className="bg-base-200 pb-10">
           <h2 class="text-2xl">Licenciatura: <b>{licNombre}</b></h2>

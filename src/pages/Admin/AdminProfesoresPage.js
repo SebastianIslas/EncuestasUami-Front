@@ -36,7 +36,7 @@ function AdminProfesoresPage() {
     <div className="bg-base-200">
       <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
 
-        <AdminHomeHeader user={user} />
+        <AdminHomeHeader _user={user} />
   
         {/* Tabla */}
         <TablaCursosProfesores profesores={profesores} setProfesores={setProfesores}/>
