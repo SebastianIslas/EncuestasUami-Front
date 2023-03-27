@@ -8,7 +8,6 @@ import ModalAgregar from "../../components/AdminCursos/ModalAgregar.js";
 import { getCursos } from "../../services/cursos/getCursos";
 
 
-const ENDPOINT = process.env.REACT_APP_ENDPOINT_API;
 
 function AdminCursosPage() {
 
@@ -38,14 +37,14 @@ function AdminCursosPage() {
   <div className="bg-base-200">
     <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
 
-        <AdminHomeHeader user={user} />
+        <AdminHomeHeader _user={user} />
   
         {/* Tabla */}
         <TablaCursosAdmin cursos={cursos}  
                         setCursos={setCursos}
         />
 
-      <div class="fixed bottom-4 right-4">
+      <div className="fixed bottom-4 right-4">
         <Button text={"Agregar Curso"} onClick={toggleModalAgregar} />
       </div>
       {showModalAgregar ? <ModalAgregar

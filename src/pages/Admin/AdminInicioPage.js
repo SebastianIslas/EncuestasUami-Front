@@ -36,11 +36,11 @@ function AdminInicioPage() {
     <div className="bg-base-200">
       <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
 
-        <AdminHomeHeader user={user} />
+        <AdminHomeHeader _user={user} />
         {/* Tabla */}
         <TablaLicsAdmin licenciaturas={licenciaturas} setLicenciaturas={setLicenciaturas}/>
 
-        <div class="fixed bottom-4 right-4">
+        <div className="fixed bottom-4 right-4">
           <Button text={"Agregar Licenciatura"} onClick={toggleModalAgregar} />
         </div>
 
