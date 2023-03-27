@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo24 from "./Logo24";
+import ModalActEnc from "./ModalActEnc";
 
 // Head Board
 function AdminHomeHeader({user}) {
+
+  const [showModalActEnc, setShowModalActEnc] = useState(false);
+
+  // Datos que se tienen dentro del modal, es decir aquellos datos que le
+  // pertenecen a la materia que mandó a llamar al modal
+  const [modalData, setModalData] = useState({
+    clave: null,
+    nombre: null
+  });
+
+  const toggleModalActEnc = (claveElegida, nombreElegida) => {
+    console.log("ENTRO");
+    if (!showModalActEnc){
+      let newObject = {
+        clave: claveElegida,
+        nombre: nombreElegida,  
+      }
+      setModalData(newObject);
+    }
+    setShowModalActEnc(!showModalActEnc);
+  }
+
+
   return (
     <>
       {/* Title Welcome */}
@@ -19,27 +43,26 @@ function AdminHomeHeader({user}) {
 
       {/*Board options*/}
       <div className="grid md:navbar bg-base-100">        
-          {/*Limiter Option PASAR A MODAL DENTRO DE "ACTIVAR ENCUESTA"
-          <div className="flex-1">
-            <label className="input-group mx-2 w-fit" >
-                    <span className="text-xs md:text-base" >NUM. UEAS ENCUESTA</span>
-                    <input type="number" placeholder="Número" className="input input-bordered" />
-            </label>
-          </div>
-        */}
         {/*Group Buttons*/}
         <div className="flex-none">
           <ul className="menu menu-horizontal text-ml w-fit md:text-xl p-0">
             <li><a href="/admin/">Inicio</a></li>
             <li><a href="/admin/cursos/">Cursos</a></li>
             <li><a href="/admin/profesores/">Profesores</a></li>
-            <li><a href=".">Activar Encuesta</a></li>
+            <li><a href=".">Estadísticas</a></li>
             {/* Luis: se accede a esto a través de el Botón *Ver* */}
             {/* <li><a>Abrir UEAs</a></li> */}
-            <li><a href=".">Estadísticas</a></li>
+            <li onClick={() => {toggleModalActEnc()}}><a>Activar Encuesta</a></li>
           </ul>
         </div>
       </div>
+      
+      {showModalActEnc ? <ModalActEnc
+        modalData={modalData}
+        setShowModal={setShowModalActEnc}
+//        licenciaturas={licenciaturas}
+  //      setLicenciaturas={setLicenciaturas}
+          /> : null}
     </>
   );
 }
