@@ -29,10 +29,17 @@ function AdminHomeHeader({_user}) {
     setShowModalActEnc(!showModalActEnc);
   }
 
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    console.log(menuOpen);
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <>
       {/* Title Welcome */}
-      <div className="navbar bg-base-100 space-x-4">
+      <div className="navbar bg-base-100 space-x-4 flex flex-col md:flex-row">
         <div className="flex-none">
           <Logo24/>
         </div>
@@ -44,19 +51,34 @@ function AdminHomeHeader({_user}) {
       </div>
 
       {/*Board options*/}
-      <div className="grid md:navbar bg-base-100">        
+      <div className="grid md:navbar bg-base-100 justify-end">        
         {/*Group Buttons*/}
-        <div className="flex-none">
-          <ul className="menu menu-horizontal text-ml w-fit md:text-xl p-0">
+        <div className="dropdown md:hidden relative">
+          <div className="btn" onClick={() => {toggleMenu()}}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </div>
+          <ul className={`menu bg-base-100 shadow-lg rounded-md py-1 w-48 absolute right-0 z-10 ${menuOpen ? 'block' : 'hidden'}`}>
             <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
             <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
             <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
-            <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta">Activar Encuesta</Link></li>
+            <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModalActEnc()}}>Activar Encuesta</Link></li>
             {/* Luis: se accede a esto a través de el Botón *Ver* */}
             {/* <li><a>Abrir UEAs</a></li> */}
             <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
           </ul>
         </div>
+
+        <ul className="menu hidden md:flex items-center md:menu-horizontal text-ml w-fit md:text-xl p-0">
+          <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
+          <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
+          <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
+          <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModalActEnc()}}>Activar Encuesta</Link></li>
+          {/* Luis: se accede a esto a través de el Botón *Ver* */}
+          {/* <li><a>Abrir UEAs</a></li> */}
+          <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
+        </ul>
       </div>
       
       {showModalActEnc ? <ModalActEnc
