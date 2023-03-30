@@ -4,9 +4,7 @@ import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import ModalOpciones from "../AdminProfesores/ModalOpciones";
 import RowOptions from "../../components/RowOptions";
 import ModalConfirmacion from "../AdminProfesores/ModalConfirmacion";
-
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Buscador from "../common/buscador";
 
 
 function TablaProfesoresAdmin({ profesores, setProfesores }) {
@@ -85,20 +83,7 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
     <div id="tabla-materias"
           className="overflow-x-auto rounded-lg bg-base-400">
 
-        {/*//************* BARRA DE BUSQUEDA *************/}
-
-        <div className="relative w-full mb-4">
-          <input type="text" className="w-full input input-bordered"
-            placeholder="Buscar"
-            value={query}
-            onChange={handleInputChange}
-          />
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-          </div>
-        </div>
-        {/*//************* BARRA DE BUSQUEDA *************/}
-
+      <Buscador query={query} handleInputChange = {handleInputChange} />
 
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}

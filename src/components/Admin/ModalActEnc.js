@@ -9,14 +9,15 @@ import ContainerOpciones from "../ContainerOpciones";
 import { editLicenciatura } from "../../services/licenciaturas/editLicenciatura";
 
 function ModalActEnc({
-  modalData,
-  setModalData,
-  showModal,
   setShowModal,
   licenciaturas,
   setLicenciaturas
 }) {
-  
+  const [modalData,setModalData] = useState({
+    periodo: "",
+    maxMaterias: 4
+  })
+
   const [licName] = useState(modalData.nombre)
   const [licClave] = useState(modalData.clave)
 
@@ -62,7 +63,7 @@ function ModalActEnc({
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
-    if (modalData["clave"] === "" || modalData["nombre"] === ""){
+    if (modalData["periodo"] === "" || modalData["maxMaterias"] === ""){
       return true;
     } else {
       return false;
@@ -88,10 +89,8 @@ function ModalActEnc({
           <BtnCancelar functionOnClick={closeModal} />
         </div>
 
-        {/* El título del modal es el nombre de la licenciatura */}
         <h2 className="font-bold text-lg">
           ACTIVAR ENCUESTA</h2>
-        {/* También mostramos la clave de la licenciatura */}
         <p className="text-sm font-normal text-slate-500">
           (No podra modificar estos datos luego de activada la encuesta)</p>
         <br/>
@@ -101,7 +100,7 @@ function ModalActEnc({
         <ContainerOpciones 
             text={"Ingrese el periodo de la encuesta"}
             prop={"periodo"}
-            inputValue={""}
+            inputValue={modalData.periodo}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
@@ -110,7 +109,7 @@ function ModalActEnc({
         <ContainerOpciones 
             text={"Ingrese el numero maximo de materias"}
             prop={"maxMaterias"}
-            inputValue={"4"}
+            inputValue={modalData.maxMaterias}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 // Componentes
 import ModalAgregar from "../../components/AdminLic/ModalAgregar";
 import ModalConfirmacion from "../../components/AdminLic/ModalConfirmacion";
-import ModalEditar from "../../components/AdminLic/ModalEditar";
+import ModalEditar from "../../components/AdminLic/ModalEditarUea";
 
 // Utils
 import { getLicNameByClave } from "../../services/getLicNameByClave";
@@ -170,7 +170,7 @@ function AdminUeasTablaPage() {
           setMaterias={setMaterias}
           /> : null}
 
-        {/* Modal de Editar */}
+        {/* Modal de Editar UEA*/}
         {showModalEditar ? <ModalEditar
           modalData={modalData}
           setShowModalEditar={setShowModalEditar}

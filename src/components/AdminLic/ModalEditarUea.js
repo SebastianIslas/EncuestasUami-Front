@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 
 import Modal from "../Modal";
-import BtnCancelar from "../../components/BtnCancelar";
+import BtnCancelar from "../BtnCancelar";
 
 function ModalEditar({
   modalData,

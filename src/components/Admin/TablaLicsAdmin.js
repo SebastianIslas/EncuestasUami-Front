@@ -4,9 +4,8 @@ import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
 import ModalOpciones from "./ModalOpciones";
 import RowOptions from "../RowOptions.js";
 import ModalConfirmacion from "./ModalConfirmacion";
+import Buscador from "../common/buscador";
 
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
@@ -81,19 +80,7 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
     {/* Container de la tabla */}
     <div id="tabla-materias" className="overflow-x-auto rounded-lg bg-base-400">
 
-      {/*//************* BARRA DE BUSQUEDA *************/}
-
-      <div className="relative w-full mb-4">
-        <input type="text" className="w-full input input-bordered"
-          placeholder="Buscar"
-          value={query}
-          onChange={handleInputChange}
-        />
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-          <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-        </div>
-      </div>
-     {/*//************* BARRA DE BUSQUEDA *************/}
+      <Buscador query={query} handleInputChange = {handleInputChange} />
 
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}

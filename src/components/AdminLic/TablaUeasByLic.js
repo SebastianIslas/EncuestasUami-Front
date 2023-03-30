@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
+import Buscador from "../common/buscador";
 
 export function TablaUeasByLic({
   materias, handleCheckbox, toggleModalEditar, toggleModalEliminar
 }) {
+
+    ///************* BARRA DE BUSQUEDA *************/
+    const [query, setQuery] = useState("");
+
+    const handleInputChange = (event) => {
+      setQuery(event.target.value);
+    };
+  
+    const filteredData = Object.keys(materias).filter((key) => {
+      const materia = materias[key];
+      return (
+        materia.nombre.toLowerCase().includes(query.toLowerCase()) ||
+        materia.clave.toString().includes(query.toLowerCase())
+      );
+    }).map((key) => materias[key]);
+    ///************* BARRA DE BUSQUEDA *************/
+
+
   return (
     <div id="tabla-materias" className="overflow-x-auto rounded-lg pb-10">
+
+      <Buscador query={query} handleInputChange = {handleInputChange} />
+
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
@@ -15,7 +37,7 @@ export function TablaUeasByLic({
         {/* Cuerpo de la tabla */}
         <tbody>
           {/* Renglón */}
-          {materias.map(materia => <tr className="hover" key={materia.clave}>
+          {filteredData.map(materia => <tr className="hover" key={materia.clave}>
             {/* Checkbox */}
             <th className='w-8'>
               <div className="flex justify-center">
