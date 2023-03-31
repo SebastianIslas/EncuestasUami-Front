@@ -3,37 +3,47 @@ import React, {useState} from "react";
 
 import Modal from "../Modal";
 
-import { borrarUEA } from "../../services/deleteUea.js";
+//Services
+import { deleteCursoFromLic } from "../../services/licenciaturas/deleteCursoFromLic";
 
 
 function ModalConfirmacion({
   modalData,
-  setShowModalConfirmacion,
-  materias,
-  setMaterias
+  setShowModal,
+  cursos,
+  setCursos,
+  claveLic
 }) {
   
-  const [licName] = useState(modalData.nombre)
-  const [licClave] = useState(modalData.clave)
+  const [cursoName] = useState(modalData.nombre)
+  const [cursoClave] = useState(modalData.clave)
+
 
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
-  // guardar los datos en el objeto licenciaturasEncuesta y cierra el modal
+  // guardar los datos en el objeto cursosEncuesta y cierra el modal
   const closeModal = (e) => {
-    let newArray = [];
-
-    for (let i = 0; i < materias.length; i++){
-      if (materias[i].clave === licClave && materias[i].nombre === licName){
-        continue;
-      } else {
-        newArray.push(materias[i]);
-      }
+    //Verficamos que el boton con el que se llama no es el de "Cerrar"
+    if (e.target.className !== "btn btn-error"){      
+      /* Peticion al API */
+      deleteCursoFromLic(modalData, claveLic).then(res => {
+        console.log(res);
+        if (res.status == 200) {
+          let newCursos = cursos.filter((curso) => {
+              if (curso.clave !== cursoClave){
+                  return curso
+              }else{
+                  return null
+              }
+          })
+          setCursos(newCursos)
+        }
+        return res.json();
+      }).then(res => {  //Msg error o exito
+        alert(res.message)
+      }); 
     }
-
-    // Actualiza la lista de materias
-    setMaterias(newArray);
-    borrarUEA(30, licClave)
     // Cerramos el modal
-    setShowModalConfirmacion(false);
+    setShowModal(false);
   }
 
 
@@ -55,12 +65,12 @@ function ModalConfirmacion({
       <div className="modal-box bg-base-300 mx-auto">
 
         <h3 className="text-lg font-bold">
-            ¿Desea eliminar la <strong>{licName}</strong> con clave <strong>{licClave}</strong>?
+            ¿Desea eliminar la <strong>{cursoName}</strong> con clave <strong>{cursoClave}</strong>?
         </h3>
         <div className="modal-action justify-between">
 
         <label className="btn btn-error"
-                    onClick={() => {setShowModalConfirmacion(false)}}
+                    onClick={closeModal}
                     disabled={handleBtnAceptar()}>NO</label>
 
           <label className="btn btn-success"

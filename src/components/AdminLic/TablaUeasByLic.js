@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import Buscador from "../common/buscador";
 import RowOptions from "../../components/RowOptions.js";
+import ModalOpciones from "../AdminLic/ModalOpciones";
+import ModalConfirmacion from "../AdminLic/ModalConfirmacion";
 
 export function TablaUeasByLic({
-  cursos, setCursos
+  cursos, setCursos, claveLic
 }) {
+
+  console.log("TABLA", claveLic);
 
     ///************* BARRA DE BUSQUEDA *************/
     const [query, setQuery] = useState("");
@@ -24,7 +28,55 @@ export function TablaUeasByLic({
     ///************* BARRA DE BUSQUEDA *************/
 
 
+    // Controlar si se muestra el modal
+    const [showModal, setShowModal] = useState(false);
+    const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
+    // Datos que se tienen dentro del modal, es decir aquellos datos que le
+    // pertenecen a la materia que mandó a llamar al modal
+    const [modalData, setModalData] = useState({
+      clave: null,
+      nombre: null,
+      profesores: null
+    });
+
+
+    const toggleModal = (claveElegida, nombreElegida, tipoElegido) => {
+      // Vemos el estado de mostrar el modal
+      if (!showModal){
+        // Cremos un nuevo objeto para guardar los datos a usar en el modal
+        let newObject = {
+          // La clave de la materia que está en el renglón que mandó a llamar el
+          // modal
+          clave: claveElegida,
+          // Nombre del curso en el renglón que mandó a llamar el modal
+          nombre: nombreElegida,
+          tipo: tipoElegido
+          
+        }
+  
+        // Actualizamos los valores dentro del modal
+        setModalData(newObject);
+      }
+  
+      // Cambiar el estado del modal
+      setShowModal(!showModal);
+    }
+  
+    const toggleModalConfirmacion = (claveElegida, nombreElegida) => {
+      if (!showModalConfirmacion){
+        let newObject = {
+          clave: claveElegida,
+          nombre: nombreElegida,
+        }
+        setModalData(newObject);
+      }
+      setShowModalConfirmacion(!showModalConfirmacion);
+    }
+  
+
   return (
+    <React.Fragment>
+
     <div id="tabla-materias" className="overflow-x-auto rounded-lg pb-10">
 
       <Buscador query={query} handleInputChange = {handleInputChange} />
@@ -63,11 +115,30 @@ export function TablaUeasByLic({
             </td>
 
             <th>
-              <RowOptions objeto={{clave:curso.clave, nombre:curso.nombre}}/>
+              <RowOptions objeto={{clave:curso.clave, nombre:curso.nombre}}  toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
             </th>
           </tr>)}
         </tbody>
       </table>
+
+      {showModal ? <ModalOpciones
+          modalData={modalData}
+          setModalData={setModalData}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          claveLic = {claveLic}
+           /> : null}
+      
+      {showModalConfirmacion ? <ModalConfirmacion
+          modalData={modalData}
+          setShowModal={setShowModalConfirmacion}
+          cursos={cursos}
+          setCursos={setCursos}
+          claveLic = {claveLic}
+           /> : null}
+
     </div>
+    </React.Fragment>
+
   );
 }

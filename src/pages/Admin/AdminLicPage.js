@@ -108,7 +108,8 @@ function AdminUeasTablaPage() {
         {/* Tabla */}
         <TablaUeasByLic cursos={materias} 
           toggleModalEditar={toggleModalEditar} 
-          toggleModalEliminar={toggleModalEliminar}  />
+          toggleModalEliminar={toggleModalEliminar}
+          claveLic={claveLic}  />
 
         {/* Botones de enviar y activar */}
         <div className='flex justify-end gap-4 p-6 fixed bottom-4 right-4'>
@@ -131,6 +132,7 @@ function AdminUeasTablaPage() {
           setShowModalConfirmacion={setShowModalConfirmacion}
           materias={materias}
           setMaterias={setMaterias}
+          claveLic ={claveLic}
           /> : null}
 
         {/* Modal de Editar UEA (Profesores)*/}
