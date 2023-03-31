@@ -10,6 +10,7 @@ export function TablaUeasByLic({
 }) {
 
   console.log("TABLA", claveLic);
+    const [materias, setMaterias] = useState([]);
 
     ///************* BARRA DE BUSQUEDA *************/
     const [query, setQuery] = useState("");
@@ -108,8 +109,9 @@ export function TablaUeasByLic({
             {/* Campo del nombre del curso */}
             <td>
               <div className="text-md break-word font-bold">
+                {curso.profesores}
                 {curso.profesores.map(profesor=>{
-                  <p>profesor.nombre</p>                  
+                  <p>{profesor}</p>                  
                 })}
               </div>
             </td>

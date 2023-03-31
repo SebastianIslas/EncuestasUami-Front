@@ -20,8 +20,8 @@ function ModalOpciones({
   
   const [cursoNombre] = useState(modalData.nombre)
   const [cursoClave] = useState(modalData.clave)
+  const [profesores, setProfesores] = useState([]);
 
-  console.log(modalData);
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
   // guardar los datos en el objeto licenciaturasEncuesta y cierra el modal
   const closeModal = (e) => {
@@ -29,19 +29,6 @@ function ModalOpciones({
     if (e.target.className !== "btn btn-sm btn-circle"){
        /* Peticion al API */
        
-
-             /* Peticion al API */
-      getProfesoresFromCurso(cursoClave).then(res => {
-        if (res.status == 200) {
-          let arr = [...licenciaturas]
-          let foundIndex = arr.findIndex(x => x.clave === cursoClave);
-          arr[foundIndex] = modalData;   
-          setLicenciaturas(arr)
-        }
-        return res.json();
-      }).then(res => {  //Msg error o exito
-        alert(res.message)
-      });      
     }
     // Cerramos el modal
     setShowModal(false);
@@ -76,6 +63,14 @@ function ModalOpciones({
     copyObjectModalData[propiedad] = valor;
     setModalData(copyObjectModalData);
   }
+/*
+
+  getProfesoresFromCurso(cursoClave).then(res => {
+    setProfesores(res.profesores)
+
+    return res;
+  });
+*/
   return (
     <Modal>
       {/* Div que cubre toda la pantalla del modal */}
@@ -94,8 +89,10 @@ function ModalOpciones({
         <p className="text-sm font-normal text-slate-500">
           ({cursoClave})</p>
         <br/>
+        <h2 className="font-bold text-lg">
+          Profesores</h2>
 
-
+          
         {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
             text={"Ingrese el nombre correcto de la Licenciatura"}
@@ -115,11 +112,6 @@ function ModalOpciones({
             />
 
         <div className="modal-action justify-between">
-          {/* Alguna información de ayuda para el usuario */}
-          <div className="text-xs font-normal text-slate-500">
-            <p>Va a cambiar el nombre de la UEA</p>
-            <p>Debe seleccionar el botón Guardar </p>
-          </div>
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
           <label className="btn btn-primary"

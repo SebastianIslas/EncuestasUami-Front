@@ -7,7 +7,6 @@ export function getLicNameByClave(claveLic) {
   })
   .then(response => response.json())
   .then(res => {
-    console.log(res);
     return res;
   }).catch(err => {
     console.warn("Posible fallo de conexion")

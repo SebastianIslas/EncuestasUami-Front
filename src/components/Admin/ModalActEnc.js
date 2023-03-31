@@ -6,7 +6,7 @@ import BtnCancelar from "../BtnCancelar";
 import ContainerOpciones from "../ContainerOpciones";
 
 //Services
-import { editLicenciatura } from "../../services/licenciaturas/editLicenciatura";
+import { activarEnc } from "../../services/encuestas/activarEnc.js";
 
 function ModalActEnc({
   setShowModal,
@@ -28,22 +28,9 @@ function ModalActEnc({
     //Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
        /* Peticion al API */
-       
-
-             /* Peticion al API */
-             /*
-      editLicenciatura(licClave, modalData).then(res => {
-        if (res.status == 200) {
-          let arr = [...licenciaturas]
-          let foundIndex = arr.findIndex(x => x.clave === licClave);
-          arr[foundIndex] = modalData;   
-          setLicenciaturas(arr)
-        }
-        return res.json();
-      }).then(res => {  //Msg error o exito
+       activarEnc(modalData).then(res => {
         alert(res.message)
       });      
-      */
     }
     // Cerramos el modal
     setShowModal(false);

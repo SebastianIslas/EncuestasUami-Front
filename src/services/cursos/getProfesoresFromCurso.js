@@ -2,12 +2,11 @@ const ENDPOINT = process.env.REACT_APP_ENDPOINT_API;
 
 
 export function getProfesoresFromCurso (licenciatura_id) {
-  return fetch(`${ENDPOINT}/administrador//licenciatura/materias/consultarProfesores/`+licenciatura_id, {
+  return fetch(`${ENDPOINT}/administrador/licenciatura/materias/consultarProfesores/`+licenciatura_id, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   }).then(response => response.json())
   .then(res => {
-    console.log(res);
     return res;
   }).catch(err => {
     console.warn("Posible fallo de conexion")
