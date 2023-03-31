@@ -6,14 +6,14 @@ import ModalAgregar from "../../components/AdminLic/ModalAgregar";
 import ModalConfirmacion from "../../components/AdminLic/ModalConfirmacion";
 import ModalEditar from "../../components/AdminLic/ModalEditarUea";
 
-// Utils
-import { getLicNameByClave } from "../../services/getLicNameByClave";
+
 import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
 import Button from "../../components/Button";
 import { TablaUeasByLic } from "../../components/AdminLic/TablaUeasByLic";
 
 // Services
-import { getUEASByLic } from "../../services/getUeasByLic.js";
+import { getLicNameByClave } from "../../services/licenciaturas/getLicNameByClave";
+import { getCursos } from "../../services/cursos/getCursos";
 
 function AdminUeasTablaPage() {
 
@@ -27,7 +27,8 @@ function AdminUeasTablaPage() {
 
   // Lista de materias en la licenciatura elegida
   const [materias, setMaterias] = useState([]);
-
+  //Lista de cursos completa para agregar a la lic.
+  const [cursosAgregar, setCursosAgregar] = useState([]);
   // Nombre de la licenciatura
   const [licNombre, setLicNombre] = useState("Nombre Licenciaturas");
 
@@ -48,6 +49,7 @@ function AdminUeasTablaPage() {
 
   // Mostrar/Ocultar el modal de Agregar
   const toggleModalAgregar = () => {
+    getCursos().then(setCursosAgregar);
     setShowModalAgregar(!showModalAgregar);
   }
 
@@ -82,55 +84,16 @@ function AdminUeasTablaPage() {
     setShowModalEditar(!showModalEditar);
   }
 
-  // Cambiar el estado de Activa de una materia
-  const handleCheckbox = (clave, nombre) => {
-    // Array para cambiar los datos
-    let newArray = [];
-
-    // Recorremos las materias para encontrar la que tenemos que cambiar
-    for (let i = 0; i < materias.length; i++){
-      if (materias[i].clave === clave && materias[i].nombre === nombre){
-        // Si la materia es la que cambiamos, actualizar el campo de Activa
-        newArray.push({
-          clave: clave,
-          nombre: nombre,
-          activa: !materias[i].activa
-        })
-      } else {
-        // Si no es la materia que buscamos la pasamos sin cambiar
-        newArray.push(materias[i]);
-      }
-    }
-
-    // Actualiza la lista de materias
-    setMaterias(newArray);
-  }
-
-  // Función a ejecutar al presionar el botón Activar Ueas
-  // Se va enviar toda la lista de "materias"
-  const activarUeas = () => {
-    // TODO: aquí debe haber un servicio que envie todas las materias a la API
-    // De paso poner un mensajito via un modal de que se activaron las UEAs.
-    console.log("Se activaron las UEAs seleccionadas");
-  }
-
   // Obtener datos
   useEffect(() => {
     // Cambiar el nombre en la pestaña del navegador
     document.title = "Panel de Administracion";
-
-    // Función que obtiene los datos de la API
-    //setMaterias(getUeasByLic(claveLic));
-    getUEASByLic(30).then(setMaterias)
-    
     // Obtener el Nombre de la Licenciatura por su clave
-    console.log(getLicNameByClave(claveLic));
-    setLicNombre(getLicNameByClave(claveLic));
+    getLicNameByClave(claveLic).then(lic =>{
+      setLicNombre(lic.nombre);
+      setMaterias(lic.cursos);
+    });
   }, [claveLic]);
-
-  // useEffect(() => {
-  //   console.log(materias)
-  // }, [materias]);
 
   return (
     <div className="bg-base-200">
@@ -143,23 +106,23 @@ function AdminUeasTablaPage() {
           <p>Aquí puedes agregar, eliminar, editar y abrir materias/UEAs</p>
         </div>
         {/* Tabla */}
-        <TablaUeasByLic 
-          materias={materias} 
-          handleCheckbox={handleCheckbox} 
+        <TablaUeasByLic cursos={materias} 
           toggleModalEditar={toggleModalEditar} 
           toggleModalEliminar={toggleModalEliminar}  />
 
         {/* Botones de enviar y activar */}
         <div className='flex justify-end gap-4 p-6 fixed bottom-4 right-4'>
           <Button onClick={toggleModalAgregar} text={"Agregar UEA"} />
-          <Button onClick={activarUeas} text={"Activar UEAs seleccionadas"} />
         </div>
 
         {/* Modal de Agregar */}
         {showModalAgregar ? <ModalAgregar
           setShowModalAgregar={setShowModalAgregar}
-          materias={materias}
-          setMaterias={setMaterias}
+          cursosLic={materias}  //Cursos de la lic
+          setCursosLic={setMaterias}
+          materias={cursosAgregar}  //Todos los cursos
+          setMaterias={setCursosAgregar}
+          claveLic={claveLic}
             /> : null}
 
         {/* Modal de Eliminar */}
@@ -170,7 +133,7 @@ function AdminUeasTablaPage() {
           setMaterias={setMaterias}
           /> : null}
 
-        {/* Modal de Editar UEA*/}
+        {/* Modal de Editar UEA (Profesores)*/}
         {showModalEditar ? <ModalEditar
           modalData={modalData}
           setShowModalEditar={setShowModalEditar}

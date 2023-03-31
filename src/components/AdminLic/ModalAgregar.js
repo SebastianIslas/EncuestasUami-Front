@@ -4,29 +4,52 @@ import React, {useState} from "react";
 import Modal from "../Modal";
 import BtnCancelar from "../../components/BtnCancelar";
 import ContainerOpciones from "./ContainerOpciones";
-import { addUEA } from "../../services/addUea.js";
 
+//Services
+import { addUEAtoLic } from "../../services/licenciaturas/addUea.js";
+import { getLicNameByClave } from "../../services/licenciaturas/getLicNameByClave";
 
 
 function ModalAgregar({
   setShowModalAgregar,
   materias,
-  setMaterias
+  setMaterias,
+  cursosLic,
+  setCursosLic,
+  claveLic
 }) {
   
   const [modalData,setModalData] = useState({
     clave: "",
     nombre: ""
   })
-
+  //** Lista cursos, opc seleccionada */
+  const [selectedValue, setSelectedValue] = useState("");
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    console.log(event.target.name);
+    setSelectedValue(event.target.value);
+  };
 
   const closeModal = (e) => {
     // Verficamos que el boton con el que se llama no es el de "Cerrar"
     if (e.target.className !== "btn btn-sm btn-circle"){
-       let newMaterias=[...materias]
-       newMaterias.push(modalData)
-       setMaterias(newMaterias)
-       addUEA(modalData.nombre, modalData.clave, 30)
+      if(selectedValue == ""){
+        alert("No se ha seleccionado algun curso");
+      }else{
+        addUEAtoLic(selectedValue, claveLic).then(res => {
+          if (res.status == 200) {
+            getLicNameByClave(claveLic).then(lic =>{
+              setCursosLic(lic.cursos);
+            });
+            return res.json();
+          }
+        }).then(res => {  //Msg error o exito
+          alert(res.message)
+        });
+        console.log("AGREGO UEA");
+        console.log(selectedValue);
+      }
     }
     // Cerramos el modal
     setShowModalAgregar(false);
@@ -42,15 +65,6 @@ function ModalAgregar({
     }
   }
   
-  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
-  // se deja pulsar el botón de guardar opciones elegidas.
-  const handleBtnAceptar = () => {
-    if (modalData["clave"] === "" || modalData["nombre"] === ""){
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   // Función que permite cambiar dentro del modal los valores de cada propiedad
   // o campo relacionado con la encuesta
@@ -74,30 +88,20 @@ function ModalAgregar({
           <BtnCancelar functionOnClick={closeModal} />
         </div>
 
-       
-        {/* Segunda propiedad: horario --> id */}
-        <ContainerOpciones 
-            text={"Ingrese la clave de la nueva UEA"}
-            prop={"clave"}
-            inputValue={modalData.clave}
-            handleClassBtnModal={handleClassBtnModal}
-            changePropModal={changePropModal}
-            />
-
-        {/* Primera propiedad: modalidad  --> nombre  */}
-        <ContainerOpciones 
-            text={"Ingrese el nombre de la nueva UEA"}
-            prop={"nombre"}
-            inputValue={modalData.nombre}
-            handleClassBtnModal={handleClassBtnModal}
-            changePropModal={changePropModal}
-            />
+        <div className="form-control">
+          <label htmlFor="dropdown" className="text-xl pb-2">Selecciona el curso a agaregar:</label>
+          <select id="dropdown" value={selectedValue} onChange={handleChange} className="bg-base-300 text-white p-2 rounded-lg text-base">
+            <option value="">UEA</option>
+            {materias.map (materia => 
+              <option value={materia.clave} key={materia.clave}>{materia.nombre}</option>
+            )}
+          </select>
+        </div>
 
         <div className="modal-action text-right">
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
           <label className="btn btn-primary"
-                    onClick={closeModal}
-                    disabled={handleBtnAceptar()}>Agregar</label>
+                    onClick={closeModal}>Agregar</label>
         </div>
       </div>
       </div>

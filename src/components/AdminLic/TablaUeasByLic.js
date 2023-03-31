@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import Buscador from "../common/buscador";
+import RowOptions from "../../components/RowOptions.js";
 
 export function TablaUeasByLic({
-  materias, handleCheckbox, toggleModalEditar, toggleModalEliminar
+  cursos, setCursos
 }) {
 
     ///************* BARRA DE BUSQUEDA *************/
@@ -13,13 +14,13 @@ export function TablaUeasByLic({
       setQuery(event.target.value);
     };
   
-    const filteredData = Object.keys(materias).filter((key) => {
-      const materia = materias[key];
+    const filteredData = Object.keys(cursos).filter((key) => {
+      const curso = cursos[key];
       return (
-        materia.nombre.toLowerCase().includes(query.toLowerCase()) ||
-        materia.clave.toString().includes(query.toLowerCase())
+        curso.nombre.toLowerCase().includes(query.toLowerCase()) ||
+        curso.clave.toString().includes(query.toLowerCase())
       );
-    }).map((key) => materias[key]);
+    }).map((key) => cursos[key]);
     ///************* BARRA DE BUSQUEDA *************/
 
 
@@ -31,60 +32,38 @@ export function TablaUeasByLic({
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
-          <TitleRowTablaMaterias titles={["Activa", "Clave", "Nombre", ""]} />
+          <TitleRowTablaMaterias titles={["Clave", "Nombre", "Profesores", ""]} />
         </thead>
 
         {/* Cuerpo de la tabla */}
         <tbody>
           {/* Renglón */}
-          {filteredData.map(materia => <tr className="hover" key={materia.clave}>
-            {/* Checkbox */}
-            <th className='w-8'>
-              <div className="flex justify-center">
-                <input
-                  type="checkbox"
-                  className="checkbox" // Nombre de cada checkbox
-                  name={materia.clave.toString()} // Hacer check si está en la lista de materias
-                  checked={materia.activa} // Función que altera la lista de materia
-                  onChange={() => { handleCheckbox(materia.clave, materia.nombre); }} />
-              </div>
-            </th>
+          {filteredData.map(curso => <tr className="hover" key={curso.clave}>
 
             {/* Campo de la clave de la materia */}
             <td>
               <p className="text-md opacity-80">
-                {materia.clave}</p>
+                {curso.clave}</p>
             </td>
 
             {/* Campo del nombre de la materia */}
             <td className="break-words">
               <p className="text-md font-bold whitespace-pre-wrap">
-                {materia.nombre}</p>
+                {curso.nombre}</p>
+            </td>
+            
+            {/* Campo de profesores de la materia */}
+            {/* Campo del nombre del curso */}
+            <td>
+              <div className="text-md break-word font-bold">
+                {curso.profesores.map(profesor=>{
+                  <p>profesor.nombre</p>                  
+                })}
+              </div>
             </td>
 
-            {/* Botones */}
             <th>
-              <div className='flex justify-end gap-2'>
-                {/* Botón Editar */}
-                <button
-                  className="btn btn-primary
-                              btn-xs sm:btn-sm md:btn-md
-                              before:content-['✎']
-                              md:before:content-['Editar']
-                              w-8 md:w-24 right-0"
-                  onClick={() => { toggleModalEditar(materia.clave, materia.nombre); }}>
-                </button>
-                {/* Botón Eliminar */}
-                <button
-                  className="btn btn-primary
-                              btn-xs sm:btn-sm md:btn-md
-                              before:content-['✖']
-                              md:before:content-['Eliminar']
-                              w-8 md:w-24 right-0"
-                  onClick={() => { toggleModalEliminar(materia.clave, materia.nombre); }}>
-
-                </button>
-              </div>
+              <RowOptions objeto={{clave:curso.clave, nombre:curso.nombre}}/>
             </th>
           </tr>)}
         </tbody>
