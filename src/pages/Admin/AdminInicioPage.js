@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Button from '../../components/Button';
+import Button from '../../components/common/Button';
 import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
 import TablaLicsAdmin from "../../components/Admin/TablaLicsAdmin";
 import ModalAgregar from "../../components/Admin/ModalAgregar.js";

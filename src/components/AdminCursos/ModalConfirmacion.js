@@ -1,7 +1,7 @@
 // TODO: separar los botones en más componentes
 import React, {useState} from "react";
 
-import Modal from "../Modal";
+import Modal from "../common/modal/Modal";
 
 //Services
 import { deleteCurso } from "../../services/cursos/deleteCurso";

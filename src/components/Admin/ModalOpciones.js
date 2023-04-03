@@ -1,9 +1,10 @@
 // TODO: separar los botones en más componentes
 import React, {useState} from "react";
 
-import Modal from "../Modal";
-import BtnCancelar from "../BtnCancelar";
-import ContainerOpciones from "../ContainerOpciones";
+import Modal from "../common/modal/Modal";
+import Btn from "../common/Button";
+import BtnCancelar from "../common/BtnCancelar";
+import ContainerOpciones from "../common/modal/ContainerOpciones";
 
 //Services
 import { editLicenciatura } from "../../services/licenciaturas/editLicenciatura";
@@ -121,9 +122,7 @@ function ModalOpciones({
           </div>
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <label className="btn btn-primary"
-                    onClick={closeModal}
-                    disabled={handleBtnAceptar()}>Guardar</label>
+          <Btn onClick={closeModal} disabled={handleBtnAceptar()} text={"Guardar"} />
         </div>
       </div>
       </div>

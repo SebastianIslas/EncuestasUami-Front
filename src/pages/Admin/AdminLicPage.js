@@ -8,7 +8,7 @@ import ModalEditar from "../../components/AdminLic/ModalEditarUea";
 
 
 import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
-import Button from "../../components/Button";
+import Button from '../../components/common/Button';
 import { TablaUeasByLic } from "../../components/AdminLic/TablaUeasByLic";
 
 // Services

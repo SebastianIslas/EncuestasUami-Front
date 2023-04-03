@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { Link } from "react-router-dom";
-import Button from '../components/Button';
+import Button from './Button';
 import { faEye, faTrashCan, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

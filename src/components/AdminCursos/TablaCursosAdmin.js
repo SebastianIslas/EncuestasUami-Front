@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import ModalOpciones from "../AdminCursos/ModalOpciones";
-import RowOptions from "../../components/RowOptions.js";
+import RowOptions from "../common/RowOptions.js";
 import ModalConfirmacion from "../AdminCursos/ModalConfirmacion";
 import Buscador from "../common/buscador";
 

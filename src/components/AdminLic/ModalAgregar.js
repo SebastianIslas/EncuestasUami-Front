@@ -1,9 +1,9 @@
 // TODO: separar los botones en más componentes
 import React, {useState} from "react";
 
-import Modal from "../Modal";
-import BtnCancelar from "../../components/BtnCancelar";
-import ContainerOpciones from "./ContainerOpciones";
+import Modal from "../common/modal/Modal";
+import BtnCancelar from "../common/BtnCancelar";
+import Btn from "../common/Button";
 
 //Services
 import { addUEAtoLic } from "../../services/licenciaturas/addUea.js";
@@ -100,8 +100,8 @@ function ModalAgregar({
 
         <div className="modal-action text-right">
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <label className="btn btn-primary"
-                    onClick={closeModal}>Agregar</label>
+          <Btn onClick={closeModal} text={"Agregar"} />
+
         </div>
       </div>
       </div>
