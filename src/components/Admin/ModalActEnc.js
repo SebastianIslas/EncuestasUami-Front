@@ -5,6 +5,7 @@ import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
+import {handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
 
 //Services
 import { activarEnc } from "../../services/encuestas/activarEnc.js";
@@ -23,38 +24,13 @@ function ModalActEnc({
   const [licClave] = useState(modalData.clave)
 
 
-  // Función a ejecutar al presionar el botón dentro del modal, se encargar de
-  // guardar los datos en el objeto licenciaturasEncuesta y cierra el modal
-  const closeModal = (e) => {
-    //Verficamos que el boton con el que se llama no es el de "Cerrar"
-    if (e.target.className !== "btn btn-sm btn-circle"){
-       /* Peticion al API */
-       activarEnc(modalData).then(res => {
-        alert(res.message)
-      });      
-    }
-    // Cerramos el modal
+  const fetch = () => {
+    activarEnc(modalData).then(res => {
+      alert(res.message)
+    });      
     setShowModal(false);
   }
-  
-  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
-  // se deja pulsar el botón de guardar opciones elegidas.
-  const handleBtnAceptar = () => {
-    if (modalData["periodo"] === "" || modalData["maxMaterias"] === ""){
-      return true;
-    } else {
-      return false;
-    }
-  }
 
-  // Función que permite cambiar dentro del modal los valores de cada propiedad
-  // o campo relacionado con la encuesta
-  const changePropModal = (propiedad, valor) => {
-    let copyObjectModalData = {...modalData};
-
-    copyObjectModalData[propiedad] = valor;
-    setModalData(copyObjectModalData);
-  }
   return (
     <Modal>
       {/* Div que cubre toda la pantalla del modal */}
@@ -63,7 +39,7 @@ function ModalActEnc({
       <div className="modal-box bg-base-300 mx-auto">
         {/* Botón cerrar/cancelar */}
         <div className="absolute right-2 top-2">
-          <BtnCancelar functionOnClick={closeModal} />
+          <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
         <h2 className="font-bold text-lg">
@@ -79,6 +55,8 @@ function ModalActEnc({
             prop={"periodo"}
             inputValue={modalData.periodo}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         {/* Segunda propiedad: horario --> id */}
@@ -87,6 +65,8 @@ function ModalActEnc({
             prop={"maxMaterias"}
             inputValue={modalData.maxMaterias}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         <div className="modal-action justify-between">
@@ -97,7 +77,7 @@ function ModalActEnc({
           </div>
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={closeModal} disabled={handleBtnAceptar()} text={"Activar"} />
+          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Activar"} />
         </div>
       </div>
       </div>

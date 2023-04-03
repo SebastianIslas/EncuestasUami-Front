@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
+import {handleBtnAceptar} from "../common/modal/modalEvents";
 
 function ModalEditar({
   modalData,
@@ -20,7 +21,7 @@ function ModalEditar({
 
   // Función a ejecutar al presionar el botón dentro del modal, se encargar de
   // guardar los datos en el objeto licenciaturasEncuesta y cierra el modal
-  const closeModal = (e) => {
+  const fetch = () => {
     let newArray = [];
 
     for (let i = 0; i < materias.length; i++){
@@ -34,33 +35,11 @@ function ModalEditar({
         newArray.push(materias[i]);
       }
     }
-
     // Actualiza la lista de materias
     setMaterias(newArray);
-
     // Cerramos el modal
     setShowModalEditar(false);
   }
-
-
-  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
-  // se deja pulsar el botón de guardar opciones elegidas.
-  const handleBtnAceptar = () => {
-    if (licClave === "" || licName === ""){
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // Función que permite cambiar dentro del modal los valores de cada propiedad
-  // o campo relacionado con la encuesta
-  // const changePropModal = (propiedad, valor) => {
-  //   let copyObjectModalData = {...modalData};
-
-  //   copyObjectModalData[propiedad] = valor;
-  //   setModalData(copyObjectModalData);
-  // }
 
   return (
     <Modal>
@@ -106,7 +85,7 @@ function ModalEditar({
 
         <div className="modal-action text-right">
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={closeModal} disabled={handleBtnAceptar()} text={"Aceptar"} />
+          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Aceptar"} />
         </div>
 
       </div>

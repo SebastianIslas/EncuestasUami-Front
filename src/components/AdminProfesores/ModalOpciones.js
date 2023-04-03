@@ -5,6 +5,7 @@ import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
+import {handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
 
 //Services
 import { editProfesor } from "../../services/profesores/editProfesor";
@@ -22,50 +23,22 @@ function ModalOpciones({
   const [profesorClave] = useState(modalData.claveEmpleado)
 
 
-  // Función a ejecutar al presionar el botón dentro del modal, se encargar de
-  // guardar los datos en el objeto cursoEncuesta y cierra el modal
-  const closeModal = (e) => {
-    //Verficamos que el boton con el que se llama no es el de "Cerrar"
-    if (e.target.className !== "btn btn-sm btn-circle"){
-       console.log(modalData);
-       /* Peticion al API */
-
-      editProfesor(profesorClave, modalData).then(res => {
-        if (res.status == 200) {
-          let arr = [...profesores]
-          let foundIndex = arr.findIndex(x => x.claveEmpleado === profesorClave);
-          arr[foundIndex] = modalData;
-          console.log(arr);
-          setProfesores(arr)
-        }
-        return res.json();
-      }).then(res => {  //Msg error o exito
-        alert(res.message)
-      });    
-       
-    }
-    // Cerramos el modal
+  const fetch = () => {
+    editProfesor(profesorClave, modalData).then(res => {
+      if (res.status == 200) {
+        let arr = [...profesores]
+        let foundIndex = arr.findIndex(x => x.claveEmpleado === profesorClave);
+        arr[foundIndex] = modalData;
+        console.log(arr);
+        setProfesores(arr)
+      }
+      return res.json();
+    }).then(res => {  //Msg error o exito
+      alert(res.message)
+    });    
     setShowModal(false);
   }
 
-  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
-  // se deja pulsar el botón de guardar opciones elegidas.
-  const handleBtnAceptar = () => {
-    if (modalData["claveEmpleado"] === "" || modalData["nombre"] === ""){
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // Función que permite cambiar dentro del modal los valores de cada propiedad
-  // o campo relacionado con la encuesta
-  const changePropModal = (propiedad, valor) => {
-    let copyObjectModalData = {...modalData};
-
-    copyObjectModalData[propiedad] = valor;
-    setModalData(copyObjectModalData);
-  }
   return (
     <Modal>
       {/* Div que cubre toda la pantalla del modal */}
@@ -74,7 +47,7 @@ function ModalOpciones({
       <div className="modal-box bg-base-300 mx-auto">
         {/* Botón cerrar/cancelar */}
         <div className="absolute right-2 top-2">
-          <BtnCancelar functionOnClick={closeModal} />
+          <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
         {/* El título del modal es el nombre del curso */}
@@ -85,13 +58,14 @@ function ModalOpciones({
           ({profesorClave})</p>
         <br/>
 
-
         {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
             text={"Ingrese el nuevo nombre del curso"}
             prop={"nombre"}
             inputValue={modalData.nombre}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         {/* Segunda propiedad: horario --> id */}
@@ -100,6 +74,8 @@ function ModalOpciones({
             prop={"claveEmpleado"}
             inputValue={modalData.claveEmpleado}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         <div className="modal-action justify-between">
@@ -110,7 +86,7 @@ function ModalOpciones({
           </div>
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={closeModal} disabled={handleBtnAceptar()} text={"Guardar"} />
+          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Guardar"} />
         </div>
       </div>
       </div>

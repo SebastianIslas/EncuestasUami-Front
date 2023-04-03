@@ -5,6 +5,7 @@ import Modal from "../common/modal/Modal";
 import Btn from "../common/Button";
 import BtnCancelar from "../common/BtnCancelar";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
+import {handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
 
 //services
 import { crearProfesor } from "../../services/profesores/crearProfesor";
@@ -22,45 +23,20 @@ function ModalAgregar({
   })
 
 
-  const closeModal = (e) => {
-    //Verficamos que el boton con el que se llama no es el de "Cerrar"
-    if (e.target.className !== "btn btn-sm btn-circle"){
-      
-      crearProfesor(modalData).then(res => {
-        if (res.status == 200) {
-          let newProfesores=[...profesores]
-          newProfesores.push(modalData)
-          setProfesores(newProfesores)
-        }
-        return res.json();
-      }).then(res => {  //Msg error o exito
-        alert(res.message)
-      });
-
-    }
-    // Cerramos el modal
+  const fetch = () => {
+    crearProfesor(modalData).then(res => {
+      if (res.status == 200) {
+        let newProfesores=[...profesores]
+        newProfesores.push(modalData)
+        setProfesores(newProfesores)
+      }
+      return res.json();
+    }).then(res => {  //Msg error o exito
+      alert(res.message)
+    });
     setShowModal(false);
   }
 
-
-  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
-  // se deja pulsar el botón de guardar opciones elegidas.
-  const handleBtnAceptar = () => {
-    if (modalData["claveEmpleado"] === "" || modalData["nombre"] === ""){
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // Función que permite cambiar dentro del modal los valores de cada propiedad
-  // o campo relacionado con la encuesta
-  const changePropModal = (propiedad, valor) => {
-    let copyObjectModalData = {...modalData};
-
-    copyObjectModalData[propiedad] = valor;
-    setModalData(copyObjectModalData);
-  }
   return (
     <Modal>
       {/* Div que cubre toda la pantalla del modal */}
@@ -69,7 +45,7 @@ function ModalAgregar({
       <div className="modal-box bg-base-300 mx-auto">
         {/* Botón cerrar/cancelar */}
         <div className="absolute right-2 top-2">
-          <BtnCancelar functionOnClick={closeModal} />
+          <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
        
@@ -79,6 +55,8 @@ function ModalAgregar({
             prop={"claveEmpleado"}
             inputValue={modalData.claveEmpleado}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         {/* Primera propiedad: modalidad  --> nombre  */}
@@ -87,11 +65,13 @@ function ModalAgregar({
             prop={"nombre"}
             inputValue={modalData.nombre}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         <div className="modal-action justify-between">
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={closeModal} disabled={handleBtnAceptar()} text={"Agregar"} />
+          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Agregar"} />
         </div>
       </div>
       </div>

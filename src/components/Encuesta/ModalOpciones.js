@@ -18,7 +18,7 @@ function ModalOpciones({
   listaClavesEncuesta,
   setListaClavesEncuesta
 }) {
-
+  //Solo guarda el estado del modal, el fetch se hace de otro boton
   const guardarModal = () => {
     // Copiamos el objeto de materiasEncuesta
     let copyMateriasEncuesta = {...materiasEncuesta};
