@@ -5,7 +5,8 @@ function ContainerOpciones({
   prop,
   opciones,
   handleClassBtnModal,
-  changePropModal
+  changePropModal,
+  modalData
 }){
   return (<div>
     <p className="text-sm pb-2">
@@ -15,7 +16,7 @@ function ContainerOpciones({
     {/* Grupo de botones relacionados con la modalidad del curso */}
     <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
       {opciones.map(opcion =>
-      <button key={opcion} className={handleClassBtnModal(prop, opcion)}
+      <button key={opcion} className={handleClassBtnModal(modalData, prop, opcion)}
                 onClick={() => {
                   changePropModal(prop, opcion)}}>
         {opcion}</button>

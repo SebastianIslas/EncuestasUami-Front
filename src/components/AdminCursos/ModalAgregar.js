@@ -5,6 +5,7 @@ import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
+import { handleBtnAceptar } from "../common/modal/modalEvents";
 
 //services
 import { crearCurso } from "../../services/cursos/crearCurso";
@@ -44,27 +45,6 @@ function ModalAgregar({
     setShowModal(false);
   }
 
-
-  const handleClassBtnModal = (propiedad, valor) => {
-    // Si la opción en esa propiedad ha sido elegida activamos el botón
-    if (modalData[propiedad] === valor){
-      return "btn btn-active btn-accent";
-    // Desactivamos el botón si no está elegida esa opción
-    } else {
-      return "btn btn-active btn-ghost";
-    }
-  }
-
-  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
-  // se deja pulsar el botón de guardar opciones elegidas.
-  const handleBtnAceptar = () => {
-    if (modalData["clave"] === "" || modalData["nombre"] === "" || modalData["tipo"] === ""){
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   // Función que permite cambiar dentro del modal los valores de cada propiedad
   // o campo relacionado con la encuesta
   const changePropModal = (propiedad, valor) => {
@@ -90,7 +70,6 @@ function ModalAgregar({
             text={"Ingrese la clave del nuevo curso"}
             prop={"clave"}
             inputValue={modalData.clave}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
@@ -99,7 +78,6 @@ function ModalAgregar({
             text={"Ingrese el nombre del nuevo curso"}
             prop={"nombre"}
             inputValue={modalData.nombre}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
@@ -107,14 +85,13 @@ function ModalAgregar({
             text={"Ingrese el tipo del curso: (Obligatoria, Optativa)"}
             prop={"tipo"}
             inputValue={modalData.tipo}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
         <div className="modal-action justify-between">
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={closeModal} disabled={handleBtnAceptar()} text={"Agregar"} />
+          <Btn onClick={closeModal} disabled={handleBtnAceptar(modalData)} text={"Agregar"} />
         </div>
       </div>
       </div>

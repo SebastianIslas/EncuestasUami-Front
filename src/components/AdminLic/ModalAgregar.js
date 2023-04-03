@@ -55,17 +55,6 @@ function ModalAgregar({
     setShowModalAgregar(false);
   }
 
-  const handleClassBtnModal = (propiedad, valor) => {
-    // Si la opción en esa propiedad ha sido elegida activamos el botón
-    if (modalData[propiedad] === valor){
-      return "btn btn-active btn-accent";
-    // Desactivamos el botón si no está elegida esa opción
-    } else {
-      return "btn btn-active btn-ghost";
-    }
-  }
-  
-
   // Función que permite cambiar dentro del modal los valores de cada propiedad
   // o campo relacionado con la encuesta
   const changePropModal = (propiedad, valor) => {

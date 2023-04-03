@@ -5,6 +5,8 @@ import Modal from "../common/modal/Modal";
 import BtnCancelar from "./BtnCancelar";
 import Btn from "../common/Button";
 import ContainerOpciones from "./ContainerOpciones";
+import {handleClassBtnModal2} from "../common/modal/modalEvents";
+
 
 function ModalOpciones({
   modalData,
@@ -56,6 +58,11 @@ function ModalOpciones({
   // basa en tomar una propiedad (modalidad o horario) y también considera el
   // valor de esa proiedad
   const handleClassBtnModal = (propiedad, valor) => {
+    console.log("modalData", modalData);
+    console.log("propiedad", propiedad);
+    console.log("valor", valor);
+
+
     // Si la opción en esa propiedad ha sido elegida activamos el botón
     if (modalData[propiedad] === valor){
       return "btn btn-active btn-accent";
@@ -109,8 +116,9 @@ function ModalOpciones({
             text={"¿En qué modalidad te gustaría que se abriera esta UEA?"}
             prop={"modalidad"}
             opciones={["Presencial", "Virtual"]}
-            handleClassBtnModal={handleClassBtnModal}
+            handleClassBtnModal={handleClassBtnModal2}
             changePropModal={changePropModal}
+            modalData={modalData}
             />
 
         {/* Segunda propiedad: horario */}

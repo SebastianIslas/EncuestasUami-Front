@@ -47,17 +47,6 @@ function ModalOpciones({
     setShowModal(false);
   }
 
-
-  const handleClassBtnModal = (propiedad, valor) => {
-    // Si la opción en esa propiedad ha sido elegida activamos el botón
-    if (modalData[propiedad] === valor){
-      return "btn btn-active btn-accent";
-    // Desactivamos el botón si no está elegida esa opción
-    } else {
-      return "btn btn-active btn-ghost";
-    }
-  }
-
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
@@ -101,7 +90,6 @@ function ModalOpciones({
             text={"Ingrese el nombre correcto de la Licenciatura"}
             prop={"nombre"}
             inputValue={modalData.nombre}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
@@ -110,7 +98,6 @@ function ModalOpciones({
             text={"Ingrese el ID correcto de la Licenciatura"}
             prop={"clave"}
             inputValue={modalData.clave}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 

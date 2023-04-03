@@ -36,18 +36,7 @@ function ModalActEnc({
     // Cerramos el modal
     setShowModal(false);
   }
-
-
-  const handleClassBtnModal = (propiedad, valor) => {
-    // Si la opción en esa propiedad ha sido elegida activamos el botón
-    if (modalData[propiedad] === valor){
-      return "btn btn-active btn-accent";
-    // Desactivamos el botón si no está elegida esa opción
-    } else {
-      return "btn btn-active btn-ghost";
-    }
-  }
-
+  
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
@@ -89,7 +78,6 @@ function ModalActEnc({
             text={"Ingrese el periodo de la encuesta"}
             prop={"periodo"}
             inputValue={modalData.periodo}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
@@ -98,7 +86,6 @@ function ModalActEnc({
             text={"Ingrese el numero maximo de materias"}
             prop={"maxMaterias"}
             inputValue={modalData.maxMaterias}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 

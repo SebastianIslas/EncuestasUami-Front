@@ -43,16 +43,6 @@ function ModalAgregar({
   }
 
 
-  const handleClassBtnModal = (propiedad, valor) => {
-    // Si la opción en esa propiedad ha sido elegida activamos el botón
-    if (modalData[propiedad] === valor){
-      return "btn btn-active btn-accent";
-    // Desactivamos el botón si no está elegida esa opción
-    } else {
-      return "btn btn-active btn-ghost";
-    }
-  }
-
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () => {
@@ -88,7 +78,6 @@ function ModalAgregar({
             text={"Ingrese la clave del nuevo profesor"}
             prop={"claveEmpleado"}
             inputValue={modalData.claveEmpleado}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 
@@ -97,7 +86,6 @@ function ModalAgregar({
             text={"Ingrese el nombre del nuevo profesor"}
             prop={"nombre"}
             inputValue={modalData.nombre}
-            handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             />
 

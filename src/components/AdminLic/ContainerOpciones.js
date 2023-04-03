@@ -34,16 +34,4 @@ function ContainerOpciones({
   </div>)
 }
 
-// CAMBIAR ESTO POR EL DIV DE ARRIBA, INTENTAR ADAPTAR LAS FUNCIONALIDADES DE VALDO
-    /* {/*Grupo de botones relacionados con la modalidad del curso * /} 
-    <div className="flex flex-wrap gap-x-4 gap-y-4 justify-center">
-      {opciones.map(opcion =>
-      <button key={opcion} className={handleClassBtnModal(prop, opcion)}
-                onClick={() => {
-                  changePropModal(prop, opcion)}}>
-        {opcion}</button>
-      )}
-    </div>
-    */
-
 export default ContainerOpciones
