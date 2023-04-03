@@ -6,7 +6,8 @@ function ContainerOpciones({
   opciones,
   handleClassBtnModal,
   changePropModal,
-  modalData
+  modalData,
+  setModalData
 }){
   return (<div>
     <p className="text-sm pb-2">
@@ -18,7 +19,7 @@ function ContainerOpciones({
       {opciones.map(opcion =>
       <button key={opcion} className={handleClassBtnModal(modalData, prop, opcion)}
                 onClick={() => {
-                  changePropModal(prop, opcion)}}>
+                  changePropModal(modalData, setModalData, prop, opcion)}}>
         {opcion}</button>
       )}
     </div>

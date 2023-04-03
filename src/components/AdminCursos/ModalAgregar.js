@@ -5,7 +5,7 @@ import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
-import { handleBtnAceptar } from "../common/modal/modalEvents";
+import { handleBtnAceptar, changePropModal } from "../common/modal/modalEvents";
 
 //services
 import { crearCurso } from "../../services/cursos/crearCurso";
@@ -24,35 +24,22 @@ function ModalAgregar({
   })
 
 
-  const closeModal = (e) => {
-    //Verficamos que el boton con el que se llama no es el de "Cerrar"
-    if (e.target.className !== "btn btn-sm btn-circle"){
-      
-      crearCurso(modalData).then(res => {
-        if (res.status == 200) {
-          let newCursos=[...cursos]
-          newCursos.push(modalData)    
-          setCursos(newCursos)
-        }
-        return res.json();
-      }).then(res => {  //Msg error o exito
-        alert(res.message)
-      });
-      console.log("AGREGAR CURSO")
-
-    }
+  const fetch = () => {
+    crearCurso(modalData).then(res => {
+      if (res.status == 200) {
+        let newCursos=[...cursos]
+        newCursos.push(modalData)    
+        setCursos(newCursos)
+      }
+      return res.json();
+    }).then(res => {  //Msg error o exito
+      alert(res.message)
+    });
+    console.log("AGREGAR CURSO")
     // Cerramos el modal
     setShowModal(false);
   }
 
-  // Función que permite cambiar dentro del modal los valores de cada propiedad
-  // o campo relacionado con la encuesta
-  const changePropModal = (propiedad, valor) => {
-    let copyObjectModalData = {...modalData};
-
-    copyObjectModalData[propiedad] = valor;
-    setModalData(copyObjectModalData);
-  }
   return (
     <Modal>
       {/* Div que cubre toda la pantalla del modal */}
@@ -61,7 +48,7 @@ function ModalAgregar({
       <div className="modal-box bg-base-300 mx-auto">
         {/* Botón cerrar/cancelar */}
         <div className="absolute right-2 top-2">
-          <BtnCancelar functionOnClick={closeModal} />
+          <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
        
@@ -71,6 +58,8 @@ function ModalAgregar({
             prop={"clave"}
             inputValue={modalData.clave}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         {/* Primera propiedad: modalidad  --> nombre  */}
@@ -79,6 +68,8 @@ function ModalAgregar({
             prop={"nombre"}
             inputValue={modalData.nombre}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         <ContainerOpciones 
@@ -86,12 +77,14 @@ function ModalAgregar({
             prop={"tipo"}
             inputValue={modalData.tipo}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         <div className="modal-action justify-between">
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={closeModal} disabled={handleBtnAceptar(modalData)} text={"Agregar"} />
+          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Agregar"} />
         </div>
       </div>
       </div>

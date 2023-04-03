@@ -19,42 +19,24 @@ function ModalConfirmacion({
   const [cursoClave] = useState(modalData.clave)
 
 
-  // Función a ejecutar al presionar el botón dentro del modal, se encargar de
-  // guardar los datos en el objeto cursosEncuesta y cierra el modal
-  const closeModal = (e) => {
-    //Verficamos que el boton con el que se llama no es el de "Cerrar"
-    if (e.target.className !== "btn btn-error"){      
-      /* Peticion al API */
-      deleteCursoFromLic(modalData, claveLic).then(res => {
-        console.log(res);
-        if (res.status == 200) {
-          let newCursos = cursos.filter((curso) => {
-              if (curso.clave !== cursoClave){
-                  return curso
-              }else{
-                  return null
-              }
-          })
-          setCursos(newCursos)
-        }
-        return res.json();
-      }).then(res => {  //Msg error o exito
-        alert(res.message)
-      }); 
-    }
-    // Cerramos el modal
+  const fetch = () => {
+    deleteCursoFromLic(modalData, claveLic).then(res => {
+      console.log(res);
+      if (res.status == 200) {
+        let newCursos = cursos.filter((curso) => {
+            if (curso.clave !== cursoClave){
+                return curso
+            }else{
+                return null
+            }
+        })
+        setCursos(newCursos)
+      }
+      return res.json();
+    }).then(res => {  //Msg error o exito
+      alert(res.message)
+    }); 
     setShowModal(false);
-  }
-
-
-  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
-  // se deja pulsar el botón de guardar opciones elegidas.
-  const handleBtnAceptar = () => {
-    if (modalData["clave"] === "" || modalData["nombre"] === ""){
-      return true;
-    } else {
-      return false;
-    }
   }
 
   return (
@@ -70,12 +52,10 @@ function ModalConfirmacion({
         <div className="modal-action justify-between">
 
         <label className="btn btn-error"
-                    onClick={closeModal}
-                    disabled={handleBtnAceptar()}>NO</label>
+                    onClick={() => setShowModal(false)}>NO</label>
 
           <label className="btn btn-success"
-                    onClick={closeModal}
-                    disabled={handleBtnAceptar()}>SÍ</label>
+                    onClick={fetch}>SÍ</label>
         </div>
       </div>
       </div>

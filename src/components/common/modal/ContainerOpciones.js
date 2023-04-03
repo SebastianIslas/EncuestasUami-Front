@@ -5,7 +5,9 @@ function ContainerOpciones({
   text,
   prop,
   inputValue,
-  changePropModal
+  changePropModal,
+  modalData,
+  setModalData
 }){
   const [valueContent, setValueContent] = useState(inputValue);
 
@@ -22,7 +24,7 @@ function ContainerOpciones({
                 placeholder={prop.placeHolderText} 
                 value={valueContent} 
                 onChange={(e)=>{setValueContent(e.target.value)
-                                changePropModal(prop, e.target.value)
+                                changePropModal(modalData, setModalData, prop, e.target.value)
                                 }} 
                 className="input input-bordered" />
                 {prop.info}

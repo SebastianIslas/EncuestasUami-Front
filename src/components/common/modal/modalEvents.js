@@ -3,7 +3,8 @@
 // se deja pulsar el botón de guardar opciones elegidas.
 export function handleBtnAceptar(modalData){
   for (const key in modalData) {
-    if (modalData[key] == ""){
+    //Habia modalData con null y otros con "" inicializados, me dio flojera poner todos igual
+    if (modalData[key] == "" || modalData[key] == null){  
       return true;
     }
   }
@@ -14,7 +15,7 @@ export function handleBtnAceptar(modalData){
 // están dentro de las opciones elegidas anteriormente por el usuario. Se
 // basa en tomar una propiedad (modalidad o horario) y también considera el
 // valor de esa proiedad
-export function handleClassBtnModal2(modalData, propiedad, valor){
+export function handleClassBtnModal(modalData, propiedad, valor){
   console.log("modalData2", modalData);
   console.log("propiedad2", propiedad);
   console.log("valor2", valor);
@@ -25,4 +26,13 @@ export function handleClassBtnModal2(modalData, propiedad, valor){
   } else {
     return "btn btn-active btn-ghost";
   }
+}
+
+// Función que permite cambiar dentro del modal los valores de cada propiedad
+// o campo relacionado con la encuesta
+export function changePropModal(modalData, setModalData, propiedad, valor) {
+  let copyObjectModalData = {...modalData};
+
+  copyObjectModalData[propiedad] = valor;
+  setModalData(copyObjectModalData);
 }
