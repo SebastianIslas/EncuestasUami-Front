@@ -1,11 +1,12 @@
 // TODO: separar los botones en más componentes
-import React, {useState} from "react";
-
+import React, { useContext} from "react";
 import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
 import { handleBtnAceptar, changePropModal } from "../common/modal/modalEvents";
+
+import { ModalContext } from "../../context/modalContext";
 
 //services
 import { crearCurso } from "../../services/cursos/crearCurso";
@@ -16,13 +17,9 @@ function ModalAgregar({
   cursos,
   setCursos
 }) {
-  
-  const [modalData,setModalData] = useState({
-    clave: "",
-    nombre: "",
-    tipo: ""
-  })
 
+  const [modalData, setModalData] = useContext(ModalContext);
+  console.log("modalData", modalData);
 
   const fetch = () => {
     crearCurso(modalData).then(res => {
@@ -39,9 +36,13 @@ function ModalAgregar({
     // Cerramos el modal
     setShowModal(false);
   }
-
+//  <ModalProvider initialModalData={initialModalData}>
+//  </ModalProvider>
   return (
+
+
     <Modal>
+      
       {/* Div que cubre toda la pantalla del modal */}
       <div className="fixed bg-black/80 w-full h-screen z-50 pt-10">
       {/* Div que contiene la ventana del modal */}
@@ -58,8 +59,6 @@ function ModalAgregar({
             prop={"clave"}
             inputValue={modalData.clave}
             changePropModal={changePropModal}
-            modalData={modalData}
-            setModalData={setModalData}
             />
 
         {/* Primera propiedad: modalidad  --> nombre  */}
@@ -68,8 +67,6 @@ function ModalAgregar({
             prop={"nombre"}
             inputValue={modalData.nombre}
             changePropModal={changePropModal}
-            modalData={modalData}
-            setModalData={setModalData}
             />
 
         <ContainerOpciones 
@@ -77,8 +74,6 @@ function ModalAgregar({
             prop={"tipo"}
             inputValue={modalData.tipo}
             changePropModal={changePropModal}
-            modalData={modalData}
-            setModalData={setModalData}
             />
 
         <div className="modal-action justify-between">
@@ -89,6 +84,7 @@ function ModalAgregar({
       </div>
       </div>
     </Modal>
+
   )
 }
 
