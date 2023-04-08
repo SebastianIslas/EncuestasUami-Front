@@ -10,7 +10,7 @@ function ContainerOpciones({
 }){
   const {modalData, changePropModal} = useContext(ModalContext);
   const [valueContent, setValueContent] = useState(modalData[prop]);
-//  console.log("prop", prop, modalData[prop]);
+  console.log("prop", prop, modalData[prop]);
 
   return (<div>
     <p className="text-xl pb-2">

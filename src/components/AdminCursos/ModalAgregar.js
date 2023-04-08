@@ -3,7 +3,7 @@ import React, { useContext} from "react";
 import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
-import ContainerOpciones from "../common/modal/ContainerOpciones";
+//import ContainerOpciones from "../common/modal/ContainerOpciones";
 //import { handleBtnAceptar, changePropModal } from "../common/modal/modalEvents";
 
 import { ModalContext } from "../../context/modalContext";
@@ -18,7 +18,7 @@ function ModalAgregar({
   setCursos
 }) {
 
-  const {modalData, handleBtnAceptar} = useContext(ModalContext);
+  const {modalData, handleBtnAceptar, renderContainerOpciones} = useContext(ModalContext);
 
   const fetch = () => {
     crearCurso(modalData).then(res => {
@@ -35,6 +35,10 @@ function ModalAgregar({
     // Cerramos el modal
     setShowModal(false);
   }
+
+
+
+
   return (
 
 
@@ -49,20 +53,13 @@ function ModalAgregar({
           <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
-        <ContainerOpciones 
-            text={"Ingrese la clave del nuevo curso"}
-            prop={"clave"}
-            />
-
-        <ContainerOpciones 
-            text={"Ingrese el nombre del nuevo curso"}
-            prop={"nombre"}
-            />
-
-        <ContainerOpciones 
-            text={"Ingrese el tipo del curso: (Obligatoria, Optativa)"}
-            prop={"tipo"}
-            />
+        {
+        //Dejar mensajes en el mismo orden en que se define el modalData en initialModalData
+        renderContainerOpciones([
+          "Ingrese la clave del nuevo curso", 
+          "Ingrese el nombre del nuevo curso",
+          "Ingrese el tipo del curso: (Obligatoria, Optativa)"
+        ])}
 
         <div className="modal-action justify-between">
 

@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-//import {useAuth} from '../hooks/useAuth.js'
+import ContainerOpciones from "../components/common/modal/ContainerOpciones";
 
 
 export const ModalContext = React.createContext(null);
 
 
 export const ModalProvider = props => {
-  console.log('ModalProvider', props);
   const [modalData, setModalData] = useState(props.initialModalData)
 
 
@@ -37,14 +36,28 @@ export const ModalProvider = props => {
   // basa en tomar una propiedad (modalidad o horario) y también considera el
   // valor de esa proiedad
   const handleClassBtnModal = (propiedad, valor) =>{
-    // Si la opción en esa propiedad ha sido elegida activamos el botón
-      if (modalData[propiedad] === valor){
-        return "btn btn-active btn-accent";
-      // Desactivamos el botón si no está elegida esa opción
-      } else {
-        return "btn btn-active btn-ghost";
-      }
+  // Si la opción en esa propiedad ha sido elegida activamos el botón
+    if (modalData[propiedad] === valor){
+      return "btn btn-active btn-accent";
+    // Desactivamos el botón si no está elegida esa opción
+    } else {
+      return "btn btn-active btn-ghost";
     }
+  }
+
+  const renderContainerOpciones = (texts) => {
+    //Dejar mensajes en el mismo orden en que se define el modalData en initialModalData
+    const keys = Object.keys(modalData);
+    const Inputs = [];
+  
+    for (let i = 0; i < texts.length; i++) {
+      Inputs.push(
+        <ContainerOpciones key={keys[i]} text={texts[i]} prop={keys[i]}
+        />
+      );
+    }
+    return Inputs;
+  }
 
   return (
     <ModalContext.Provider
@@ -54,6 +67,7 @@ export const ModalProvider = props => {
         handleBtnAceptar,
         changePropModal,
         handleClassBtnModal,
+        renderContainerOpciones
       }}
     >
       {props.children}
