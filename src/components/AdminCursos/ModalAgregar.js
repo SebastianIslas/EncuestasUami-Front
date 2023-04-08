@@ -4,7 +4,7 @@ import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
-import { handleBtnAceptar, changePropModal } from "../common/modal/modalEvents";
+//import { handleBtnAceptar, changePropModal } from "../common/modal/modalEvents";
 
 import { ModalContext } from "../../context/modalContext";
 
@@ -18,8 +18,7 @@ function ModalAgregar({
   setCursos
 }) {
 
-  const [modalData, setModalData] = useContext(ModalContext);
-  console.log("modalData", modalData);
+  const {modalData, handleBtnAceptar} = useContext(ModalContext);
 
   const fetch = () => {
     crearCurso(modalData).then(res => {
@@ -36,8 +35,6 @@ function ModalAgregar({
     // Cerramos el modal
     setShowModal(false);
   }
-//  <ModalProvider initialModalData={initialModalData}>
-//  </ModalProvider>
   return (
 
 
@@ -52,34 +49,25 @@ function ModalAgregar({
           <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
-       
-        {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
             text={"Ingrese la clave del nuevo curso"}
             prop={"clave"}
-            inputValue={modalData.clave}
-            changePropModal={changePropModal}
             />
 
-        {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
             text={"Ingrese el nombre del nuevo curso"}
             prop={"nombre"}
-            inputValue={modalData.nombre}
-            changePropModal={changePropModal}
             />
 
         <ContainerOpciones 
             text={"Ingrese el tipo del curso: (Obligatoria, Optativa)"}
             prop={"tipo"}
-            inputValue={modalData.tipo}
-            changePropModal={changePropModal}
             />
 
         <div className="modal-action justify-between">
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Agregar"} />
+          <Btn onClick={fetch} disabled={handleBtnAceptar()} text={"Agregar"} />
         </div>
       </div>
       </div>

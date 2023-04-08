@@ -26,7 +26,7 @@ function AdminCursosPage() {
     clave: "",
     nombre: "",
     tipo: ""
-  }  
+  }
 
   useEffect(() => {
     document.title = "Panel de Administracion";

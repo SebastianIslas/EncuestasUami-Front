@@ -16,9 +16,6 @@ export function handleBtnAceptar(modalData){
 // basa en tomar una propiedad (modalidad o horario) y también considera el
 // valor de esa proiedad
 export function handleClassBtnModal(modalData, propiedad, valor){
-  console.log("modalData2", modalData);
-  console.log("propiedad2", propiedad);
-  console.log("valor2", valor);
 // Si la opción en esa propiedad ha sido elegida activamos el botón
   if (modalData[propiedad] === valor){
     return "btn btn-active btn-accent";

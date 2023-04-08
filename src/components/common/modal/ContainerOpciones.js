@@ -5,13 +5,12 @@ import { ModalContext } from "../../../context/modalContext";
 function ContainerOpciones({
   text,
   prop,
-  changePropModal,
   placeHolderText,
   info
 }){
-  const [modalData, setModalData] = useContext(ModalContext);
+  const {modalData, changePropModal} = useContext(ModalContext);
   const [valueContent, setValueContent] = useState(modalData[prop]);
-  console.log("prop", prop, modalData[prop]);
+//  console.log("prop", prop, modalData[prop]);
 
   return (<div>
     <p className="text-xl pb-2">
@@ -22,9 +21,10 @@ function ContainerOpciones({
           <input type="text" 
               placeholder={placeHolderText} 
               value={valueContent} 
-              onChange={(e)=>{setValueContent(e.target.value)
-                              changePropModal(modalData, setModalData, prop, e.target.value)
-                              }} 
+              onChange={(e)=>{
+                setValueContent(e.target.value)
+                changePropModal(prop, e.target.value)
+              }} 
               className="input input-bordered" />
               {info}
         </div>    
