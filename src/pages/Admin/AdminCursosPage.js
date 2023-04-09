@@ -45,7 +45,7 @@ function AdminCursosPage() {
       <AdminHomeHeader _user={user} />
       <TablaCursosAdmin cursos={cursos} setCursos={setCursos}/>
 
-      <div className="fixed bottom-4 right-4">
+      <div className="fixed bottom-4 left-4">
         <Button text={"Agregar Curso"} onClick={toggleModalAgregar} />
       </div>
       {showModalAgregar ? 

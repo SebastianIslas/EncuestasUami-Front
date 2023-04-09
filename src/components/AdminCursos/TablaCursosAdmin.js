@@ -4,33 +4,16 @@ import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import ModalOpciones from "../AdminCursos/ModalOpciones";
 import RowOptions from "../common/RowOptions.js";
 import ModalConfirmacion from "../AdminCursos/ModalConfirmacion";
-import Buscador from "../common/buscador";
-
+import Buscador, {filteredData} from "../common/buscador";
 
 function TablaCursosAdmin({ cursos, setCursos }) {
   
 
   // Controlar si se muestra el modal
   const [showModal, setShowModal] = useState(false);
-
   const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
 
-
-  ///************* BARRA DE BUSQUEDA *************/
-  const [query, setQuery] = useState("");
-
-  const handleInputChange = (event) => {
-    setQuery(event.target.value);
-  };
-
-  const filteredData = Object.keys(cursos).filter((key) => {
-    const curso = cursos[key];
-    return (
-      curso.nombre.toLowerCase().includes(query.toLowerCase()) ||
-      curso.clave.toString().includes(query.toLowerCase())
-    );
-  }).map((key) => cursos[key]);
-  ///************* BARRA DE BUSQUEDA *************/
+  const [query, setQuery] = useState(""); //Variable para buscador
 
 
   // Datos que se tienen dentro del modal, es decir aquellos datos que le
@@ -79,45 +62,32 @@ function TablaCursosAdmin({ cursos, setCursos }) {
   return (
     <React.Fragment>
     {/* Container de la tabla */}
-    <div id="tabla-materias"
-          className="overflow-x-auto rounded-lg bg-base-400">
-   
-      <Buscador query={query} handleInputChange = {handleInputChange} />
+    <Buscador query={query} setQuery={setQuery}/>
 
+    <div id="tabla-materias" className="overflow-x-auto rounded-lg bg-base-400">
       <table className="table table-compact md:table-normal w-full">
-        {/* Header de la tabla */}
         <thead>
           <TitleRowTablaMaterias titles={["Clave", "Nombre", ""]} />
         </thead>
-
-        {/* Cuerpo de la tabla */}
         <tbody>
           {/* Renglón con ************* BARRA DE BUSQUEDA  */}
-          {filteredData.map(curso => 
-          <tr className="hover" key={curso.clave}>
-            {/* Campo de la clave del curso */}
-            <td>
-              <div className="text-md w-10 opacity-80">
-                <p className='break-all'>
-                  {curso.clave}
-                </p>
-              </div>
-            </td>
-
-            {/* Campo del nombre del curso */}
-            <td>
-              <div className="text-md break-word font-bold">
+          {filteredData(cursos, query,["nombre", "clave"]).map(curso => 
+            <tr className="hover" key={curso.clave}>
+              <td className="text-md w-10 opacity-80 break-all">
+                {curso.clave}
+              </td>
+              <td className="text-md break-word font-bold">
                 {curso.nombre}
-              </div>
-            </td>
+              </td>
 
-            <th>
-              <RowOptions objeto={{clave:curso.clave, nombre:curso.nombre, tipo:curso.tipo}} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
-            </th>
-          </tr>)}
-
+              <th>
+                <RowOptions 
+                  objeto={{clave:curso.clave, nombre:curso.nombre, tipo:curso.tipo}} 
+                  toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+              </th>
+            </tr>
+          )}
         </tbody>
-
       </table>
 
       {showModal ? <ModalOpciones

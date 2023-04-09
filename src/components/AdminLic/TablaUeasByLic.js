@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
-import Buscador from "../common/buscador";
+import Buscador, {filteredData} from "../common/buscador";
 import RowOptions from "../common/RowOptions.js";
 import ModalOpciones from "../AdminLic/ModalOpciones";
 import ModalConfirmacion from "../AdminLic/ModalConfirmacion";
@@ -12,22 +12,7 @@ export function TablaUeasByLic({
   console.log("TABLA", claveLic);
     const [materias, setMaterias] = useState([]);
 
-    ///************* BARRA DE BUSQUEDA *************/
-    const [query, setQuery] = useState("");
-
-    const handleInputChange = (event) => {
-      setQuery(event.target.value);
-    };
-  
-    const filteredData = Object.keys(cursos).filter((key) => {
-      const curso = cursos[key];
-      return (
-        curso.nombre.toLowerCase().includes(query.toLowerCase()) ||
-        curso.clave.toString().includes(query.toLowerCase())
-      );
-    }).map((key) => cursos[key]);
-    ///************* BARRA DE BUSQUEDA *************/
-
+    const [query, setQuery] = useState(""); //Variable para buscador
 
     // Controlar si se muestra el modal
     const [showModal, setShowModal] = useState(false);
@@ -78,48 +63,37 @@ export function TablaUeasByLic({
   return (
     <React.Fragment>
 
+    <Buscador query={query} setQuery={setQuery}/>
     <div id="tabla-materias" className="overflow-x-auto rounded-lg pb-10">
-
-      <Buscador query={query} handleInputChange = {handleInputChange} />
-
       <table className="table table-compact md:table-normal w-full">
-        {/* Header de la tabla */}
         <thead>
           <TitleRowTablaMaterias titles={["Clave", "Nombre", "Profesores", ""]} />
         </thead>
-
-        {/* Cuerpo de la tabla */}
         <tbody>
-          {/* Renglón */}
-          {filteredData.map(curso => <tr className="hover" key={curso.clave}>
+          {/* Renglón con ************* BARRA DE BUSQUEDA  */}
+          {filteredData(cursos, query,["nombre", "clave"]).map(curso => 
+            <tr className="hover" key={curso.clave}>
+              <td className="text-md opacity-80">
+                  {curso.clave}
+              </td>
+              <td className="text-md break-word font-bold">
+                  {curso.nombre}
+              </td>              
+              {/* Campo de profesores de la materia */}
+              <td className="text-md break-word font-bold">
+                  {curso.profesores}
+                  {curso.profesores.map(profesor=>{
+                    <p>{profesor}</p>                  
+                  })}
+              </td>
 
-            {/* Campo de la clave de la materia */}
-            <td>
-              <p className="text-md opacity-80">
-                {curso.clave}</p>
-            </td>
-
-            {/* Campo del nombre de la materia */}
-            <td className="break-words">
-              <p className="text-md font-bold whitespace-pre-wrap">
-                {curso.nombre}</p>
-            </td>
-            
-            {/* Campo de profesores de la materia */}
-            {/* Campo del nombre del curso */}
-            <td>
-              <div className="text-md break-word font-bold">
-                {curso.profesores}
-                {curso.profesores.map(profesor=>{
-                  <p>{profesor}</p>                  
-                })}
-              </div>
-            </td>
-
-            <th>
-              <RowOptions objeto={{clave:curso.clave, nombre:curso.nombre}}  toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
-            </th>
-          </tr>)}
+              <th>
+                <RowOptions 
+                  objeto={{clave:curso.clave, nombre:curso.nombre}}  
+                  toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+              </th>
+            </tr>
+          )}
         </tbody>
       </table>
 

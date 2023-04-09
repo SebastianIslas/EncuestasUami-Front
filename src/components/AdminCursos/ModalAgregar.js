@@ -36,12 +36,7 @@ function ModalAgregar({
     setShowModal(false);
   }
 
-
-
-
   return (
-
-
     <Modal>
       
       {/* Div que cubre toda la pantalla del modal */}
