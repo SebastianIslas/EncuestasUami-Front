@@ -20,12 +20,12 @@ export default function RowOptions(props) {
       {/*Intente pasar el objeto completo para dejarlo mas genero y definir en el toogle que hacer si existia el atributo
       pero no salio */}
       <Button text={<FontAwesomeIcon icon={faEdit} />} onClick={() => {
-          props.toggleModal(props.objeto.clave, props.objeto.nombre, props.objeto.tipo)
+          props.toggleModal(props.keys, [props.objeto.clave, props.objeto.nombre, props.objeto.tipo])
         }          
       } />
       <Button text={<FontAwesomeIcon icon={faTrashCan} />} onClick={() => {
-          props.toggleModalConfirmacion(props.objeto.clave, props.objeto.nombre)
-      }} />
+          props.toggleModal(props.keys, [props.objeto.clave, props.objeto.nombre])
+        }} />
 
 
     </div>

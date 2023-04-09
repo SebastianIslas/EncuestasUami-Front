@@ -6,7 +6,17 @@ export const ModalContext = React.createContext(null);
 
 
 export const ModalProvider = props => {
-  const [modalData, setModalData] = useState(props.initialModalData)
+
+  //Arreglo para inicializar modalData
+  const initialState = {};
+  for (let i = 0; i < props.keys.length; i++) {
+    initialState[props.keys[i]] = "";
+  }
+
+
+  const [keys, setKeys] = useState(props.keys) //Sirve para poder recorrer modalData sin obtener las keys por parametro de nuevo en funciones
+  const [modalData, setModalData] = useState(initialState)
+  const [showModal, setShowModal] = useState(false)
 
 
   // Función que permite cambiar dentro del modal los valores de cada propiedad
@@ -45,6 +55,18 @@ export const ModalProvider = props => {
     }
   }
 
+  //Para el modal que recibe valores de una tabla (si no usa modalData solo llamar onClick={()=>setShowModal(!showModal)} en el button)
+  const toggleModal = (values) => {
+    if (!showModal){
+      let newObject = {};
+      for (let i = 0; i < props.keys.length; i++) {
+        newObject[props.keys[i]] = values[i];
+      }
+      setModalData(newObject);
+    }
+    setShowModal(!showModal);
+  }
+
   const renderContainerOpciones = (texts) => {
     //Dejar mensajes en el mismo orden en que se define el modalData en initialModalData
     const keys = Object.keys(modalData);
@@ -62,12 +84,14 @@ export const ModalProvider = props => {
   return (
     <ModalContext.Provider
       value={{
-        modalData,
-        setModalData,
+        modalData, setModalData,
+        showModal, setShowModal,
+        keys, setKeys,
         handleBtnAceptar,
         changePropModal,
         handleClassBtnModal,
-        renderContainerOpciones
+        renderContainerOpciones,
+        toggleModal
       }}
     >
       {props.children}

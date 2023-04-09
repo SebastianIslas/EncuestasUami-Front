@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import ModalOpciones from "../AdminCursos/ModalOpciones";
 import RowOptions from "../common/RowOptions.js";
 import ModalConfirmacion from "../AdminCursos/ModalConfirmacion";
 import Buscador, {filteredData} from "../common/buscador";
+
+import { ModalContext } from "../../context/modalContext";
 
 function TablaCursosAdmin({ cursos, setCursos }) {
   
@@ -18,17 +20,17 @@ function TablaCursosAdmin({ cursos, setCursos }) {
 
   // Datos que se tienen dentro del modal, es decir aquellos datos que le
   // pertenecen a la materia que mandó a llamar al modal
-  const [modalData, setModalData] = useState({
-    clave: null,
-    nombre: null,
-    tipo: null
-  });
+  const {modalData, setModalData, handleBtnAceptar, renderContainerOpciones} = useContext(ModalContext);
 
 
+/*
   const toggleModal = (claveElegida, nombreElegida, tipoElegido) => {
     // Vemos el estado de mostrar el modal
     if (!showModal){
       // Cremos un nuevo objeto para guardar los datos a usar en el modal
+      let keys = ["clave","nombre","tipo"]
+      let values = [claveElegida, nombreElegida, tipoElegido]
+
       let newObject = {
         // La clave de la materia que está en el renglón que mandó a llamar el
         // modal
@@ -36,7 +38,6 @@ function TablaCursosAdmin({ cursos, setCursos }) {
         // Nombre del curso en el renglón que mandó a llamar el modal
         nombre: nombreElegida,
         tipo: tipoElegido
-        
       }
 
       // Actualizamos los valores dentro del modal
@@ -46,7 +47,7 @@ function TablaCursosAdmin({ cursos, setCursos }) {
     // Cambiar el estado del modal
     setShowModal(!showModal);
   }
-
+*/
   const toggleModalConfirmacion = (claveElegida, nombreElegida) => {
     if (!showModalConfirmacion){
       let newObject = {
@@ -58,6 +59,17 @@ function TablaCursosAdmin({ cursos, setCursos }) {
     setShowModalConfirmacion(!showModalConfirmacion);
   }
 
+  const toggleModal = (keys, values) => {
+    console.log(keys, values);
+    if (!showModal){
+      let newObject = {};
+      for (let i = 0; i < keys.length; i++) {
+        newObject[keys[i]] = values[i];
+      }
+      setModalData(newObject);
+    }
+    setShowModal(!showModal);
+  }
 
   return (
     <React.Fragment>
@@ -83,7 +95,7 @@ function TablaCursosAdmin({ cursos, setCursos }) {
               <th>
                 <RowOptions 
                   objeto={{clave:curso.clave, nombre:curso.nombre, tipo:curso.tipo}} 
-                  toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+                  toggleModal={toggleModal} keys={["clave","nombre","tipo"]}/>
               </th>
             </tr>
           )}
