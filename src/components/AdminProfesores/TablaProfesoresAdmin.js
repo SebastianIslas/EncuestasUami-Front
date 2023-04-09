@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
-import ModalOpciones from "./ModalOpciones";
+import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
+import ModalOpciones from "../AdminProfesores/ModalOpciones";
 import RowOptions from "../common/RowOptions";
-import ModalConfirmacion from "./ModalConfirmacion";
+import ModalConfirmacion from "../AdminProfesores/ModalConfirmacion";
 import Buscador from "../common/buscador";
 
 
-
-function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
+function TablaProfesoresAdmin({ profesores, setProfesores }) {
   
 
   // Controlar si se muestra el modal
@@ -16,27 +15,30 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
 
   const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
 
-  ///************* BARRA DE BUSQUEDA *************/
+
+
+   ///************* BARRA DE BUSQUEDA *************/
   const [query, setQuery] = useState("");
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
 
-  const filteredData = Object.keys(licenciaturas).filter((key) => {
-    const licenciatura = licenciaturas[key];
+  const filteredData = Object.keys(profesores).filter((key) => {
+    const profesor = profesores[key];
     return (
-      licenciatura.nombre.toLowerCase().includes(query.toLowerCase()) ||
-      licenciatura.clave.toString().includes(query.toLowerCase())
+      profesor.nombre.toLowerCase().includes(query.toLowerCase()) ||
+      profesor.claveEmpleado.toString().includes(query.toLowerCase())
     );
-  }).map((key) => licenciaturas[key]);
+  }).map((key) => profesores[key]);
   ///************* BARRA DE BUSQUEDA *************/
- 
+
+
 
   // Datos que se tienen dentro del modal, es decir aquellos datos que le
   // pertenecen a la materia que mandó a llamar al modal
   const [modalData, setModalData] = useState({
-    clave: null,
+    claveEmpleado: null,
     nombre: null
   });
 
@@ -48,8 +50,8 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
       let newObject = {
         // La clave de la materia que está en el renglón que mandó a llamar el
         // modal
-        clave: claveElegida,
-        // Nombre de la licenciatura en el renglón que mandó a llamar el modal
+        claveEmpleado: claveElegida,
+        // Nombre del profesor en el renglón que mandó a llamar el modal
         nombre: nombreElegida,
         
         
@@ -66,7 +68,7 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
   const toggleModalConfirmacion = (claveElegida, nombreElegida) => {
     if (!showModalConfirmacion){
       let newObject = {
-        clave: claveElegida,
+        claveEmpleado: claveElegida,
         nombre: nombreElegida,  
       }
       setModalData(newObject);
@@ -78,7 +80,8 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
   return (
     <React.Fragment>
     {/* Container de la tabla */}
-    <div id="tabla-materias" className="overflow-x-auto rounded-lg bg-base-400">
+    <div id="tabla-materias"
+          className="overflow-x-auto rounded-lg bg-base-400">
 
       <Buscador query={query} handleInputChange = {handleInputChange} />
 
@@ -90,32 +93,37 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
 
         {/* Cuerpo de la tabla */}
         <tbody>
-          
-          {/* Renglón */}
-          {filteredData.map(licenciatura => 
-          <tr className="hover" key={licenciatura.clave}>
-            {/* Campo de la clave de la licenciatura */}
+          {/* Renglón con ************* BARRA DE BUSQUEDA  */}
+          {filteredData.map(profesor => 
+          <tr className="hover" key={profesor.claveEmpleado}>
+
+            {/* Campo de la clave del profesor */}
             <td>
               <div className="text-md w-10 opacity-80">
                 <p className='break-all'>
-                  {licenciatura.clave}
+                  {profesor.claveEmpleado}
                 </p>
               </div>
             </td>
 
-            {/* Campo del nombre de la licenciatura */}
+            {/* Campo del nombre del profesor */}
             <td>
               <div className="text-md break-word font-bold">
-                {licenciatura.nombre}
+                {profesor.nombre}
               </div>
             </td>
 
             <th>
-              <RowOptions objeto={{clave:licenciatura.clave, nombre:licenciatura.nombre, btnVer:`/admin/licenciatura/${licenciatura.clave}`}} 
-              toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+              <RowOptions objeto={{clave:profesor.claveEmpleado, nombre:profesor.nombre}} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
             </th>
           </tr>)}
+
         </tbody>
+
+        {/* Footer de la tabla */}
+        <tfoot>
+          <TitleRowTablaMaterias />
+        </tfoot>
       </table>
 
       {showModal ? <ModalOpciones
@@ -123,15 +131,15 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
           setModalData={setModalData}
           showModal={showModal}
           setShowModal={setShowModal}
-          licenciaturas={licenciaturas}
-          setLicenciaturas={setLicenciaturas}
+          profesores={profesores}
+          setProfesores={setProfesores}
            /> : null}
       
       {showModalConfirmacion ? <ModalConfirmacion
           modalData={modalData}
           setShowModal={setShowModalConfirmacion}
-          licenciaturas={licenciaturas}
-          setLicenciaturas={setLicenciaturas}
+          profesores={profesores}
+          setProfesores={setProfesores}
            /> : null}
 
     </div>
@@ -139,4 +147,4 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
   );
 }
 
-export default TablaLicsAdmin
+export default TablaProfesoresAdmin

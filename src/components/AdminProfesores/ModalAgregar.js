@@ -2,31 +2,33 @@
 import React, {useState} from "react";
 
 import Modal from "../common/modal/Modal";
-import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
+import BtnCancelar from "../common/BtnCancelar";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
-import { changePropModal, handleBtnAceptar } from "../common/modal/modalEvents";
+import {handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
+
 //services
-import { crearLicenciatura } from "../../services/licenciaturas/crearLicenciatura";
+import { crearProfesor } from "../../services/profesores/crearProfesor";
+
 
 function ModalAgregar({
   setShowModal,
-  licenciaturas,
-  setLicenciaturas
+  profesores,
+  setProfesores
 }) {
   
   const [modalData,setModalData] = useState({
-    clave: "",
+    claveEmpleado: "",
     nombre: ""
   })
 
 
   const fetch = () => {
-    crearLicenciatura(modalData).then(res => {
+    crearProfesor(modalData).then(res => {
       if (res.status == 200) {
-        let newLicenciaturas=[...licenciaturas]
-        newLicenciaturas.push(modalData)
-        setLicenciaturas(newLicenciaturas)   
+        let newProfesores=[...profesores]
+        newProfesores.push(modalData)
+        setProfesores(newProfesores)
       }
       return res.json();
     }).then(res => {  //Msg error o exito
@@ -49,9 +51,9 @@ function ModalAgregar({
        
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
-            text={"Ingrese la clave de la nueva licenciatura"}
-            prop={"clave"}
-            inputValue={modalData.clave}
+            text={"Ingrese la clave del nuevo profesor"}
+            prop={"claveEmpleado"}
+            inputValue={modalData.claveEmpleado}
             changePropModal={changePropModal}
             modalData={modalData}
             setModalData={setModalData}
@@ -59,7 +61,7 @@ function ModalAgregar({
 
         {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
-            text={"Ingrese el nombre de la nueva licenciatura"}
+            text={"Ingrese el nombre del nuevo profesor"}
             prop={"nombre"}
             inputValue={modalData.nombre}
             changePropModal={changePropModal}

@@ -2,41 +2,34 @@
 import React, {useState} from "react";
 
 import Modal from "../common/modal/Modal";
-import Btn from "../common/Button";
 import BtnCancelar from "../common/BtnCancelar";
+import Btn from "../common/Button";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
 import {handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
 
 //Services
-import { editLicenciatura } from "../../services/licenciaturas/editLicenciatura";
+import { activarEnc } from "../../services/encuestas/activarEnc.js";
 
-function ModalOpciones({
-  modalData,
-  setModalData,
-  showModal,
+function ModalActEnc({
   setShowModal,
   licenciaturas,
   setLicenciaturas
 }) {
-  
+  const [modalData,setModalData] = useState({
+    periodo: "",
+    maxMaterias: 4
+  })
+
   const [licName] = useState(modalData.nombre)
   const [licClave] = useState(modalData.clave)
 
+
   const fetch = () => {
-    editLicenciatura(licClave, modalData).then(res => {
-      if (res.status == 200) {
-        let arr = [...licenciaturas]
-        let foundIndex = arr.findIndex(x => x.clave === licClave);
-        arr[foundIndex] = modalData;   
-        setLicenciaturas(arr)
-      }
-      return res.json();
-    }).then(res => {  //Msg error o exito
+    activarEnc(modalData).then(res => {
       alert(res.message)
     });      
     setShowModal(false);
   }
-
 
   return (
     <Modal>
@@ -49,20 +42,18 @@ function ModalOpciones({
           <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
-        {/* El título del modal es el nombre de la licenciatura */}
         <h2 className="font-bold text-lg">
-          {licName}</h2>
-        {/* También mostramos la clave de la licenciatura */}
+          ACTIVAR ENCUESTA</h2>
         <p className="text-sm font-normal text-slate-500">
-          ({licClave})</p>
+          (No podra modificar estos datos luego de activada la encuesta)</p>
         <br/>
 
 
         {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
-            text={"Ingrese el nombre correcto de la Licenciatura"}
-            prop={"nombre"}
-            inputValue={modalData.nombre}
+            text={"Ingrese el periodo de la encuesta"}
+            prop={"periodo"}
+            inputValue={modalData.periodo}
             changePropModal={changePropModal}
             modalData={modalData}
             setModalData={setModalData}
@@ -70,9 +61,9 @@ function ModalOpciones({
 
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
-            text={"Ingrese el ID correcto de la Licenciatura"}
-            prop={"clave"}
-            inputValue={modalData.clave}
+            text={"Ingrese el numero maximo de materias"}
+            prop={"maxMaterias"}
+            inputValue={modalData.maxMaterias}
             changePropModal={changePropModal}
             modalData={modalData}
             setModalData={setModalData}
@@ -81,12 +72,12 @@ function ModalOpciones({
         <div className="modal-action justify-between">
           {/* Alguna información de ayuda para el usuario */}
           <div className="text-xs font-normal text-slate-500">
-            <p>Va a cambiar el nombre de la UEA</p>
-            <p>Debe seleccionar el botón Guardar </p>
+            <p>Valide correctamente los campos</p>
+            <p> antes activar la encuesta </p>
           </div>
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Guardar"} />
+          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Activar"} />
         </div>
       </div>
       </div>
@@ -94,4 +85,4 @@ function ModalOpciones({
   )
 }
 
-export default ModalOpciones
+export default ModalActEnc

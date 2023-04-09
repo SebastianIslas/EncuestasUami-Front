@@ -1,9 +1,12 @@
 // TODO: separar los botones en más componentes
 import React from "react";
 
-import Modal from "../Modal";
+import Modal from "../common/modal/Modal";
 import BtnCancelar from "./BtnCancelar";
+import Btn from "../common/Button";
 import ContainerOpciones from "./ContainerOpciones";
+import {handleClassBtnModal, handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
+
 
 function ModalOpciones({
   modalData,
@@ -15,9 +18,8 @@ function ModalOpciones({
   listaClavesEncuesta,
   setListaClavesEncuesta
 }) {
-  // Función a ejecutar al presionar el botón dentro del modal, se encargar de
-  // guardar los datos en el objeto materiasEncuesta y cierra el modal
-  const closeModal = () => {
+  //Solo guarda el estado del modal, el fetch se hace de otro boton
+  const guardarModal = () => {
     // Copiamos el objeto de materiasEncuesta
     let copyMateriasEncuesta = {...materiasEncuesta};
 
@@ -45,44 +47,10 @@ function ModalOpciones({
       setListaClavesEncuesta(copyListaClavesEncuesta);
       setMateriasEncuesta(copyMateriasEncuesta);
     }
-
     // Cerramo el modal
     setShowModal(false);
   }
 
-  // Función para cambiar el estilo de los botones del modal dependiendo si
-  // están dentro de las opciones elegidas anteriormente por el usuario. Se
-  // basa en tomar una propiedad (modalidad o horario) y también considera el
-  // valor de esa proiedad
-  const handleClassBtnModal = (propiedad, valor) => {
-    // Si la opción en esa propiedad ha sido elegida activamos el botón
-    if (modalData[propiedad] === valor){
-      return "btn btn-active btn-accent";
-    // Desactivamos el botón si no está elegida esa opción
-    } else {
-      return "btn btn-active btn-ghost";
-    }
-  }
-
-  // Dentro del modal, si no se han elegido las dos propiedades que se piden no
-  // se deja pulsar el botón de guardar opciones elegidas.
-  const handleBtnAceptar = () => {
-    if (modalData["modalidad"] == null
-         || modalData["horario"] == null){
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // Función que permite cambiar dentro del modal los valores de cada propiedad
-  // o campo relacionado con la encuesta
-  const changePropModal = (propiedad, valor) => {
-    let copyObjectModalData = {...modalData};
-
-    copyObjectModalData[propiedad] = valor;
-    setModalData(copyObjectModalData);
-  }
   return (
     <Modal>
       {/* Div que cubre toda la pantalla del modal */}
@@ -91,7 +59,7 @@ function ModalOpciones({
       <div className="modal-box bg-base-300 mx-auto">
         {/* Botón cerrar/cancelar */}
         <div className="absolute right-2 top-2">
-          <BtnCancelar functionOnClick={closeModal} />
+          <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
         {/* El título del modal es el nombre de la materia */}
@@ -110,6 +78,8 @@ function ModalOpciones({
             opciones={["Presencial", "Virtual"]}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         {/* Segunda propiedad: horario */}
@@ -119,6 +89,8 @@ function ModalOpciones({
             opciones={["Mañana", "Tarde", "Tarde-noche", "Sin preferencia"]}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
             />
 
         <div className="modal-action justify-between">
@@ -129,9 +101,7 @@ function ModalOpciones({
             <p>Tarde-noche: 16:00 a 21:00</p>
           </div>
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <label className="btn btn-primary"
-                    onClick={closeModal}
-                    disabled={handleBtnAceptar()}>Guardar elección</label>
+            <Btn onClick={guardarModal} disabled={handleBtnAceptar(modalData)} text={"Guardar"} />
         </div>
       </div>
       </div>

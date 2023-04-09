@@ -6,7 +6,7 @@ import InfoEncuesta from "../components/Encuesta/InfoEncuesta";
 import TablaMateriasEncuesta from "../components/Encuesta/TablaMateriasEncuesta";
 
 // Services
-import { getUEASByLic } from "../services/getUeasByLic.js";
+import { getUEASByLic } from "../services/licenciaturas/getUeasByLic";
 
 // Context de las materias en elegidas por el usuario
 // export const MateriasEncuestaContext = React.createContext({});

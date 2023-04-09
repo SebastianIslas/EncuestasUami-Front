@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 
-import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
-import ModalOpciones from "./ModalOpciones";
-import RowOptions from "../common/RowOptions";
-import ModalConfirmacion from "./ModalConfirmacion";
+import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
+import ModalOpciones from "../AdminCursos/ModalOpciones";
+import RowOptions from "../common/RowOptions.js";
+import ModalConfirmacion from "../AdminCursos/ModalConfirmacion";
 import Buscador from "../common/buscador";
 
 
-
-function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
+function TablaCursosAdmin({ cursos, setCursos }) {
   
 
   // Controlar si se muestra el modal
   const [showModal, setShowModal] = useState(false);
 
   const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
+
 
   ///************* BARRA DE BUSQUEDA *************/
   const [query, setQuery] = useState("");
@@ -23,25 +23,26 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
     setQuery(event.target.value);
   };
 
-  const filteredData = Object.keys(licenciaturas).filter((key) => {
-    const licenciatura = licenciaturas[key];
+  const filteredData = Object.keys(cursos).filter((key) => {
+    const curso = cursos[key];
     return (
-      licenciatura.nombre.toLowerCase().includes(query.toLowerCase()) ||
-      licenciatura.clave.toString().includes(query.toLowerCase())
+      curso.nombre.toLowerCase().includes(query.toLowerCase()) ||
+      curso.clave.toString().includes(query.toLowerCase())
     );
-  }).map((key) => licenciaturas[key]);
+  }).map((key) => cursos[key]);
   ///************* BARRA DE BUSQUEDA *************/
- 
+
 
   // Datos que se tienen dentro del modal, es decir aquellos datos que le
   // pertenecen a la materia que mandó a llamar al modal
   const [modalData, setModalData] = useState({
     clave: null,
-    nombre: null
+    nombre: null,
+    tipo: null
   });
 
 
-  const toggleModal = (claveElegida, nombreElegida) => {
+  const toggleModal = (claveElegida, nombreElegida, tipoElegido) => {
     // Vemos el estado de mostrar el modal
     if (!showModal){
       // Cremos un nuevo objeto para guardar los datos a usar en el modal
@@ -49,9 +50,9 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
         // La clave de la materia que está en el renglón que mandó a llamar el
         // modal
         clave: claveElegida,
-        // Nombre de la licenciatura en el renglón que mandó a llamar el modal
+        // Nombre del curso en el renglón que mandó a llamar el modal
         nombre: nombreElegida,
-        
+        tipo: tipoElegido
         
       }
 
@@ -78,8 +79,9 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
   return (
     <React.Fragment>
     {/* Container de la tabla */}
-    <div id="tabla-materias" className="overflow-x-auto rounded-lg bg-base-400">
-
+    <div id="tabla-materias"
+          className="overflow-x-auto rounded-lg bg-base-400">
+   
       <Buscador query={query} handleInputChange = {handleInputChange} />
 
       <table className="table table-compact md:table-normal w-full">
@@ -90,32 +92,32 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
 
         {/* Cuerpo de la tabla */}
         <tbody>
-          
-          {/* Renglón */}
-          {filteredData.map(licenciatura => 
-          <tr className="hover" key={licenciatura.clave}>
-            {/* Campo de la clave de la licenciatura */}
+          {/* Renglón con ************* BARRA DE BUSQUEDA  */}
+          {filteredData.map(curso => 
+          <tr className="hover" key={curso.clave}>
+            {/* Campo de la clave del curso */}
             <td>
               <div className="text-md w-10 opacity-80">
                 <p className='break-all'>
-                  {licenciatura.clave}
+                  {curso.clave}
                 </p>
               </div>
             </td>
 
-            {/* Campo del nombre de la licenciatura */}
+            {/* Campo del nombre del curso */}
             <td>
               <div className="text-md break-word font-bold">
-                {licenciatura.nombre}
+                {curso.nombre}
               </div>
             </td>
 
             <th>
-              <RowOptions objeto={{clave:licenciatura.clave, nombre:licenciatura.nombre, btnVer:`/admin/licenciatura/${licenciatura.clave}`}} 
-              toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+              <RowOptions objeto={{clave:curso.clave, nombre:curso.nombre, tipo:curso.tipo}} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
             </th>
           </tr>)}
+
         </tbody>
+
       </table>
 
       {showModal ? <ModalOpciones
@@ -123,15 +125,15 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
           setModalData={setModalData}
           showModal={showModal}
           setShowModal={setShowModal}
-          licenciaturas={licenciaturas}
-          setLicenciaturas={setLicenciaturas}
+          cursos={cursos}
+          setCursos={setCursos}
            /> : null}
       
       {showModalConfirmacion ? <ModalConfirmacion
           modalData={modalData}
           setShowModal={setShowModalConfirmacion}
-          licenciaturas={licenciaturas}
-          setLicenciaturas={setLicenciaturas}
+          cursos={cursos}
+          setCursos={setCursos}
            /> : null}
 
     </div>
@@ -139,4 +141,4 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
   );
 }
 
-export default TablaLicsAdmin
+export default TablaCursosAdmin

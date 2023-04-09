@@ -2,38 +2,37 @@
 import React, {useState} from "react";
 
 import Modal from "../common/modal/Modal";
-
 //Services
-import { deleteLicenciatura } from "../../services/licenciaturas/deleteLicenciatura";
+import { deleteCurso } from "../../services/cursos/deleteCurso";
 
 
 function ModalConfirmacion({
   modalData,
   setShowModal,
-  licenciaturas,
-  setLicenciaturas
+  cursos,
+  setCursos
 }) {
   
-  const [licName] = useState(modalData.nombre)
-  const [licClave] = useState(modalData.clave)
+  const [cursoName] = useState(modalData.nombre)
+  const [cursoClave] = useState(modalData.clave)
 
   const fetch = () => {
-    deleteLicenciatura(licClave).then(res => {
+    deleteCurso(cursoClave).then(res => {
       if (res.status == 200) {
-        let newLicenciaturas = licenciaturas.filter((lic) => {
-          if (lic.clave !== licClave){
-              return lic
-          }else{
-              return null
-          }
+        let newCursos = cursos.filter((curso) => {
+            if (curso.clave !== cursoClave){
+                return curso
+            }else{
+                return null
+            }
         })
-        setLicenciaturas(newLicenciaturas)
+        setCursos(newCursos)
       }
       return res.json();
     }).then(res => {  //Msg error o exito
       alert(res.message)
     }); 
-
+    // Cerramos el modal
     setShowModal(false);
   }
 
@@ -45,7 +44,7 @@ function ModalConfirmacion({
         <div className="modal-box bg-base-300 mx-auto">
 
           <h3 className="text-lg font-bold">
-              ¿Desea eliminar la <strong>{licName}</strong> con clave <strong>{licClave}</strong>?
+              ¿Desea eliminar la <strong>{cursoName}</strong> con clave <strong>{cursoClave}</strong>?
           </h3>
           <div className="modal-action justify-between">
             <label className="btn btn-error" onClick={() => setShowModal(false)}>NO</label>

@@ -2,41 +2,41 @@
 import React, {useState} from "react";
 
 import Modal from "../common/modal/Modal";
-import Btn from "../common/Button";
 import BtnCancelar from "../common/BtnCancelar";
+import Btn from "../common/Button";
 import ContainerOpciones from "../common/modal/ContainerOpciones";
-import {handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
-
+import { changePropModal, handleBtnAceptar } from "../common/modal/modalEvents";
 //Services
-import { editLicenciatura } from "../../services/licenciaturas/editLicenciatura";
+import { editCurso } from "../../services/cursos/editCurso";
 
 function ModalOpciones({
   modalData,
   setModalData,
   showModal,
   setShowModal,
-  licenciaturas,
-  setLicenciaturas
+  cursos,
+  setCursos
 }) {
   
-  const [licName] = useState(modalData.nombre)
-  const [licClave] = useState(modalData.clave)
+
+  const [cursoName] = useState(modalData.nombre)
+  const [cursoClave] = useState(modalData.clave)
 
   const fetch = () => {
-    editLicenciatura(licClave, modalData).then(res => {
+    /* Peticion al API */
+    editCurso(cursoClave, modalData).then(res => {
       if (res.status == 200) {
-        let arr = [...licenciaturas]
-        let foundIndex = arr.findIndex(x => x.clave === licClave);
-        arr[foundIndex] = modalData;   
-        setLicenciaturas(arr)
+        let arr = [...cursos]
+        let foundIndex = arr.findIndex(x => x.clave === cursoClave);
+        arr[foundIndex] = modalData;
+        setCursos(arr)
       }
       return res.json();
     }).then(res => {  //Msg error o exito
       alert(res.message)
     });      
-    setShowModal(false);
+    setShowModal(false);    
   }
-
 
   return (
     <Modal>
@@ -49,18 +49,18 @@ function ModalOpciones({
           <BtnCancelar functionOnClick={() => setShowModal(false)} />
         </div>
 
-        {/* El título del modal es el nombre de la licenciatura */}
+        {/* El título del modal es el nombre del curso */}
         <h2 className="font-bold text-lg">
-          {licName}</h2>
-        {/* También mostramos la clave de la licenciatura */}
+          {cursoName}</h2>
+        {/* También mostramos la clave del curso */}
         <p className="text-sm font-normal text-slate-500">
-          ({licClave})</p>
+          ({cursoClave})</p>
         <br/>
 
 
         {/* Primera propiedad: modalidad  --> nombre  */}
         <ContainerOpciones 
-            text={"Ingrese el nombre correcto de la Licenciatura"}
+            text={"Ingrese el nuevo nombre del curso"}
             prop={"nombre"}
             inputValue={modalData.nombre}
             changePropModal={changePropModal}
@@ -70,7 +70,7 @@ function ModalOpciones({
 
         {/* Segunda propiedad: horario --> id */}
         <ContainerOpciones 
-            text={"Ingrese el ID correcto de la Licenciatura"}
+            text={"Ingrese la nueva clave del curso"}
             prop={"clave"}
             inputValue={modalData.clave}
             changePropModal={changePropModal}
@@ -78,15 +78,24 @@ function ModalOpciones({
             setModalData={setModalData}
             />
 
+        <ContainerOpciones 
+            text={"Ingrese el tipo de la UEA: (Obligatoria, Optativa)"}
+            prop={"tipo"}
+            inputValue={modalData.tipo}
+            changePropModal={changePropModal}
+            modalData={modalData}
+            setModalData={setModalData}
+            />
         <div className="modal-action justify-between">
           {/* Alguna información de ayuda para el usuario */}
           <div className="text-xs font-normal text-slate-500">
-            <p>Va a cambiar el nombre de la UEA</p>
-            <p>Debe seleccionar el botón Guardar </p>
+            <p>Seleccione el boton de guardar</p>
+            <p>Para guardar los cambios </p>
           </div>
 
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
           <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Guardar"} />
+
         </div>
       </div>
       </div>

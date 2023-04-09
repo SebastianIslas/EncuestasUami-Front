@@ -4,36 +4,35 @@ import React, {useState} from "react";
 import Modal from "../common/modal/Modal";
 
 //Services
-import { deleteLicenciatura } from "../../services/licenciaturas/deleteLicenciatura";
+import { deleteProfesor } from "../../services/profesores/deleteProfesor";
 
 
 function ModalConfirmacion({
   modalData,
   setShowModal,
-  licenciaturas,
-  setLicenciaturas
+  profesores,
+  setProfesores
 }) {
   
-  const [licName] = useState(modalData.nombre)
-  const [licClave] = useState(modalData.clave)
+  const [profesorName] = useState(modalData.nombre)
+  const [profesorClave] = useState(modalData.claveEmpleado)
 
-  const fetch = () => {
-    deleteLicenciatura(licClave).then(res => {
+  const fetch = () => {      
+    deleteProfesor(profesorClave).then(res => {
       if (res.status == 200) {
-        let newLicenciaturas = licenciaturas.filter((lic) => {
-          if (lic.clave !== licClave){
-              return lic
+        let newProfesores = profesores.filter((profesor) => {
+          if (profesor.claveEmpleado !== profesorClave){
+              return profesor
           }else{
               return null
           }
         })
-        setLicenciaturas(newLicenciaturas)
+        setProfesores(newProfesores)
       }
       return res.json();
     }).then(res => {  //Msg error o exito
       alert(res.message)
     }); 
-
     setShowModal(false);
   }
 
@@ -43,14 +42,14 @@ function ModalConfirmacion({
       <div className="fixed bg-black/80 w-full h-screen z-50 pt-10">
         {/* Div que contiene la ventana del modal */}
         <div className="modal-box bg-base-300 mx-auto">
-
           <h3 className="text-lg font-bold">
-              ¿Desea eliminar la <strong>{licName}</strong> con clave <strong>{licClave}</strong>?
+              ¿Desea eliminar la <strong>{profesorName}</strong> con clave <strong>{profesorClave}</strong>?
           </h3>
+
           <div className="modal-action justify-between">
             <label className="btn btn-error" onClick={() => setShowModal(false)}>NO</label>
             <label className="btn btn-success" onClick={fetch}>SÍ</label>
-          </div>
+          </div>          
         </div>
       </div>
     </Modal>
