@@ -1,7 +1,7 @@
-import ButtonLogin from '../components/AdminLogin/ButtonLogin.js'
-import CardLogin from '../components/AdminLogin/CardLogin.js'
-import InfoLogin from '../components/AdminLogin/InfoLogin.js'
-import InputLogin from '../components/AdminLogin/InputLogin.js'
+import ButtonLogin from '../../components/AdminLogin/ButtonLogin.js'
+import CardLogin from '../../components/AdminLogin/CardLogin.js'
+import InfoLogin from '../../components/AdminLogin/InfoLogin.js'
+import InputLogin from '../../components/AdminLogin/InputLogin.js'
 
 export default function LoginPage() {
     return (

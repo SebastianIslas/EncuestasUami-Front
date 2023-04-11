@@ -1,25 +1,15 @@
-// TODO: separar los botones en más componentes
-import React, {useState} from "react";
-
+import React, { useContext} from "react";
 import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
-import Btn from "../common/Button";
-import ContainerOpciones from "../common/modal/ContainerOpciones";
-import { changePropModal, handleBtnAceptar } from "../common/modal/modalEvents";
+import Button from '../../components/common/Button';
+
+import { ModalContext } from "../../context/modalContext";
+
 //services
 import { crearLicenciatura } from "../../services/licenciaturas/crearLicenciatura";
 
-function ModalAgregar({
-  setShowModal,
-  licenciaturas,
-  setLicenciaturas
-}) {
-  
-  const [modalData,setModalData] = useState({
-    clave: "",
-    nombre: ""
-  })
-
+function ModalAgregar({licenciaturas, setLicenciaturas}) {
+  const {modalData, showModal, setShowModal, handleBtnAceptar, renderContainerOpciones} = useContext(ModalContext);
 
   const fetch = () => {
     crearLicenciatura(modalData).then(res => {
@@ -32,48 +22,41 @@ function ModalAgregar({
     }).then(res => {  //Msg error o exito
       alert(res.message)
     });
-    setShowModal(false);
+    setShowModal({...showModal, agregar: false}); // Cerramos el modal
   }
 
   return (
-    <Modal>
-      {/* Div que cubre toda la pantalla del modal */}
-      <div className="fixed bg-black/80 w-full h-screen z-50 pt-10">
-      {/* Div que contiene la ventana del modal */}
-      <div className="modal-box bg-base-300 mx-auto">
-        {/* Botón cerrar/cancelar */}
-        <div className="absolute right-2 top-2">
-          <BtnCancelar functionOnClick={() => setShowModal(false)} />
-        </div>
-
-       
-        {/* Segunda propiedad: horario --> id */}
-        <ContainerOpciones 
-            text={"Ingrese la clave de la nueva licenciatura"}
-            prop={"clave"}
-            inputValue={modalData.clave}
-            changePropModal={changePropModal}
-            modalData={modalData}
-            setModalData={setModalData}
-            />
-
-        {/* Primera propiedad: modalidad  --> nombre  */}
-        <ContainerOpciones 
-            text={"Ingrese el nombre de la nueva licenciatura"}
-            prop={"nombre"}
-            inputValue={modalData.nombre}
-            changePropModal={changePropModal}
-            modalData={modalData}
-            setModalData={setModalData}
-            />
-
-        <div className="modal-action justify-between">
-          {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Agregar"} />
-        </div>
+    <React.Fragment>
+      <div className="fixed bottom-4 left-4">
+        <Button text={"Agregar Licenciatura"} onClick={() => setShowModal({...showModal, agregar: true})} />
       </div>
-      </div>
-    </Modal>
+      {showModal.agregar ? 
+
+      <Modal>
+        {/* Div que cubre toda la pantalla del modal */}
+        <div className="fixed bg-black/80 w-full h-screen z-50 pt-10">
+        {/* Div que contiene la ventana del modal */}
+        <div className="modal-box bg-base-300 mx-auto">
+          {/* Botón cerrar/cancelar */}
+          <div className="absolute right-2 top-2">
+            <BtnCancelar functionOnClick={() => setShowModal({...showModal, agregar: false})} />
+          </div>
+          {//Dejar mensajes en el mismo orden en que se define el modalData en initialModalData
+          renderContainerOpciones([
+            "Ingrese la clave de la nueva licenciatura", 
+            "Ingrese el nombre de la nueva licenciatura"
+          ])}
+        
+
+          <div className="modal-action justify-between">
+            {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
+            <Button onClick={fetch} disabled={handleBtnAceptar()} text={"Agregar"} />
+          </div>
+        </div>
+        </div>
+      </Modal>
+      : null}
+    </React.Fragment>
   )
 }
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Button from '../../components/common/Button';
 import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
-import TablaCursosProfesores from "../../components/AdminProfesores/TablaProfesoresAdmin";
+import TablaProfesoresAdmin from "../../components/AdminProfesores/TablaProfesoresAdmin";
 import ModalAgregar from "../../components/AdminProfesores/ModalAgregar.js";
+import { ModalProvider } from "../../context/modalContext";
 
 //Services
 import { getProfesores } from "../../services/profesores/getProfesores";
@@ -17,8 +17,11 @@ function AdminProfesoresPage() {
   // Lista la licenciatura solo usamos la clave y el nombre
   const [profesores, setProfesores] = useState([]);
 
-  const [showModalAgregar, setShowModalAgregar] = useState(false);
-
+  //Valores para el context del modal de profesores
+  const dataModal = {
+    claveEmpleado: "",
+    nombre: "",
+  }
 
   useEffect(() => {
     document.title = "Panel de Administracion";
@@ -26,31 +29,15 @@ function AdminProfesoresPage() {
     getProfesores().then(setProfesores);
   }, []);
 
-
-  
-  const toggleModalAgregar = () => {
-    setShowModalAgregar(!showModalAgregar);
-  }
-
   return (
     <div className="bg-base-200">
       <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
 
         <AdminHomeHeader _user={user} />
-  
-        {/* Tabla */}
-        <TablaCursosProfesores profesores={profesores} setProfesores={setProfesores}/>
-
-        <div className="fixed bottom-4 right-4">
-          <Button text={"Agregar Profesor"} onClick={toggleModalAgregar} />
-        </div>
-
-        {showModalAgregar ? <ModalAgregar
-          showModal={showModalAgregar}
-          setShowModal={setShowModalAgregar}
-          profesores={profesores}
-          setProfesores={setProfesores}
-            /> : null}
+        <ModalProvider initialModalData={dataModal}>
+          <TablaProfesoresAdmin profesores={profesores} setProfesores={setProfesores}/>
+          <ModalAgregar profesores={profesores} setProfesores={setProfesores}/> 
+        </ModalProvider>
 
       </div>
     </div>

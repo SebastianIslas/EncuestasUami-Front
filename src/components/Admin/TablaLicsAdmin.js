@@ -9,58 +9,7 @@ import Buscador, {filteredData} from "../common/table/buscador";
 
 
 function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
-  
-
-  // Controlar si se muestra el modal
-  const [showModal, setShowModal] = useState(false);
-  const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
-
   const [query, setQuery] = useState(""); //Variable para buscador
-
- 
-
-  // Datos que se tienen dentro del modal, es decir aquellos datos que le
-  // pertenecen a la materia que mandó a llamar al modal
-  const [modalData, setModalData] = useState({
-    clave: null,
-    nombre: null
-  });
-
-
-  const toggleModal = (claveElegida, nombreElegida) => {
-    // Vemos el estado de mostrar el modal
-    if (!showModal){
-      // Cremos un nuevo objeto para guardar los datos a usar en el modal
-      let newObject = {
-        // La clave de la materia que está en el renglón que mandó a llamar el
-        // modal
-        clave: claveElegida,
-        // Nombre de la licenciatura en el renglón que mandó a llamar el modal
-        nombre: nombreElegida,
-        
-        
-      }
-
-      // Actualizamos los valores dentro del modal
-      setModalData(newObject);
-    }
-
-    // Cambiar el estado del modal
-    setShowModal(!showModal);
-  }
-
-  const toggleModalConfirmacion = (claveElegida, nombreElegida) => {
-    if (!showModalConfirmacion){
-      let newObject = {
-        clave: claveElegida,
-        nombre: nombreElegida,  
-      }
-      setModalData(newObject);
-    }
-    setShowModalConfirmacion(!showModalConfirmacion);
-  }
-
-
   return (
 
     <React.Fragment>
@@ -83,30 +32,15 @@ function TablaLicsAdmin({ licenciaturas, setLicenciaturas }) {
               </td>
               <th>
                 <RowOptions 
-                  objeto={{clave:licenciatura.clave, nombre:licenciatura.nombre, btnVer:`/admin/licenciatura/${licenciatura.clave}`}} 
-                  toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+                  objeto={{clave:licenciatura.clave, nombre:licenciatura.nombre, btnVer:`/admin/licenciatura/${licenciatura.clave}`}} />
               </th>
             </tr>
           )}
         </tbody>
       </table>
 
-      {showModal ? <ModalOpciones
-          modalData={modalData}
-          setModalData={setModalData}
-          showModal={showModal}
-          setShowModal={setShowModal}
-          licenciaturas={licenciaturas}
-          setLicenciaturas={setLicenciaturas}
-           /> : null}
-      
-      {showModalConfirmacion ? <ModalConfirmacion
-          modalData={modalData}
-          setShowModal={setShowModalConfirmacion}
-          licenciaturas={licenciaturas}
-          setLicenciaturas={setLicenciaturas}
-           /> : null}
-
+      <ModalOpciones licenciaturas={licenciaturas} setLicenciaturas={setLicenciaturas}/>
+      <ModalConfirmacion licenciaturas={licenciaturas} setLicenciaturas={setLicenciaturas}/>
     </div>
     </React.Fragment>
   );

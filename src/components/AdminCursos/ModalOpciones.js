@@ -1,4 +1,3 @@
-// TODO: separar los botones en más componentes
 import React, { useContext } from "react";
 
 import Modal from "../common/modal/Modal";
@@ -46,13 +45,10 @@ function ModalOpciones({cursos, setCursos}) {
           </div>
 
           {/* El título del modal es el nombre del curso */}
-          <h2 className="font-bold text-lg">
-            {cursoName}</h2>
+          <h2 className="font-bold text-lg">{cursoName}</h2>
           {/* También mostramos la clave del curso */}
-          <p className="text-sm font-normal text-slate-500">
-            ({cursoClave})</p>
+          <p className="text-sm font-normal text-slate-500">({cursoClave})</p>
           <br/>
-
           {//Dejar mensajes en el mismo orden en que se define el modalData en initialModalData
           renderContainerOpciones([
             "Ingrese la clave del nuevo curso", 
@@ -68,7 +64,7 @@ function ModalOpciones({cursos, setCursos}) {
             </div>
 
             {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-            <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Guardar"} />
+            <Btn onClick={fetch} disabled={handleBtnAceptar()} text={"Guardar"} />
 
           </div>
         </div>

@@ -1,26 +1,17 @@
 // TODO: separar los botones en más componentes
-import React, {useState} from "react";
+import React, { useContext } from "react";
 
 import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
-import ContainerOpciones from "../common/modal/ContainerOpciones";
-import {handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
-
+import { ModalContext } from "../../context/modalContext";
 //Services
 import { editProfesor } from "../../services/profesores/editProfesor";
 
-function ModalOpciones({
-  modalData,
-  setModalData,
-  showModal,
-  setShowModal,
-  profesores,
-  setProfesores
-}) {
-  console.log(modalData);
-  const [profesorName] = useState(modalData.nombre)
-  const [profesorClave] = useState(modalData.claveEmpleado)
+function ModalOpciones({profesores, setProfesores}) {
+  const {modalData, cleanModalData, showModal, setShowModal, handleBtnAceptar, renderContainerOpciones} = useContext(ModalContext);
+  const profesorName = modalData.nombre
+  const profesorClave = modalData.claveEmpleado
 
 
   const fetch = () => {
@@ -36,61 +27,52 @@ function ModalOpciones({
     }).then(res => {  //Msg error o exito
       alert(res.message)
     });    
-    setShowModal(false);
+    setShowModal({...showModal, opciones: false}); // Oculta el modal
   }
 
   return (
-    <Modal>
-      {/* Div que cubre toda la pantalla del modal */}
-      <div className="fixed bg-black/80 w-full h-screen z-50 pt-10">
-      {/* Div que contiene la ventana del modal */}
-      <div className="modal-box bg-base-300 mx-auto">
-        {/* Botón cerrar/cancelar */}
-        <div className="absolute right-2 top-2">
-          <BtnCancelar functionOnClick={() => setShowModal(false)} />
-        </div>
-
-        {/* El título del modal es el nombre del curso */}
-        <h2 className="font-bold text-lg">
-          {profesorName}</h2>
-        {/* También mostramos la clave del curso */}
-        <p className="text-sm font-normal text-slate-500">
-          ({profesorClave})</p>
-        <br/>
-
-        {/* Primera propiedad: modalidad  --> nombre  */}
-        <ContainerOpciones 
-            text={"Ingrese el nuevo nombre del curso"}
-            prop={"nombre"}
-            inputValue={modalData.nombre}
-            changePropModal={changePropModal}
-            modalData={modalData}
-            setModalData={setModalData}
-            />
-
-        {/* Segunda propiedad: horario --> id */}
-        <ContainerOpciones 
-            text={"Ingrese la nueva clave del curso"}
-            prop={"claveEmpleado"}
-            inputValue={modalData.claveEmpleado}
-            changePropModal={changePropModal}
-            modalData={modalData}
-            setModalData={setModalData}
-            />
-
-        <div className="modal-action justify-between">
-          {/* Alguna información de ayuda para el usuario */}
-          <div className="text-xs font-normal text-slate-500">
-            <p>Seleccione el boton de guardar</p>
-            <p>Para guardar los cambios </p>
+    <React.Fragment>
+      {showModal.opciones ? 
+      <Modal>
+        {/* Div que cubre toda la pantalla del modal */}
+        <div className="fixed bg-black/80 w-full h-screen z-50 pt-10">
+        {/* Div que contiene la ventana del modal */}
+        <div className="modal-box bg-base-300 mx-auto">
+          {/* Botón cerrar/cancelar */}
+          <div className="absolute right-2 top-2">
+          <BtnCancelar functionOnClick={() =>{
+              setShowModal({...showModal, opciones: false})
+              cleanModalData()
+            }} />
           </div>
 
-          {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-          <Btn onClick={fetch} disabled={handleBtnAceptar(modalData)} text={"Guardar"} />
+          {/* El título del modal es el nombre del Profesor */}
+          <h2 className="font-bold text-lg">{profesorName}</h2>
+          {/* También mostramos la clave del Profesor */}
+          <p className="text-sm font-normal text-slate-500">({profesorClave})</p>
+          <br/>
+
+          {//Dejar mensajes en el mismo orden en que se define el modalData en initialModalData
+          renderContainerOpciones([
+            "Ingrese la clave del nuevo profesor", 
+            "Ingrese el nombre del nuevo profesor"
+          ])}
+
+          <div className="modal-action justify-between">
+            {/* Alguna información de ayuda para el usuario */}
+            <div className="text-xs font-normal text-slate-500">
+              <p>Seleccione el boton de guardar</p>
+              <p>Para guardar los cambios </p>
+            </div>
+
+            {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
+            <Btn onClick={fetch} disabled={handleBtnAceptar()} text={"Guardar"} />
+          </div>
         </div>
-      </div>
-      </div>
-    </Modal>
+        </div>
+      </Modal>
+      : null}
+    </React.Fragment>
   )
 }
 

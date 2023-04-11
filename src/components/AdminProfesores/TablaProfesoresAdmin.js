@@ -7,59 +7,7 @@ import Buscador, {filteredData} from "../common/table/buscador";
 import TitleRowTablaMaterias from "../common/table/TitleRowTablaMaterias";
 
 function TablaProfesoresAdmin({ profesores, setProfesores }) {
-  
-
-  // Controlar si se muestra el modal
-  const [showModal, setShowModal] = useState(false);
-  const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
-
   const [query, setQuery] = useState(""); //Variable para buscador
-
-
-
-
-  // Datos que se tienen dentro del modal, es decir aquellos datos que le
-  // pertenecen a la materia que mandó a llamar al modal
-  const [modalData, setModalData] = useState({
-    claveEmpleado: null,
-    nombre: null
-  });
-
-
-  const toggleModal = (claveElegida, nombreElegida) => {
-    // Vemos el estado de mostrar el modal
-    if (!showModal){
-      // Cremos un nuevo objeto para guardar los datos a usar en el modal
-      let newObject = {
-        // La clave de la materia que está en el renglón que mandó a llamar el
-        // modal
-        claveEmpleado: claveElegida,
-        // Nombre del profesor en el renglón que mandó a llamar el modal
-        nombre: nombreElegida,
-        
-        
-      }
-
-      // Actualizamos los valores dentro del modal
-      setModalData(newObject);
-    }
-
-    // Cambiar el estado del modal
-    setShowModal(!showModal);
-  }
-
-  const toggleModalConfirmacion = (claveElegida, nombreElegida) => {
-    if (!showModalConfirmacion){
-      let newObject = {
-        claveEmpleado: claveElegida,
-        nombre: nombreElegida,  
-      }
-      setModalData(newObject);
-    }
-    setShowModalConfirmacion(!showModalConfirmacion);
-  }
-
-
   return (
     <React.Fragment>
     {/* Container de la tabla */}
@@ -80,29 +28,15 @@ function TablaProfesoresAdmin({ profesores, setProfesores }) {
                   {profesor.nombre}
               </td>
               <th>
-                <RowOptions objeto={{clave:profesor.claveEmpleado, nombre:profesor.nombre}} toggleModal={toggleModal} toggleModalConfirmacion={toggleModalConfirmacion}/>
+                <RowOptions objeto={{clave:profesor.claveEmpleado, nombre:profesor.nombre}}/>
               </th>
             </tr>
           )}
         </tbody>
       </table>
 
-      {showModal ? <ModalOpciones
-          modalData={modalData}
-          setModalData={setModalData}
-          showModal={showModal}
-          setShowModal={setShowModal}
-          profesores={profesores}
-          setProfesores={setProfesores}
-           /> : null}
-      
-      {showModalConfirmacion ? <ModalConfirmacion
-          modalData={modalData}
-          setShowModal={setShowModalConfirmacion}
-          profesores={profesores}
-          setProfesores={setProfesores}
-           /> : null}
-
+      <ModalOpciones profesores={profesores} setProfesores={setProfesores}/>
+      <ModalConfirmacion profesores={profesores} setProfesores={setProfesores}/>
     </div>
     </React.Fragment>
   );
