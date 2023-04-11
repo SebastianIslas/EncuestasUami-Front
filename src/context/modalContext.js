@@ -1,23 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ContainerOpciones from "../components/common/modal/ContainerOpciones";
+import ModalOpciones from '../components/AdminCursos/ModalOpciones';
+import ModalConfirmacion from '../components/AdminCursos/ModalConfirmacion';
 
 
 export const ModalContext = React.createContext(null);
 
 
 export const ModalProvider = props => {
+  const [modalData, setModalData] = useState(props.initialModalData);
+  const [keys, setKeys] = useState(Object.keys(modalData)); //Sirve para poder recorrer modalData sin obtener las keys por parametro de nuevo en funciones
 
-  //Arreglo para inicializar modalData
-  const initialState = {};
-  for (let i = 0; i < props.keys.length; i++) {
-    initialState[props.keys[i]] = "";
-  }
-
-
-  const [keys, setKeys] = useState(props.keys) //Sirve para poder recorrer modalData sin obtener las keys por parametro de nuevo en funciones
-  const [modalData, setModalData] = useState(initialState)
-  const [showModal, setShowModal] = useState(false)
-
+  const [showModal, setShowModal] = useState({    
+    agregar: false,
+    opciones: false,
+    confirmacion: false
+  });
 
   // Función que permite cambiar dentro del modal los valores de cada propiedad
   // o campo relacionado con la encuesta
@@ -41,7 +39,7 @@ export const ModalProvider = props => {
   }
 
 
-  // Función para cambiar el estilo de los botones del modal dependiendo si
+  // Cambiar estilo de los botones del modal dependiendo si
   // están dentro de las opciones elegidas anteriormente por el usuario. Se
   // basa en tomar una propiedad (modalidad o horario) y también considera el
   // valor de esa proiedad
@@ -56,22 +54,22 @@ export const ModalProvider = props => {
   }
 
   //Para el modal que recibe valores de una tabla (si no usa modalData solo llamar onClick={()=>setShowModal(!showModal)} en el button)
-  const toggleModal = (values) => {
-    if (!showModal){
+  const toggleModal = (values, modalName) => {
+  //  console.log(values, modalName);
+    if (!showModal[modalName]){
       let newObject = {};
-      for (let i = 0; i < props.keys.length; i++) {
-        newObject[props.keys[i]] = values[i];
+      for (let i = 0; i < keys.length; i++) {
+        newObject[keys[i]] = values[i];   //Crea nuevo objeto key: value con las mismas keys de initialModalData
       }
       setModalData(newObject);
     }
-    setShowModal(!showModal);
+    showModal[modalName] = true;
+//    console.log("Final", showModal);
   }
 
   const renderContainerOpciones = (texts) => {
     //Dejar mensajes en el mismo orden en que se define el modalData en initialModalData
-    const keys = Object.keys(modalData);
     const Inputs = [];
-  
     for (let i = 0; i < texts.length; i++) {
       Inputs.push(
         <ContainerOpciones key={keys[i]} text={texts[i]} prop={keys[i]}
@@ -81,17 +79,21 @@ export const ModalProvider = props => {
     return Inputs;
   }
 
+  const cleanModalData = () => {
+    setModalData(props.initialModalData);
+  }
+
   return (
     <ModalContext.Provider
       value={{
         modalData, setModalData,
         showModal, setShowModal,
-        keys, setKeys,
         handleBtnAceptar,
         changePropModal,
         handleClassBtnModal,
         renderContainerOpciones,
-        toggleModal
+        toggleModal,
+        cleanModalData
       }}
     >
       {props.children}
