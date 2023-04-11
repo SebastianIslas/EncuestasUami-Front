@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Logo24 from "./Logo24";
+import Logo24 from "../common/Logo24";
 import ModalActEnc from "./ModalActEnc";
 
 // Head Board

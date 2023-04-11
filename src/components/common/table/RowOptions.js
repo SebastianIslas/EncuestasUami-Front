@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 
 import { Link } from "react-router-dom";
-import Button from './Button';
+import Button from '../Button';
 import { faEye, faTrashCan, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ModalContext } from "../../context/modalContext";
+import { ModalContext } from "../../../context/modalContext";
 
 export default function RowOptions({objeto}) {
 

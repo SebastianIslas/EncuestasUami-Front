@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
+import TitleRowTablaMaterias from "../common/table/TitleRowTablaMaterias";
 import ModalOpciones from "./ModalOpciones";
-import RowOptions from "../common/RowOptions";
 import ModalConfirmacion from "./ModalConfirmacion";
-import Buscador, {filteredData} from "../common/buscador";
+import RowOptions from "../common/table/RowOptions";
+import Buscador, {filteredData} from "../common/table/buscador";
 
 
 

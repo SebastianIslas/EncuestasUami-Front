@@ -10,7 +10,6 @@ import { getCursos } from "../../services/cursos/getCursos";
 
 
 function AdminCursosPage() {
-
   let user = Object();
   user.matricula = 2183011316;
   user.licenciatura = "Computación";

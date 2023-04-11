@@ -10,9 +10,7 @@ import { ModalContext } from "../../context/modalContext";
 import { editCurso } from "../../services/cursos/editCurso";
 
 function ModalOpciones({cursos, setCursos}) {
-  
   const {modalData, cleanModalData, showModal, setShowModal, handleBtnAceptar, renderContainerOpciones} = useContext(ModalContext);
-
   const cursoName = modalData.nombre;
   const cursoClave = modalData.clave;
 

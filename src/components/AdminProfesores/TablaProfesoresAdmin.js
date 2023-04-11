@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import ModalOpciones from "../AdminProfesores/ModalOpciones";
-import RowOptions from "../common/RowOptions";
 import ModalConfirmacion from "../AdminProfesores/ModalConfirmacion";
-import Buscador, {filteredData} from "../common/buscador";
+import RowOptions from "../common/table/RowOptions";
+import Buscador, {filteredData} from "../common/table/buscador";
+import TitleRowTablaMaterias from "../common/table/TitleRowTablaMaterias";
 
 function TablaProfesoresAdmin({ profesores, setProfesores }) {
   

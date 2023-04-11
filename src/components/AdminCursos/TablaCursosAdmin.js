@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
-import TitleRowTablaMaterias from "../Admin/TitleRowTablaMaterias";
 import ModalOpciones from "../AdminCursos/ModalOpciones";
-import RowOptions from "../common/RowOptions.js";
 import ModalConfirmacion from "../AdminCursos/ModalConfirmacion";
-import Buscador, {filteredData} from "../common/buscador";
+import TitleRowTablaMaterias from "../common/table/TitleRowTablaMaterias";
+import RowOptions from "../common/table/RowOptions";
+import Buscador, {filteredData} from "../common/table/buscador";
 
 function TablaCursosAdmin({ cursos, setCursos }) {
-  
   const [query, setQuery] = useState(""); //Variable para buscador
 
   return (
