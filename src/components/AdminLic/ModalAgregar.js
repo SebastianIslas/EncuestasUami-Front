@@ -37,8 +37,6 @@ function ModalAgregar({setCursosLic, claveLic}) {
       }).then(res => {  //Msg error o exito
         alert(res.message)
       });
-      console.log("AGREGO UEA");
-      console.log(selectedValue);
       setShowModal({...showModal, agregar: false}); // Cerramos el modal
     }
   }

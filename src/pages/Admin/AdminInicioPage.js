@@ -30,7 +30,7 @@ function AdminInicioPage() {
 
   return (
     <div className="bg-base-200">
-      <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
+      <div className="min-h-screen bg-base-200 px-2 md:px-10 mx-auto">
         <AdminHomeHeader _user={user} />
         <ModalProvider initialModalData={dataModal}>
           <TablaLicsAdmin licenciaturas={licenciaturas} setLicenciaturas={setLicenciaturas}/>

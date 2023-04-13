@@ -43,7 +43,7 @@ function AdminUeasTablaPage() {
 
   return (
     <div className="bg-base-200">
-      <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
+      <div className="min-h-screen bg-base-200 px-2 md:px-10 mx-auto">
         <AdminHomeHeader _user={user} />
         {/* Información */}
         <div className="bg-base-200 pb-10">
@@ -55,22 +55,6 @@ function AdminUeasTablaPage() {
           <TablaUeasByLic cursos={materias} setCursos={setMaterias} claveLic={claveLic}/>
           <ModalAgregar setCursosLic={setMaterias} claveLic={claveLic}/> 
         </ModalProvider>
-
-        {/* Modal de Editar UEA (Profesores)}
-        
-        <TablaUeasByLic cursos={materias} 
-          toggleModalEditar={toggleModalEditar} 
-          toggleModalEliminar={toggleModalEliminar}
-            />
-
-            
-        {showModalEditar ? <ModalEditar
-          modalData={modalData}
-          setShowModalEditar={setShowModalEditar}
-          materias={materias}
-          setMaterias={setMaterias}
-          /> : null}
-        {*/}
       </div>
     </div>
   );
