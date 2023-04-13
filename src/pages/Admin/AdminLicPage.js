@@ -3,10 +3,7 @@ import { useParams } from "react-router-dom";
 
 // Componentes
 import ModalAgregar from "../../components/AdminLic/ModalAgregar";
-import ModalConfirmacion from "../../components/AdminLic/ModalConfirmacion";
-import ModalEditar from "../../components/AdminLic/ModalEditarUea";
 import { ModalProvider } from "../../context/modalContext";
-import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
 import { TablaUeasByLic } from "../../components/AdminLic/TablaUeasByLic";
 
 // Services
@@ -44,7 +41,6 @@ function AdminUeasTablaPage() {
   return (
     <div className="bg-base-200">
       <div className="min-h-screen bg-base-200 px-2 md:px-10 mx-auto">
-        <AdminHomeHeader _user={user} />
         {/* Información */}
         <div className="bg-base-200 pb-10">
           <h2 className="text-2xl">Licenciatura: <b>{licNombre}</b></h2>

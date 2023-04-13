@@ -10,10 +10,27 @@ import AdminCursosPage from "./pages/Admin/AdminCursosPage.js";
 import AdminProfesoresPage from "./pages/Admin/AdminProfesoresPage.js";
 import {AuthProvider} from "./context/AuthContext.js";
 
+import AdminHomeHeader from './components/Admin/AdminHomeHeader';
+import { ModalProvider } from "./context/modalContext";
+
 function App() {
+  let user = Object();
+  user.matricula = 2183011316;
+  user.licenciatura = "Computación";
+
+  const dataModalActEnc= {
+    periodo: "",
+    maxMaterias: 4
+  }
   return (
     <AuthProvider>
     <BrowserRouter>
+
+      {/*  METER ALGUNA CONDICIONAL SOLO PARA ADMIN */}
+      <ModalProvider initialModalData={dataModalActEnc}>
+        <AdminHomeHeader _user={user}/>
+      </ModalProvider>
+
       <Routes>
         <Route index element={ <HomePage /> } />
         <Route path="login" element= { <LoginPage /> } />

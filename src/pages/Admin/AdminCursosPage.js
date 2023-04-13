@@ -30,7 +30,6 @@ function AdminCursosPage() {
   return (
   <div className="bg-base-200">
     <div className="min-h-screen bg-base-200 px-2 md:px-10 mx-auto">
-      <AdminHomeHeader _user={user} />
       <ModalProvider initialModalData={dataModal}>
         <TablaCursosAdmin cursos={cursos} setCursos={setCursos}/>
         <ModalAgregar cursos={cursos} setCursos={setCursos}/> 

@@ -32,7 +32,7 @@ function ModalAgregar({cursos,setCursos}) {
         <Button text={"Agregar Curso"} onClick={() => setShowModal({...showModal, agregar: true})} />
       </div>
       {showModal.agregar ? 
-      <Modal>        
+      <Modal>
         {/* Div que cubre toda la pantalla del modal */}
         <div className="fixed bg-black/80 w-full h-screen z-50 pt-10">
           {/* Div que contiene la ventana del modal */}

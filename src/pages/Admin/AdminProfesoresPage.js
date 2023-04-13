@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
 import TablaProfesoresAdmin from "../../components/AdminProfesores/TablaProfesoresAdmin";
 import ModalAgregar from "../../components/AdminProfesores/ModalAgregar.js";
 import { ModalProvider } from "../../context/modalContext";
@@ -33,7 +32,6 @@ function AdminProfesoresPage() {
     <div className="bg-base-200">
       <div className="min-h-screen bg-base-200 px-2 md:px-10 mx-auto">
 
-        <AdminHomeHeader _user={user} />
         <ModalProvider initialModalData={dataModal}>
           <TablaProfesoresAdmin profesores={profesores} setProfesores={setProfesores}/>
           <ModalAgregar profesores={profesores} setProfesores={setProfesores}/> 

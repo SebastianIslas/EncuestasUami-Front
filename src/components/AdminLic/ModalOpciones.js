@@ -20,8 +20,8 @@ function ModalOpciones({allProfesores, setAllProfesores}) {
   const cursoClave = modalData.clave;
   const [profesores, setProfesores] = useState(null);
   //** Opc seleccionada de la lista de profesores */
-  const [selectedValue, setSelectedValue] = useState("");
-  const [nameSelected, setNameSelected] = useState("");
+  const [selectedValue, setSelectedValue] = useState(""); //CLAVE PROFE
+  const [nameSelected, setNameSelected] = useState("");   //Nombre profe
 
   useEffect(() => {
     if(cursoNombre != ""){
@@ -56,7 +56,6 @@ function ModalOpciones({allProfesores, setAllProfesores}) {
 
   const fetchDelete = (profesor) => {
     deleteProfesorFromCurso(cursoClave, profesor.claveEmpleado).then(res => {
-      console.log("RESULT",res);
       let newProfesores = profesores.filter((profe) => {
       if (profe.claveEmpleado !== profesor.claveEmpleado){
             return profe

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AdminHomeHeader from '../../components/Admin/AdminHomeHeader';
 import TablaLicsAdmin from "../../components/Admin/TablaLicsAdmin";
 import ModalAgregar from "../../components/Admin/ModalAgregar.js";
 import { ModalProvider } from "../../context/modalContext";
@@ -31,7 +30,6 @@ function AdminInicioPage() {
   return (
     <div className="bg-base-200">
       <div className="min-h-screen bg-base-200 px-2 md:px-10 mx-auto">
-        <AdminHomeHeader _user={user} />
         <ModalProvider initialModalData={dataModal}>
           <TablaLicsAdmin licenciaturas={licenciaturas} setLicenciaturas={setLicenciaturas}/>
           <ModalAgregar licenciaturas={licenciaturas} setLicenciaturas={setLicenciaturas}/> 
