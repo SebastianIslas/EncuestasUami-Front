@@ -18,16 +18,17 @@ function App() {
   user.matricula = 2183011316;
   user.licenciatura = "Computación";
 
-  const dataModalActEnc= {
+  const dataModalEncuesta= {
     periodo: "",
     maxMaterias: 4
   }
+
   return (
     <AuthProvider>
     <BrowserRouter>
 
       {/*  METER ALGUNA CONDICIONAL SOLO PARA ADMIN */}
-      <ModalProvider initialModalData={dataModalActEnc}>
+      <ModalProvider initialModalData={dataModalEncuesta}>
         <AdminHomeHeader _user={user}/>
       </ModalProvider>
 

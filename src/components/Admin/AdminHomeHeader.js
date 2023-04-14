@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo24 from "../common/Logo24";
-import ModalActEnc from "./ModalActEnc";
+import ModalEncuesta from "./ModalEncuesta";
 import { ModalContext } from "../../context/modalContext";
 
 // Head Board
@@ -11,8 +11,8 @@ function AdminHomeHeader({_user}) {
   const {pathname, hash} = useLocation()
   const {modalData, toggleModal} = useContext(ModalContext);
   const [menuOpen, setMenuOpen] = useState(false);
+
   const toggleMenu = () => {
-    console.log(menuOpen);
     setMenuOpen(!menuOpen);
   };
 
@@ -44,10 +44,8 @@ function AdminHomeHeader({_user}) {
               <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
               <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
               <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
-              <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "agregar")}}>Activar Encuesta</Link></li>
-              {/* Luis: se accede a esto a través de el Botón *Ver* */}
-              {/* <li><a>Abrir UEAs</a></li> */}
               <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
+              <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
             </ul>
           </div>
         </div>
@@ -55,14 +53,12 @@ function AdminHomeHeader({_user}) {
           <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
           <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
           <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
-          <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "agregar")}}>Activar Encuesta</Link></li>
-          {/* Luis: se accede a esto a través de el Botón *Ver* */}
-          {/* <li><a>Abrir UEAs</a></li> */}
           <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
+          <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
         </ul>
       </div>
       
-      <ModalActEnc/>
+      <ModalEncuesta/>
     </>
   );
 }
