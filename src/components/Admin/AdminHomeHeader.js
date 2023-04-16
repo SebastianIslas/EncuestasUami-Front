@@ -1,38 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Logo24 from "./Logo24";
-import ModalActEnc from "./ModalActEnc";
+import Logo24 from "../common/Logo24";
+import ModalEncuesta from "./ModalEncuesta";
+import { ModalContext } from "../../context/modalContext";
 
 // Head Board
 
 
-function AdminHomeHeader({_user}) {
-  const {pathname, hash} = useLocation()
-  const [showModalActEnc, setShowModalActEnc] = useState(false);
-  
-  // Datos que se tienen dentro del modal, es decir aquellos datos que le
-  // pertenecen a la materia que mandó a llamar al modal
-  const [modalData, setModalData] = useState({
-    clave: null,
-    nombre: null
-  });
-  
-  const toggleModalActEnc = (claveElegida, nombreElegida) => {
-    console.log("ENTRO");
-    if (!showModalActEnc){
-      let newObject = {
-        clave: claveElegida,
-        nombre: nombreElegida,  
-      }
-      setModalData(newObject);
-    }
-    setShowModalActEnc(!showModalActEnc);
+function AdminHomeHeader({}) {
+//  function AdminHomeHeader({_user}) {
+  const _user = {
+    matricula: 2183012662
   }
-
-
+  const {pathname, hash} = useLocation()
+  const {modalData, toggleModal} = useContext(ModalContext);
   const [menuOpen, setMenuOpen] = useState(false);
+
   const toggleMenu = () => {
-    console.log(menuOpen);
     setMenuOpen(!menuOpen);
   };
 
@@ -64,10 +48,8 @@ function AdminHomeHeader({_user}) {
               <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
               <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
               <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
-              <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModalActEnc()}}>Activar Encuesta</Link></li>
-              {/* Luis: se accede a esto a través de el Botón *Ver* */}
-              {/* <li><a>Abrir UEAs</a></li> */}
               <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
+              <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
             </ul>
           </div>
         </div>
@@ -75,19 +57,12 @@ function AdminHomeHeader({_user}) {
           <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
           <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
           <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
-          <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModalActEnc()}}>Activar Encuesta</Link></li>
-          {/* Luis: se accede a esto a través de el Botón *Ver* */}
-          {/* <li><a>Abrir UEAs</a></li> */}
           <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
+          <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
         </ul>
       </div>
       
-      {showModalActEnc ? <ModalActEnc
-        modalData={modalData}
-        setShowModal={setShowModalActEnc}
-//        licenciaturas={licenciaturas}
-  //      setLicenciaturas={setLicenciaturas}
-          /> : null}
+      <ModalEncuesta/>
     </>
   );
 }

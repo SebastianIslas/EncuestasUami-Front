@@ -1,6 +1,6 @@
 import React from "react";
 
-import logoUAM from "../assets/logo-uam.png";
+import logoUAM from "../../assets/logo-uam.png";
 
 function Logo24() {
   return (

@@ -16,7 +16,6 @@ function ContainerOpciones({
     <p className="text-xl pb-2">
       {text}</p>
 
-      {/* POR EL MOMENTO NO SIRVE DE NA' */}
       <div className="form-control">
           <input type="text" 
               placeholder={placeHolderText} 
