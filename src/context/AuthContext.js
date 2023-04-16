@@ -1,12 +1,13 @@
-import React from 'react';
+import { createContext, useEffect } from 'react';
 import {useAuth} from '../hooks/useAuth.js'
 
 
-export const AuthContext = React.createContext(null);
+export const AuthContext = createContext(null);
 
 
 export const AuthProvider = props => {
-  const { state, user, login, logout } = useAuth();
+  const { state, user, login, logout, verifyAuth } = useAuth();
+
 
   return (
     <AuthContext.Provider
@@ -15,6 +16,7 @@ export const AuthProvider = props => {
         user,
         login,
         logout,
+        verifyAuth
       }}
     >
       {props.children}

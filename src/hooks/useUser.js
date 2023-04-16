@@ -10,11 +10,21 @@ const UserInitial = {
 
 export const useUser = () => {
   const [ user, setUser ] = useState(UserInitial);
-  const { setItem } = useLocalStorage();
+  const { setItem, getItem } = useLocalStorage();
 
   const addUser = (user) => {
     setUser(user);
     setItem('user', JSON.stringify(user));
+  };
+
+  const loadUser = () => {
+    const userStorage = JSON.parse(getItem('user'));
+  
+    if (!userStorage) {
+      return null;
+    }
+    setUser(userStorage);
+    return userStorage;
   };
 
   const removeUser = () => {
@@ -22,5 +32,5 @@ export const useUser = () => {
     setItem('user', '');
   };
 
-  return { user, addUser, removeUser };
+  return { user, addUser, loadUser, removeUser };
 };

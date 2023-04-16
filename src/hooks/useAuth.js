@@ -4,57 +4,53 @@ import {fetchLogin} from '../services/auth/login.js'
 
 const initialState = {
     isLoggedIn: false,
-    isLoginPending: false,
+    isLoginPending: true,
     loginError: null
 }
 
 export const useAuth = () => {
-/*  const { user, addUser, removeUser } = useUser();
-
-  const { getItem } = useLocalStorage();
-
-  useEffect(() => {
-    const user = getItem('user');
-    if (user) {
-      addUser(JSON.parse(user));
-    }
-  }, []); */
 
   const [state, setState] = useState(initialState);
-  const { user, addUser, removeUser } = useUser()
-
-  const setLoginPending = (isLoginPending) => setState({isLoginPending});
-  const setLoginSuccess = (isLoggedIn) => setState({isLoggedIn});
-  const setLoginError = (loginError) => setState({loginError});
+  const { user, addUser, loadUser, removeUser } = useUser()
 
   const login = (email, password) => {
-    setLoginPending(true);
-    setLoginSuccess(false);
-    setLoginError(null);
-
     fetchLogin( email, password, error => {
-      setLoginPending(false);
 
       if (!error) {
-        setLoginSuccess(true);
         addUser({
             id: 2183011316,
             nombre: 'Administrador',
             email: email,
             authToken: password
         })
+        setState({...state, isLoggedIn: true, isLoginPending: false})
       } else {
-        setLoginError(error);
+        setState({...state, loginError: error})
       }
     })
   }
+  const verifyAuth = () => {
+    const userLocal = loadUser()
+    if (! userLocal?.authToken ) {
+      setState({...state, isLoggedIn: false, isLoginPending: false})
+      return
+    }
+    //setLoginPending(false);
+    //setLoginSuccess(true);
+    setState({...state, isLoggedIn: true, isLoginPending: false})
+    /*
+    try {
+      const res = await fetch('/api/auth'); //Peticion para verificar el token
+    } catch (err) {
+      console.error(err);
+      logout() // Se elimna usuario
+    }*/
+  };
 
   const logout = () => {
-    setLoginPending(false);
-    setLoginSuccess(false);
-    setLoginError(null);
+    setState({isLoggedIn: false, isLoginPending: false, loginError: null})
     removeUser();
   }
 
-  return { state, user, login, logout };
+  return { state, user, login, logout, verifyAuth };
 };

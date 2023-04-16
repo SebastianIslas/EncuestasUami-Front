@@ -5,7 +5,7 @@ import uamiPrecovid from '../../assets/UAMI.jpg'
 export default function Hero() {
   return (
     <>
-    <div className='flex flex-col text-xl'>
+    <div className='bg-base-200 h-screen flex flex-col text-xl'>
 
         <div className="hero min-h-max bg-base-200">
 
