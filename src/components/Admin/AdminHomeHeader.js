@@ -7,7 +7,11 @@ import { ModalContext } from "../../context/modalContext";
 // Head Board
 
 
-function AdminHomeHeader({_user}) {
+function AdminHomeHeader({}) {
+//  function AdminHomeHeader({_user}) {
+  const _user = {
+    matricula: 2183012662
+  }
   const {pathname, hash} = useLocation()
   const {modalData, toggleModal} = useContext(ModalContext);
   const [menuOpen, setMenuOpen] = useState(false);
