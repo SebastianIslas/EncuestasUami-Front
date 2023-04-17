@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import TablaProfesoresAdmin from "../../components/AdminProfesores/TablaProfesoresAdmin";
-import ModalAgregar from "../../components/AdminProfesores/ModalAgregar.js";
+import TablaProfesoresAdmin from "../../components/Admin/AdminProfesores/TablaProfesoresAdmin";
+import ModalAgregar from "../../components/Admin/AdminProfesores/ModalAgregar.js";
 import { ModalProvider } from "../../context/modalContext";
 
 //Services

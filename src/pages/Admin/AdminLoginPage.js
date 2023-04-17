@@ -1,10 +1,10 @@
 import {useRef, useContext, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
-import ButtonLogin from '../../components/AdminLogin/ButtonLogin.js'
-import CardLogin from '../../components/AdminLogin/CardLogin.js'
-import InfoLogin from '../../components/AdminLogin/InfoLogin.js'
-import InputLogin from '../../components/AdminLogin/InputLogin.js'
-import InputPassword from '../../components/AdminLogin/InputPassword.js'
+import ButtonLogin from '../../components/Admin/AdminLogin/ButtonLogin.js'
+import CardLogin from '../../components/Admin/AdminLogin/CardLogin.js'
+import InfoLogin from '../../components/Admin/AdminLogin/InfoLogin.js'
+import InputLogin from '../../components/Admin/AdminLogin/InputLogin.js'
+import InputPassword from '../../components/Admin/AdminLogin/InputPassword.js'
 import { AuthContext } from '../../context/AuthContext.js'
 
 export default function LoginPage() {

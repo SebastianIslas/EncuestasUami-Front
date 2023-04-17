@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import ModalOpciones from "../AdminProfesores/ModalOpciones";
 import ModalConfirmacion from "../AdminProfesores/ModalConfirmacion";
-import RowOptions from "../common/table/RowOptions";
-import Buscador, {filteredData} from "../common/table/buscador";
-import TitleRowTablaMaterias from "../common/table/TitleRowTablaMaterias";
+import RowOptions from "../../common/table/RowOptions";
+import Buscador, {filteredData} from "../../common/table/buscador";
+import TitleRowTablaMaterias from "../../common/table/TitleRowTablaMaterias";
 
 function TablaProfesoresAdmin({ profesores, setProfesores }) {
   const [query, setQuery] = useState(""); //Variable para buscador

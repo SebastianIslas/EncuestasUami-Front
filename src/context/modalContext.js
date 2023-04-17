@@ -1,7 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import ContainerOpciones from "../components/common/modal/ContainerOpciones";
-import ModalOpciones from '../components/AdminCursos/ModalOpciones';
-import ModalConfirmacion from '../components/AdminCursos/ModalConfirmacion';
 
 
 export const ModalContext = React.createContext(null);

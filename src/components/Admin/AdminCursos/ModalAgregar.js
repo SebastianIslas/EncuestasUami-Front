@@ -1,12 +1,12 @@
 import React, { useContext} from "react";
-import Modal from "../common/modal/Modal";
-import BtnCancelar from "../common/BtnCancelar";
-import Button from '../../components/common/Button';
+import Modal from "../../common/modal/Modal";
+import BtnCancelar from "../../common/BtnCancelar";
+import Button from '../../../components/common/Button';
 
-import { ModalContext } from "../../context/modalContext";
+import { ModalContext } from "../../../context/modalContext";
 
 //services
-import { crearCurso } from "../../services/cursos/crearCurso";
+import { crearCurso } from "../../../services/cursos/crearCurso";
 
 
 function ModalAgregar({cursos,setCursos}) {

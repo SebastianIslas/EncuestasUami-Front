@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 
-import Modal from "../common/modal/Modal";
-import { ModalContext } from "../../context/modalContext";
+import Modal from "../../common/modal/Modal";
+import { ModalContext } from "../../../context/modalContext";
 
 //Services
-import { deleteCurso } from "../../services/cursos/deleteCurso";
+import { deleteCurso } from "../../../services/cursos/deleteCurso";
 
 
 function ModalConfirmacion({cursos, setCursos}) {
