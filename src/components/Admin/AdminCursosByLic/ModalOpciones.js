@@ -1,17 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 
-import Modal from "../common/modal/Modal";
-import BtnCancelar from "../common/BtnCancelar";
-import Button from "../common/Button";
-import { ModalContext } from "../../context/modalContext";
-import TitleRowTablaMaterias from "../common/table/TitleRowTablaMaterias";
+import Modal from "../../common/modal/Modal";
+import BtnCancelar from "../../common/BtnCancelar";
+import Button from "../../common/Button";
+import { ModalContext } from "../../../context/modalContext";
+import TitleRowTablaMaterias from "../../common/table/TitleRowTablaMaterias";
 import {faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //Services
-import { getProfesoresFromCurso } from "../../services/cursos/getProfesoresFromCurso";
-import { addProfToCurso } from "../../services/cursos/addProfToCurso";
-import { deleteProfesorFromCurso } from "../../services/cursos/deleteProfesorCurso";
+import { getProfesoresFromCurso } from "../../../services/cursos/getProfesoresFromCurso";
+import { addProfToCurso } from "../../../services/cursos/addProfToCurso";
+import { deleteProfesorFromCurso } from "../../../services/cursos/deleteProfesorCurso";
 
 
 function ModalOpciones({allProfesores, setAllProfesores}) {

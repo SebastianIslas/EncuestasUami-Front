@@ -1,6 +1,6 @@
 import {useContext, useEffect} from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage.js"
+import HomePage from "./pages/Alumno/HomePage.js"
 import LoginPage from "./pages/Alumno/LoginPage.js";
 import AdminLoginPage from "./pages/Admin/AdminLoginPage.js";
 import EncuestaPage from "./pages/Alumno/EncuestaPage.js";
@@ -23,22 +23,28 @@ function App() {
   }
   
 
-  const {verifyAuth} = useContext(AuthContext)
+  const {verifyAuth, user} = useContext(AuthContext)
   useEffect(() => {verifyAuth()}, [])
-
+  console.log("user", user);
   return (
     <BrowserRouter>
 
       {/*  METER ALGUNA CONDICIONAL SOLO PARA ADMIN */}
+      {user.authToken == 'admin' ? 
       <ModalProvider initialModalData={dataModalEncuesta}>
         <AdminHomeHeader />
         {/* <AdminHomeHeader _user={user}/> */}
       </ModalProvider>
+      : null
+      }
 
       <Routes>
         <Route index element={ <HomePage /> } />
         <Route path="login" element= { <LoginPage /> } />
         <Route path="encuesta" element= { <EncuestaPage /> } />
+
+
+
         <Route path="admin/login" element= { <AdminLoginPage /> } />
         <Route path="admin" element= { <ProtectedRoute /> } > 
           <Route index element= {<AdminInicioPage /> } />
@@ -46,6 +52,7 @@ function App() {
           <Route path="cursos" element= { <AdminCursosPage /> } />
           <Route path="profesores" element= { <AdminProfesoresPage /> } />
         </Route>
+
         <Route path="*" element= { <NotFoundPage /> } />
       </Routes>
     </BrowserRouter>

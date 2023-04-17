@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import TitleRowTablaMaterias from "../common/table/TitleRowTablaMaterias";
-import RowOptions from "../common/table/RowOptions";
-import Buscador, {filteredData} from "../common/table/buscador";
-import ModalOpciones from "../AdminLic/ModalOpciones";
-import ModalConfirmacion from "../AdminLic/ModalConfirmacion";
+import TitleRowTablaMaterias from "../../common/table/TitleRowTablaMaterias";
+import RowOptions from "../../common/table/RowOptions";
+import Buscador, {filteredData} from "../../common/table/buscador";
+import ModalOpciones from "./ModalOpciones";
+import ModalConfirmacion from "./ModalConfirmacion";
 
 //services
-import {getProfesores} from "../../services/profesores/getProfesores";
+import {getProfesores} from "../../../services/profesores/getProfesores";
 
 export function TablaUeasByLic({cursos, setCursos, claveLic}) {
   const [query, setQuery] = useState(""); //Variable para buscador

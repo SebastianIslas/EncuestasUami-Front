@@ -1,12 +1,12 @@
 import React, { useContext} from "react";
-import Modal from "../common/modal/Modal";
-import BtnCancelar from "../common/BtnCancelar";
-import Button from '../../components/common/Button';
+import Modal from "../../common/modal/Modal";
+import BtnCancelar from "../../common/BtnCancelar";
+import Button from '../../common/Button';
 
-import { ModalContext } from "../../context/modalContext";
+import { ModalContext } from "../../../context/modalContext";
 
 //services
-import { crearLicenciatura } from "../../services/licenciaturas/crearLicenciatura";
+import { crearLicenciatura } from "../../../services/licenciaturas/crearLicenciatura";
 
 function ModalAgregar({licenciaturas, setLicenciaturas}) {
   const {modalData, showModal, setShowModal, handleBtnAceptar, renderContainerOpciones} = useContext(ModalContext);

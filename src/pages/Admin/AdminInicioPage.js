@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import TablaLicsAdmin from "../../components/Admin/TablaLicsAdmin";
-import ModalAgregar from "../../components/Admin/ModalAgregar.js";
+import TablaLicsAdmin from "../../components/Admin/AdminLicsPage/TablaLicsAdmin";
+import ModalAgregar from "../../components/Admin/AdminLicsPage/ModalAgregar.js";
 import { ModalProvider } from "../../context/modalContext";
 
 //Services
