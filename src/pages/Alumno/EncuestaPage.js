@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import ButtonEnviarEncuesta from '../../components/Encuesta/ButtonEnviarEncuesta';
+import Button from '../../components/common/Button';
 import HeaderEncuesta from '../../components/Encuesta/HeaderEncuesta';
 import InfoEncuesta from "../../components/Encuesta/InfoEncuesta";
 import TablaMateriasEncuesta from "../../components/Encuesta/TablaMateriasEncuesta";
@@ -83,12 +83,8 @@ function EncuestaPage() {
     {/* <MateriasEncuestaContext.Provider value={{materiasEncuesta, setMateriasEncuesta}}> */}
 
       <HeaderEncuesta user={user} maxMaterias={maxMaterias} />
-
-      {/*<ButtonEnviarEncuesta />*/}
-
       <InfoEncuesta />
 
-      {/* Tabla */}
       <TablaMateriasEncuesta materias={materias} 
                              maxMaterias={maxMaterias} 
                              materiasEncuesta={materiasEncuesta}
@@ -97,9 +93,9 @@ function EncuestaPage() {
       {/* <MateriasEncuestaContext.Consumer>
         <TablaMateriasEncuesta materias={materias} maxMaterias={maxMaterias} />
       </MateriasEncuestaContext.Consumer> */}
-
-      <ButtonEnviarEncuesta />
-
+      <div className="fixed bottom-4 left-4">
+        <Button text={"Enviar encuesta"} />
+      </div>
     {/* </MateriasEncuestaContext.Provider> */}
 
   </div>

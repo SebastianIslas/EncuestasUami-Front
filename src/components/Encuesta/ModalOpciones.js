@@ -2,7 +2,7 @@
 import React from "react";
 
 import Modal from "../common/modal/Modal";
-import BtnCancelar from "./BtnCancelar";
+import BtnCancelar from "../common/BtnCancelar";
 import Btn from "../common/Button";
 import ContainerOpciones from "./ContainerOpciones";
 import {handleClassBtnModal, handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Logo24 from "./Logo24";
+import Logo24 from "../common/Logo24";
 
 function HeaderEncuesta({user, maxMaterias}) {
   return (

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import TitleRowTablaMaterias from "./TitleRowTablaMaterias";
+import TitleRowTablaMaterias from "../common/table/TitleRowTablaMaterias";
 import ModalOpciones from "./ModalOpciones";
+import Button from '../common/Button';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 // TODO: creo no se necesita
 // import { MateriasEncuestaContext } from "../../pages/EncuestaPage";
@@ -126,7 +130,7 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
-          <TitleRowTablaMaterias />
+          <TitleRowTablaMaterias titles={["Clave", "Nombre", ""]} />
         </thead>
 
         {/* Cuerpo de la tabla */}
@@ -169,26 +173,15 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
             <th>
               {/* Botón Opciones */}
               <div className='flex justify-end'>
-                <button className="btn btn-primary
-                                  btn-xs sm:btn-sm md:btn-md
-                                  before:content-['+']
-                                  md:before:content-['Opciones']
-                                  w-8 md:w-24 right-0"
-                        onClick={() => {
-                            toggleModal(materia.clave, materia.nombre)}}
-                        disabled={
-                            handleDisableCheckbox(materia.clave.toString())}
-                ></button>
+              <Button onClick={() => {toggleModal(materia.clave, materia.nombre)}}
+                      disabled={handleDisableCheckbox(materia.clave.toString())}
+                      text={<FontAwesomeIcon icon={faEdit} />} />
               </div>
             </th>
           </tr>)}
 
         </tbody>
 
-        {/* Footer de la tabla */}
-        <tfoot>
-          <TitleRowTablaMaterias />
-        </tfoot>
       </table>
 
       {/* Template del modal de Opciones */}

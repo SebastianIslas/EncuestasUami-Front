@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Hero from '../../components/Home/Hero.js'
-import Footer from '../../components/Home/Footer.js'
-import Opciones from '../../components/Home/Opciones.js'
-import Navbar from '../../components/Home/Navbar.js'
-import NavLateral from '../../components/Home/NavLateral.js'
+import Hero from '../components/Home/Hero.js'
+import Footer from '../components/Home/Footer.js'
+import Opciones from '../components/Home/Opciones.js'
+import Navbar from '../components/Home/Navbar.js'
+import NavLateral from '../components/Home/NavLateral.js'
 
 export default function HomePage() {
   return (
@@ -13,7 +13,6 @@ export default function HomePage() {
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
         
         <div className="drawer-content flex flex-col">
-            
             <Navbar>
                 <Opciones />
             </Navbar>
