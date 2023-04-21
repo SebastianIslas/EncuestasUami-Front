@@ -1,5 +1,5 @@
 // TODO: separar los botones en más componentes
-import React from "react";
+import React, { useEffect } from "react";
 
 import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
@@ -8,7 +8,7 @@ import ContainerOpciones from "./ContainerOpciones";
 import {handleClassBtnModal, handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
 
 //services
-import {getProfByCursor} from "../../services/encuestas/getProfByCursor";
+import {getProfByCurso} from "../../services/encuestas/getProfByCurso";
 
 
 function ModalOpciones({
@@ -23,11 +23,11 @@ function ModalOpciones({
 }) {
 
   
+  
   useEffect(() => {
-    console.log("ClaveMateriaModal", modalData.clave);
-
-
-
+    getProfByCurso(modalData.clave).then((prof) => {
+      console.log("Prof", prof);
+    })
 
   }, [])
   //Solo guarda el estado del modal, el fetch se hace de otro boton

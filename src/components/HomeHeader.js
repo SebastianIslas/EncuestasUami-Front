@@ -39,7 +39,9 @@ function HomeHeader({}) {
                   <li><Link className={(pathname === '/' && !hash) ? 'active' : ''} to='/'>Inicio</Link></li>
                   <li><Link className={pathname === '/encuesta' ? 'active' : ''} to="/encuesta">Encuesta</Link></li>
                   <li><Link className={hash === '/estadisticas' ? 'active' : ''} to="/estadisticas">Estadísticas</Link></li>
+                  {/*
                   <li><Link className={hash === '#cerrarSesion' ? 'active' : ''} to="#cerrarSesion">Cerrar sesión</Link></li>
+                  */}
                 </ul>
               </div>
             </div>
@@ -49,12 +51,13 @@ function HomeHeader({}) {
               <li><Link className={(pathname === '/' && !hash) ? 'active' : ''} to='/'>Inicio</Link></li>
               <li><Link className={pathname === '/encuesta' ? 'active' : ''} to="/encuesta">Encuesta</Link></li>
               <li><Link className={hash === '/estadisticas' ? 'active' : ''} to="/estadisticas">Estadísticas</Link></li>
+              {/*
               <li><Link className={hash === '#cerrarSesion' ? 'active' : ''} to="#cerrarSesion">Cerrar sesión</Link></li>
+              */}
             </ul>
           </div>
         </div>
 
-        
       </div>
     </>
   );

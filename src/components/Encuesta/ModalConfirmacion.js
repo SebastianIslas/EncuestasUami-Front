@@ -28,6 +28,7 @@ function ModalConfirmacion({periodoEnc, user, isEncRes, materiasEncuesta, showMo
       } else{
         alert("Error al enviar la encuesta");        
       }
+      setShowModalConfirmacion(false);
     });
   }
 

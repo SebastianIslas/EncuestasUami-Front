@@ -16,10 +16,10 @@ import { getLastEncRes } from "../../services/encuestas/getLastEncRes";
 
 function EncuestaPage() {
   let user = Object();
-//  user.matricula = 2183011316;
+  user.matricula = 2183011316;
 //  user.matricula = 2183012662;
 //  user.matricula = 2183011630;
-    user.matricula = 21830116303;
+
   user.licenciatura = "Computación";
   user.claveLic = 30;
 
@@ -82,33 +82,32 @@ function EncuestaPage() {
 
   return (
     <React.Fragment>
+      <HomeHeader/>
       <div className="bg-base-200">
         <div className="min-h-screen bg-base-200 max-w-4xl container px-2 md:px-10 mx-auto">
-            <HomeHeader/>
-            <HeaderEncuesta user={user}/>
+            <HeaderEncuesta user={user} periodoEnc={periodoEnc}/>
             {!encRes ?
-            <div>
-              <InfoEncuesta maxMaterias={maxMaterias} />
-              <TablaMateriasEncuesta materias={materias} 
-                                    maxMaterias={maxMaterias} 
-                                    materiasEncuesta={materiasEncuesta}
-                                    setMateriasEncuesta={setMateriasEncuesta}
-              />
-              <div className="fixed bottom-4 left-4">
-                <Button onClick={()=>{setShowModalConfirmacion(true)}} 
-                        disabled={handleBtnEnviar()} text={"Enviar encuesta"} />
+              <div>
+                <InfoEncuesta maxMaterias={maxMaterias} />
+                <TablaMateriasEncuesta materias={materias} 
+                                      maxMaterias={maxMaterias} 
+                                      materiasEncuesta={materiasEncuesta}
+                                      setMateriasEncuesta={setMateriasEncuesta}
+                />
+                <div className="fixed bottom-4 left-4">
+                  <Button onClick={()=>{setShowModalConfirmacion(true)}} 
+                          disabled={handleBtnEnviar()} text={"Enviar encuesta"} />
+                </div>
+                <ModalConfirmacion  periodoEnc={periodoEnc}
+                                    user = {user}
+                                    isEncRes = {isEncRes}
+                                    materiasEncuesta = {materiasEncuesta}
+                                    showModalConfirmacion={showModalConfirmacion} 
+                                    setShowModalConfirmacion={setShowModalConfirmacion}
+                />
               </div>
-              <ModalConfirmacion  periodoEnc={periodoEnc}
-                                  user = {user}
-                                  isEncRes = {isEncRes}
-                                  materiasEncuesta = {materiasEncuesta}
-                                  showModalConfirmacion={showModalConfirmacion} 
-                                  setShowModalConfirmacion={setShowModalConfirmacion}
-              />
-            </div>
-              :
-                <EncuestaResuelta periodoEnc={periodoEnc} encRes={encRes}/>
-              }
+              :<EncuestaResuelta periodoEnc={periodoEnc} encRes={encRes}/>
+            }
         </div>
       </div>
     </React.Fragment>

@@ -23,7 +23,7 @@ function EncuestaResuelta({ periodoEnc, encRes }) {
 
         <table className="table table-compact md:table-normal w-full">
           <thead>
-            <TitleRowTablaMaterias titles={["Clave", "Nombre", "Horario", "Modalidad"]} />
+            <TitleRowTablaMaterias titles={["Clave", "Nombre", "Horario", "Modalidad", "Profesor"]} />
           </thead>
 
           <tbody>

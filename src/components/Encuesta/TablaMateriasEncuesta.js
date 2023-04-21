@@ -22,7 +22,8 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
     clave: null,
     nombre: null,
     modalidad: null,
-    horario: null
+    horario: null,
+    profesor: null,
   });
 
   // Función para desactivar los checkbox si ya alcanzamos el limite de materias
