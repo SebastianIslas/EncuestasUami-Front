@@ -4,8 +4,8 @@ export default function InputLogin(props) {
             <label className="label">
                 <span className="label-text">{props.name}</span>
             </label> 
-            <input type="text" placeholder={props.placeHolderText} className="input input-bordered" />
+            <input type="text" ref={props.inputRef} placeholder={props.placeHolderText} className="input input-bordered placeholder-shown:italic" />
                 {props.info}
-        </div>       
+        </div>      
     );
 }
