@@ -1,14 +1,14 @@
 import {useContext, useEffect} from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import {AuthContext} from "../../context/AuthContext.js";
+import {AuthContextAlumnos} from "../../context/AuthContextAlumnos.js";
 
 
-const ProtectedRoute = ({
+const ProtectedRouteAlumnos = ({
     redirectPath = '/',
     children,
   }) => {
 
-    const {state} = useContext(AuthContext)
+    const {state} = useContext(AuthContextAlumnos)
     console.log(state)
 
     if (state.isLoginPending) {
@@ -21,4 +21,4 @@ const ProtectedRoute = ({
     }
   };
 
-export default ProtectedRoute;
+export default ProtectedRouteAlumnos;
