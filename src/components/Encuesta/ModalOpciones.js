@@ -7,6 +7,9 @@ import Btn from "../common/Button";
 import ContainerOpciones from "./ContainerOpciones";
 import {handleClassBtnModal, handleBtnAceptar, changePropModal} from "../common/modal/modalEvents";
 
+//services
+import {getProfByCursor} from "../../services/encuestas/getProfByCursor";
+
 
 function ModalOpciones({
   modalData,
@@ -18,6 +21,15 @@ function ModalOpciones({
   listaClavesEncuesta,
   setListaClavesEncuesta
 }) {
+
+  
+  useEffect(() => {
+    console.log("ClaveMateriaModal", modalData.clave);
+
+
+
+
+  }, [])
   //Solo guarda el estado del modal, el fetch se hace de otro boton
   const guardarModal = () => {
     // Copiamos el objeto de materiasEncuesta
@@ -75,7 +87,7 @@ function ModalOpciones({
         <ContainerOpciones 
             text={"¿En qué modalidad te gustaría que se abriera esta UEA?"}
             prop={"modalidad"}
-            opciones={["Presencial", "Virtual"]}
+            opciones={["Presencial", "Virtual", "Mixta"]}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             modalData={modalData}
@@ -86,7 +98,7 @@ function ModalOpciones({
         <ContainerOpciones 
             text={"¿En qué horario te gustaría llevar esta UEA?"}
             prop={"horario"}
-            opciones={["Mañana", "Tarde", "Tarde-noche", "Sin preferencia"]}
+            opciones={["Mañana", "Tarde", "Noche"]}
             handleClassBtnModal={handleClassBtnModal}
             changePropModal={changePropModal}
             modalData={modalData}
@@ -98,7 +110,7 @@ function ModalOpciones({
           <div className="text-xs font-normal text-slate-500">
             <p>Mañana: 8:00 a 12:00</p>
             <p>Tarde: 12:00 a 16:00</p>
-            <p>Tarde-noche: 16:00 a 21:00</p>
+            <p>Noche: 16:00 a 21:00</p>
           </div>
           {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
             <Btn onClick={guardarModal} disabled={handleBtnAceptar(modalData)} text={"Guardar"} />

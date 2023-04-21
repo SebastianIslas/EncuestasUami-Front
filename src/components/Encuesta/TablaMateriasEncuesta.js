@@ -7,9 +7,6 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-// TODO: creo no se necesita
-// import { MateriasEncuestaContext } from "../../pages/EncuestaPage";
-
 function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMateriasEncuesta }) {
   // Para manejar las checkboxes usamos lista con las claves que tenemos en la
   // encuesta, está ligada al JSON que teníamos de materias en la encuesta
@@ -69,7 +66,7 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
 
       copyOfMaterias[name] = {
         modalidad: "Presencial",
-        horario: "Sin preferencia"
+        horario: "Mañana"
       };
       copyArray = [...listaClavesEncuesta, name];
       // setListaClavesEncuesta([...listaClavesEncuesta, name]);
@@ -117,10 +114,11 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
     setListaClavesEncuesta(Object.keys(materiasEncuesta));
   }, [materiasEncuesta])
 
-  // useEffect(() => {
-  //   console.log(modalData);
-  // }, [modalData]);
+   useEffect(() => {
+     console.log(modalData);
+   }, [modalData]);
 
+   
   return (
     <React.Fragment>
     {/* Container de la tabla */}
@@ -130,56 +128,57 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
       <table className="table table-compact md:table-normal w-full">
         {/* Header de la tabla */}
         <thead>
-          <TitleRowTablaMaterias titles={["Clave", "Nombre", ""]} />
+          <TitleRowTablaMaterias titles={[" ", "Clave", "Nombre", ""]} />
         </thead>
 
         {/* Cuerpo de la tabla */}
         <tbody>
           {/* Renglón */}
-          {materias.map(materia => <tr className="hover" key={materia.clave}>
-            {/* Checkbox */}
-            <th className='w-8'>
-              <div className="flex justify-center">
-                <input type="checkbox"
-                      className="checkbox"
-                      // Nombre de cada checkbox
-                      name={materia.clave.toString()}
-                      // Desactivar el checkbox
-                      disabled={handleDisableCheckbox(materia.clave.toString())}
-                      // Hacer check si está en la lista de materias
-                      checked={listaClavesEncuesta.includes(materia.clave.toString())}
-                      // Función que altera la lista de materia
-                      onChange={handleCheckbox}/>
+          {materias.map(materia => 
+            <tr className="hover" key={materia.clave}>
+              {/* Checkbox */}
+              <td className='w-8'>
+                <div className="flex justify-center">
+                  <input type="checkbox"
+                        className="checkbox"
+                        // Nombre de cada checkbox
+                        name={materia.clave.toString()}
+                        // Desactivar el checkbox
+                        disabled={handleDisableCheckbox(materia.clave.toString())}
+                        // Hacer check si está en la lista de materias
+                        checked={listaClavesEncuesta.includes(materia.clave.toString())}
+                        // Función que altera la lista de materia
+                        onChange={handleCheckbox}/>
+                  </div>
+              </td>
+
+              {/* Campo de la clave de la materia */}
+              <td>
+                <p className="text-md opacity-80">
+                  {materia.clave}</p>
+              </td>
+
+              {/* Campo del nombre de la materia */}
+              <td className="break-words">
+                <p className="text-md font-bold whitespace-pre-wrap">{materia.nombre}</p>
+                {materiasEncuesta[materia.clave] ? (
+                <p className="text-xs break-words text-base-content">
+                  Modalidad: {materiasEncuesta[materia.clave].modalidad}
+                  <br/>
+                  Horario: {materiasEncuesta[materia.clave].horario}
+                </p>) : null}
+              </td>
+
+              <th>
+                {/* Botón Opciones */}
+                <div className='flex justify-end'>
+                <Button onClick={() => {toggleModal(materia.clave, materia.nombre)}}
+                        disabled={handleDisableCheckbox(materia.clave.toString())}
+                        text={<FontAwesomeIcon icon={faEdit} />} />
                 </div>
-            </th>
-
-            {/* Campo de la clave de la materia */}
-            <td>
-              <p className="text-md opacity-80">
-                {materia.clave}</p>
-            </td>
-
-            {/* Campo del nombre de la materia */}
-            <td className="break-words">
-              <p className="text-md font-bold whitespace-pre-wrap">{materia.nombre}</p>
-              {materiasEncuesta[materia.clave] ? (
-              <p className="text-xs break-words text-base-content">
-                Modalidad: {materiasEncuesta[materia.clave].modalidad}
-                <br/>
-                Horario: {materiasEncuesta[materia.clave].horario}
-              </p>) : null}
-            </td>
-
-            <th>
-              {/* Botón Opciones */}
-              <div className='flex justify-end'>
-              <Button onClick={() => {toggleModal(materia.clave, materia.nombre)}}
-                      disabled={handleDisableCheckbox(materia.clave.toString())}
-                      text={<FontAwesomeIcon icon={faEdit} />} />
-              </div>
-            </th>
-          </tr>)}
-
+              </th>
+            </tr>
+          )}
         </tbody>
 
       </table>

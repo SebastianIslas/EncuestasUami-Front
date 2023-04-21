@@ -50,6 +50,7 @@ function AdminHomeHeader({}) {
               <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
               <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
               <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
+              <li><Link className={hash === '#cerrarSesion' ? 'active' : ''} to="#cerrarSesion">Cerrar sesión</Link></li>
             </ul>
           </div>
         </div>
@@ -59,6 +60,7 @@ function AdminHomeHeader({}) {
           <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
           <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
           <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
+          <li><Link className={hash === '#cerrarSesion' ? 'active' : ''} to="#cerrarSesion">Cerrar sesión</Link></li>
         </ul>
       </div>
       

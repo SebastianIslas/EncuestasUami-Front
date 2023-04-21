@@ -8,7 +8,6 @@ export default function Hero() {
     <div className='bg-base-200 h-screen flex flex-col text-xl'>
 
         <div className="hero min-h-max bg-base-200">
-
             <div className="hero-content lg:pb-8 lg:pt-16 text-center">
                 <div>
                     <h1 className="text-5xl font-bold">La App de encuestas UAM!</h1>
