@@ -5,19 +5,18 @@ import HeaderEncuesta from '../../components/Encuesta/HeaderEncuesta';
 import InfoEncuesta from "../../components/Encuesta/InfoEncuesta";
 import TablaMateriasEncuesta from "../../components/Encuesta/TablaMateriasEncuesta";
 import EncuestaResuelta from "../../components/Encuesta/EncuestaResuelta";
-import HomeHeader from "../../components/HomeHeader";
 import ModalConfirmacion from "../../components/Encuesta/ModalConfirmacion";
+import { ModalProvider } from "../../context/modalContext";
 
 // Services
 import { getUEASByLic } from "../../services/licenciaturas/getUeasByLic";
 import { consultarEncuestaActiva } from "../../services/encuestas/consultarEncuestaActiva";
-import { enviarEncRes } from "../../services/encuestas/enviarEncRes";
 import { getLastEncRes } from "../../services/encuestas/getLastEncRes";
 
 function EncuestaPage() {
   let user = Object();
-  user.matricula = 2183011316;
-//  user.matricula = 2183012662;
+//  user.matricula = 2183011316;
+  user.matricula = 2183012662;
 //  user.matricula = 2183011630;
 
   user.licenciatura = "Computación";
@@ -36,6 +35,14 @@ function EncuestaPage() {
   // Variable para modal enviar encuesta
   const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
   
+  //Valores para el context del modal de encuesta a resolver
+  const dataModal = {
+    clave: null,
+    nombre: null,
+    modalidad: null,
+    horario: null,
+   // profesor: null
+  }
   
   useEffect(() => {
     document.title = "UEA Encuestas UAMI";
@@ -43,9 +50,9 @@ function EncuestaPage() {
     // Se cargan las materias, y el MaxdeMaterias
     consultarEncuestaActiva().then((res)=>{
       if(res.activo == false){
-        window.location.href = "/"; //Mandar a home o estadisticas
+        window.location.href = "/"; //Mandar a home o estadisticas, no hay encuesta activa
       } else{
-        if(!isEncRes(res.periodo)){
+        if(!isEncRes(res.periodo)){   //No hay encuesta contestada
           setMaxMaterias(res.maxMaterias);
           getUEASByLic(user.claveLic).then(setMaterias);
 //          console.log("materias", materias);
@@ -57,7 +64,7 @@ function EncuestaPage() {
 
   // TODO: Pruebas de las estructuras que tenemos para enviar
   useEffect(() => {
-    console.log(materiasEncuesta);
+    console.log("materiasEncuesta", materiasEncuesta);
   }, [materiasEncuesta]);
 
   const isEncRes = (periodo) => {
@@ -82,18 +89,20 @@ function EncuestaPage() {
 
   return (
     <React.Fragment>
-      <HomeHeader/>
       <div className="bg-base-200">
         <div className="min-h-screen bg-base-200 max-w-4xl container px-2 md:px-10 mx-auto">
             <HeaderEncuesta user={user} periodoEnc={periodoEnc}/>
             {!encRes ?
               <div>
                 <InfoEncuesta maxMaterias={maxMaterias} />
-                <TablaMateriasEncuesta materias={materias} 
-                                      maxMaterias={maxMaterias} 
-                                      materiasEncuesta={materiasEncuesta}
-                                      setMateriasEncuesta={setMateriasEncuesta}
-                />
+                <ModalProvider initialModalData={dataModal}>
+                  <TablaMateriasEncuesta materias={materias} 
+                                        maxMaterias={maxMaterias} 
+                                        materiasEncuesta={materiasEncuesta}
+                                        setMateriasEncuesta={setMateriasEncuesta}
+                  />
+                </ModalProvider>
+
                 <div className="fixed bottom-4 left-4">
                   <Button onClick={()=>{setShowModalConfirmacion(true)}} 
                           disabled={handleBtnEnviar()} text={"Enviar encuesta"} />

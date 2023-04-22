@@ -11,6 +11,7 @@ import AdminCursosPage from "./pages/Admin/AdminCursosPage.js";
 import AdminProfesoresPage from "./pages/Admin/AdminProfesoresPage.js";
 import ProtectedRoute from './components/common/ProtectedRoute.js'
 import {AuthContext} from "./context/AuthContext.js";
+import HomeHeader from "./components/HomeHeader";
 
 import AdminHomeHeader from './components/Admin/AdminHomeHeader';
 import { ModalProvider } from "./context/modalContext";
@@ -35,7 +36,7 @@ function App() {
         <AdminHomeHeader />
         {/* <AdminHomeHeader _user={user}/> */}
       </ModalProvider>
-      : null
+      : <HomeHeader/>
       }
 
       <Routes>
