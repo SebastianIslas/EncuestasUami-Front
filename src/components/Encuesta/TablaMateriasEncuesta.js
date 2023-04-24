@@ -24,35 +24,30 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
     }
   }
 
-  // Función que agrega o elimina materias elegidas a partir de dar al checkbox
+  // Agregar o eliminar materia elegida a partir de dar al checkbox
   const handleCheckbox = (e) => {
-    // Obtenemos del evento el nombre del row que también es la clave de la
-    // materia y el estatus del check después de dar click
+    console.log("materiasEncuesta", materiasEncuesta);
+    // Clave de la materia (nombre del row) y el estado del checkbox.
     const { name, checked } = e.target
     let copyArray; // Array para cambiar los datos
-    let copyOfMaterias = {...materiasEncuesta}; // Copia de las materias en la encuesta
+    let copyOfMaterias = {...materiasEncuesta};
 
-    // Eliminar la materia de la lista de encuesta
+    // Eliminar materia de la lista de encuesta
     if (!checked){
       if(listaClavesEncuesta.indexOf(name) >= 0){
         delete copyOfMaterias[name];
         copyArray = [...listaClavesEncuesta];
         copyArray.splice(listaClavesEncuesta.indexOf(name), 1);
       }
-    // Agregar una materia a la encuesta
-    }else{
-      // Evitar que si se modifica el fuente del html se agreguen más materias
-      if (listaClavesEncuesta.length >= maxMaterias) return
+      // Actualizar el state de los arreglos
+      setListaClavesEncuesta(copyArray);
+      setMateriasEncuesta(copyOfMaterias);
+    }else{// Desplegar modal para guardar materia
+      if (listaClavesEncuesta.length >= maxMaterias) return //Limitar materias
 
-      copyOfMaterias[name] = {
-        modalidad: "Presencial",
-        horario: "Mañana"
-      };
-      copyArray = [...listaClavesEncuesta, name];
+      let btnEdit = document.getElementById('btnEdit'+name).firstChild; //Id en div superior al component Button
+      btnEdit.click();
     }
-    // Actualizar el state de los arreglos
-    setListaClavesEncuesta(copyArray);
-    setMateriasEncuesta(copyOfMaterias);
   }
 
   // Actualización automática de la lista de claves al agregar materias a materiasEncuesta.
@@ -86,7 +81,8 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                         // Hacer check si está en la lista de materias
                         checked={listaClavesEncuesta.includes(materia.clave.toString())}
                         // Función que altera la lista de materia
-                        onChange={handleCheckbox}/>
+                        onChange={handleCheckbox}
+                        />
                   </div>
               </td>
 
@@ -102,20 +98,25 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                   Modalidad: {materiasEncuesta[materia.clave].modalidad}
                   <br/>
                   Horario: {materiasEncuesta[materia.clave].horario}
+                  <br/>
+                  Profesor: {materiasEncuesta[materia.clave].profesor}
                 </p>) : null}
               </td>
 
               <th>
                 {/* Botón Opciones */}
-                <div className='flex justify-end'>
+                <div className='flex justify-end' id={"btnEdit"+materia.clave}>
                 <Button onClick={() => {
                   toggleModal([
                       materia.clave, 
                       materia.nombre,
                       materiasEncuesta[materia.clave] ?
-                                  materiasEncuesta[materia.clave].modalidad : null,
+                                materiasEncuesta[materia.clave].modalidad : null,
                       materiasEncuesta[materia.clave] ?
-                                materiasEncuesta[materia.clave].horario : null],
+                                materiasEncuesta[materia.clave].horario : null,
+                      materiasEncuesta[materia.clave] ?
+                                materiasEncuesta[materia.clave].profesor : null 
+                    ],
                      "opciones")
                 }}
                         disabled={handleDisableCheckbox(materia.clave.toString())}

@@ -1,5 +1,5 @@
 // TODO: separar los botones en más componentes
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 
 import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
@@ -16,17 +16,22 @@ function ModalOpciones({
   listaClavesEncuesta, setListaClavesEncuesta
 }) {
   const {modalData, setModalData, showModal, setShowModal, handleBtnAceptar, handleClassBtnModal, changePropModal } = useContext(ModalContext);
-  
-  
-  useEffect(() => {
-    getProfByCurso(modalData.clave).then((prof) => {
-      console.log("Prof", prof);
-    })
 
-  }, [])
+  //** Opc seleccionada de la lista de profes */
+  const [selectedValue, setSelectedValue] = useState("");
+  const [profesoresCurso, setProfesoresCurso] = useState([]);
+
+  useEffect(() => {
+    setSelectedValue(modalData.profesor);
+    getProfByCurso(modalData.clave).then((prof) => {
+      setProfesoresCurso(prof.profesores);
+    })
+  }, [modalData.clave])
+
   useEffect(() => {
     console.log("modalData", modalData);
   }, [modalData])
+
 
   //Guarda el estado del modal, el fetch se hace de otro boton
   const guardarModal = () => {
@@ -35,27 +40,38 @@ function ModalOpciones({
     // Copía de la lista de claves de materias elegidas para ser usadas en los checkbox
     let copyListaClavesEncuesta;
 
-    if (modalData["modalidad"] != null
-         || modalData["horario"] != null){
-      // Agregar clave dentro del modal a la lista de claves de materiasEncuesta
-      copyListaClavesEncuesta = [...listaClavesEncuesta, modalData.clave.toString()]
+    // Agregar clave dentro del modal a la lista de claves de materiasEncuesta
+    copyListaClavesEncuesta = [...listaClavesEncuesta, modalData.clave.toString()]
 
-      // Checamos si la clave existe en el objeto de la encuesta
-      if (copyMateriasEncuesta[modalData.clave] == null){
-        copyMateriasEncuesta[modalData.clave] = {};
-      }
-
-      // Actualizamos la copia del objeto con los nuevos valores
-      copyMateriasEncuesta[modalData.clave].modalidad = modalData.modalidad;
-      copyMateriasEncuesta[modalData.clave].horario = modalData.horario;
-
-      // Actualizamos los valores de cada variable
-      setListaClavesEncuesta(copyListaClavesEncuesta);
-      setMateriasEncuesta(copyMateriasEncuesta);
+    // Checamos si la clave existe en el objeto de la encuesta
+    if (copyMateriasEncuesta[modalData.clave] == null){
+      copyMateriasEncuesta[modalData.clave] = {};
     }
+    console.log("copyM", modalData.profesor);
+    // Actualizamos la copia del objeto con los nuevos valores
+    copyMateriasEncuesta[modalData.clave] = {
+      nombre: modalData.nombre,
+      modalidad: modalData.modalidad,
+      horario: modalData.horario,
+      profesor: modalData.profesor,
+    }
+
+    // Actualizamos los valores de cada variable
+    setListaClavesEncuesta(copyListaClavesEncuesta);
+    setMateriasEncuesta(copyMateriasEncuesta);
+
     // Cerramo el modal
     setShowModal({...showModal, opciones: false})
   }
+
+  const handleChange = (event) => {
+//    console.log(event.target.value);
+//    console.log(event.target.name);
+    setSelectedValue(event.target.value);
+    changePropModal("profesor", event.target.value)
+  };
+  
+
 
   return (
     <React.Fragment>
@@ -79,8 +95,6 @@ function ModalOpciones({
             ({modalData.clave})</p>
           <br/>
 
-
-          {/* Primera propiedad: modalidad */}
           <ContainerOpciones 
               text={"¿En qué modalidad te gustaría que se abriera esta UEA?"}
               prop={"modalidad"}
@@ -89,7 +103,6 @@ function ModalOpciones({
               changePropModal={changePropModal}
               />
 
-          {/* Segunda propiedad: horario */}
           <ContainerOpciones 
               text={"¿En qué horario te gustaría llevar esta UEA?"}
               prop={"horario"}
@@ -97,6 +110,31 @@ function ModalOpciones({
               handleClassBtnModal={handleClassBtnModal}
               changePropModal={changePropModal}
               />
+          <div className="form-control">
+            <label htmlFor="dropdown" className="text-xl pb-2">Selecciona el profesor:</label>
+            <select id="dropdown" value={selectedValue} onChange={handleChange} className="bg-base-300 text-white p-2 rounded-lg text-base">
+              <>
+                <option value="" disabled>
+                  Selecciona un profesor
+                </option>
+                {profesoresCurso.length !== 0 ? (
+                  profesoresCurso.map((profesor) => {
+                    return (
+                      <option value={profesor.claveEmpleado} key={profesor.claveEmpleado}>
+                        {profesor.nombre}
+                      </option>
+                    )
+                  })
+                ) : (
+                  <option value={false} key="false">
+                    Sin opciones disponibles
+                  </option>
+                )}
+              </>
+            </select>
+
+          </div>
+
 
           <div className="modal-action justify-between">
             {/* Alguna información de ayuda para el usuario */}
@@ -105,8 +143,8 @@ function ModalOpciones({
               <p>Tarde: 12:00 a 16:00</p>
               <p>Noche: 16:00 a 21:00</p>
             </div>
-            {/* Botón que guarda las opciones elegidas por propiedad y luego cierra el modal */}
-              <Btn onClick={guardarModal} disabled={handleBtnAceptar()} text={"Guardar"} />
+
+            <Btn onClick={guardarModal} disabled={handleBtnAceptar()} text={"Guardar"} />
           </div>
         </div>
       </div>

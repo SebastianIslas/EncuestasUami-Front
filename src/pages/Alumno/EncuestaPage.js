@@ -15,9 +15,10 @@ import { getLastEncRes } from "../../services/encuestas/getLastEncRes";
 
 function EncuestaPage() {
   let user = Object();
-//  user.matricula = 2183011316;
-  user.matricula = 2183012662;
+  user.matricula = 2183011316;
+//  user.matricula = 2183012662;
 //  user.matricula = 2183011630;
+user.matricula = 21830113169;
 
   user.licenciatura = "Computación";
   user.claveLic = 30;
@@ -41,7 +42,7 @@ function EncuestaPage() {
     nombre: null,
     modalidad: null,
     horario: null,
-   // profesor: null
+    profesor: null
   }
   
   useEffect(() => {
@@ -61,11 +62,6 @@ function EncuestaPage() {
       }
     });
   }, []);
-
-  // TODO: Pruebas de las estructuras que tenemos para enviar
-  useEffect(() => {
-    console.log("materiasEncuesta", materiasEncuesta);
-  }, [materiasEncuesta]);
 
   const isEncRes = (periodo) => {
     getLastEncRes(periodo, user.matricula).then((response)=>{
