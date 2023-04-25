@@ -61,7 +61,7 @@ function ModalConfirmacion({periodoEnc, user, isEncRes, materiasEncuesta, showMo
                         <td className="text-md opacity-80">{curso[1].nombre}</td>
                         <td className="text-md opacity-80">{curso[1].horario}</td>
                         <td className="text-md opacity-80">{curso[1].modalidad}</td>
-                        <td className="text-md opacity-80">{curso[1].profesor}</td>
+                        <td className="text-md opacity-80">{curso[1].profesorNombre}</td>
                       </tr>
 
                     );

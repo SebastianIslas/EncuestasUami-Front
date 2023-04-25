@@ -99,7 +99,7 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                   <br/>
                   Horario: {materiasEncuesta[materia.clave].horario}
                   <br/>
-                  Profesor: {materiasEncuesta[materia.clave].profesor}
+                  Profesor: {materiasEncuesta[materia.clave].profesorNombre}
                 </p>) : null}
               </td>
 
@@ -115,7 +115,7 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
                       materiasEncuesta[materia.clave] ?
                                 materiasEncuesta[materia.clave].horario : null,
                       materiasEncuesta[materia.clave] ?
-                                materiasEncuesta[materia.clave].profesor : null 
+                                materiasEncuesta[materia.clave].profesor : ""  //Conserva opc default "" en select
                     ],
                      "opciones")
                 }}

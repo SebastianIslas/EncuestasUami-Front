@@ -15,11 +15,12 @@ function ModalOpciones({
   materiasEncuesta, setMateriasEncuesta,
   listaClavesEncuesta, setListaClavesEncuesta
 }) {
-  const {modalData, setModalData, showModal, setShowModal, handleBtnAceptar, handleClassBtnModal, changePropModal } = useContext(ModalContext);
+  const {modalData, cleanModalData, showModal, setShowModal, handleBtnAceptar, handleClassBtnModal, changePropModal } = useContext(ModalContext);
 
   //** Opc seleccionada de la lista de profes */
   const [selectedValue, setSelectedValue] = useState("");
   const [profesoresCurso, setProfesoresCurso] = useState([]);
+  const [profesorNombre, setProfesorNombre] = useState("");
 
   useEffect(() => {
     setSelectedValue(modalData.profesor);
@@ -47,32 +48,35 @@ function ModalOpciones({
     if (copyMateriasEncuesta[modalData.clave] == null){
       copyMateriasEncuesta[modalData.clave] = {};
     }
-    console.log("copyM", modalData.profesor);
     // Actualizamos la copia del objeto con los nuevos valores
     copyMateriasEncuesta[modalData.clave] = {
       nombre: modalData.nombre,
       modalidad: modalData.modalidad,
       horario: modalData.horario,
       profesor: modalData.profesor,
+      profesorNombre: profesorNombre
     }
 
     // Actualizamos los valores de cada variable
     setListaClavesEncuesta(copyListaClavesEncuesta);
     setMateriasEncuesta(copyMateriasEncuesta);
 
+    cleanModalData();
     // Cerramo el modal
     setShowModal({...showModal, opciones: false})
   }
 
   const handleChange = (event) => {
-//    console.log(event.target.value);
-//    console.log(event.target.name);
-    setSelectedValue(event.target.value);
-    changePropModal("profesor", event.target.value)
+    let idProfSelect = event.target.value;
+    setSelectedValue(idProfSelect);
+    changePropModal("profesor", idProfSelect);
+    if(idProfSelect == "false"){
+      setProfesorNombre("");
+    } else {
+      setProfesorNombre(event.target.options[event.target.selectedIndex].text);
+    }
   };
   
-
-
   return (
     <React.Fragment>
     {showModal.opciones ? 
@@ -117,7 +121,7 @@ function ModalOpciones({
                 <option value="" disabled>
                   Selecciona un profesor
                 </option>
-                {profesoresCurso.length !== 0 ? (
+                {profesoresCurso && profesoresCurso.length !== 0 ? (
                   profesoresCurso.map((profesor) => {
                     return (
                       <option value={profesor.claveEmpleado} key={profesor.claveEmpleado}>
@@ -126,7 +130,7 @@ function ModalOpciones({
                     )
                   })
                 ) : (
-                  <option value={false} key="false">
+                  <option value="false" key="false">
                     Sin opciones disponibles
                   </option>
                 )}

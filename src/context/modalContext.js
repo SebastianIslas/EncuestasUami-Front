@@ -19,10 +19,24 @@ export const ModalProvider = props => {
   // Función que permite cambiar dentro del modal los valores de cada propiedad
   // o campo relacionado con la encuesta
   const changePropModal = (propiedad, valor) =>{
-    let copyObjectModalData = {...modalData};
+    console.log("propiedad, valor", propiedad, valor);
 
+/*    if(typeof propiedad != "string"){   //Parche rapido para pasar varios props a mod
+      for (let i = 0; i<propiedad.length; i++){
+        let copyObjectModalData = {...modalData};
+        copyObjectModalData[propiedad[i]] = valor[i];
+        setModalData(copyObjectModalData);
+      }
+    } else {
+      let copyObjectModalData = {...modalData};
+      copyObjectModalData[propiedad] = valor;
+      setModalData(copyObjectModalData);
+    }
+*/
+    let copyObjectModalData = {...modalData};
     copyObjectModalData[propiedad] = valor;
     setModalData(copyObjectModalData);
+
   }
 
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
