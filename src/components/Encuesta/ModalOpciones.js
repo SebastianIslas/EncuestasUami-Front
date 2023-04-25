@@ -116,9 +116,9 @@ function ModalOpciones({
               />
           <div className="form-control">
             <label htmlFor="dropdown" className="text-xl pb-2">Selecciona el profesor:</label>
-            <select id="dropdown" value={selectedValue} onChange={handleChange} className="bg-base-300 text-white p-2 rounded-lg text-base">
+            <select id="dropdown" value={selectedValue || ''} onChange={handleChange} className="bg-base-300 text-white p-2 rounded-lg text-base">
               <>
-                <option value="" disabled>
+                <option value={""} disabled>
                   Selecciona un profesor
                 </option>
                 {profesoresCurso && profesoresCurso.length !== 0 ? (

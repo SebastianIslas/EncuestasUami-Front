@@ -8,7 +8,9 @@ export function enviarEncRes(encRes) {
     body: JSON.stringify(encRes),
   })
 //  .then(response => { return response.json();})
-  .then(res=> { return res})
+  .then(res=> { 
+    console.log("res1", res);
+    return res})
   .catch(err => {
     console.log("Posible fallo de conexion")
     return err;

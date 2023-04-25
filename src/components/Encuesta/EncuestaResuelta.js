@@ -29,12 +29,13 @@ function EncuestaResuelta({ periodoEnc, encRes }) {
           <tbody>
             {/* Renglón */}
             {encRes.cursosSeleccionados.map(curso => 
-              <tr className="hover" key={curso.clave}>
+              <tr className="hover" key={curso.curso.clave}>
                 {/* Campo de la clave de la materia */}
-                <td className="text-md opacity-80">{curso.clave}</td>
-                <td className="text-md opacity-80">{curso.nombre}</td>
+                <td className="text-md opacity-80">{curso.curso.clave}</td>
+                <td className="text-md opacity-80">{curso.curso.nombre}</td>
                 <td className="text-md opacity-80">{curso.turno}</td>
                 <td className="text-md opacity-80">{curso.modalidad}</td>
+                <td className="text-md opacity-80">{curso.profesor ? curso.profesor.nombre : ''}</td>
               </tr>
             )}
           </tbody>

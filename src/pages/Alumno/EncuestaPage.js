@@ -15,10 +15,10 @@ import { getLastEncRes } from "../../services/encuestas/getLastEncRes";
 
 function EncuestaPage() {
   let user = Object();
-  user.matricula = 2183011316;
+//  user.matricula = 2183011316;
 //  user.matricula = 2183012662;
 //  user.matricula = 2183011630;
-user.matricula = 21830113169;
+user.matricula = 2183041399;
 
   user.licenciatura = "Computación";
   user.claveLic = 30;
@@ -86,7 +86,7 @@ user.matricula = 21830113169;
   return (
     <React.Fragment>
       <div className="bg-base-200">
-        <div className="min-h-screen bg-base-200 max-w-4xl container px-2 md:px-10 mx-auto">
+        <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
             <HeaderEncuesta user={user} periodoEnc={periodoEnc}/>
             {!encRes ?
               <div>

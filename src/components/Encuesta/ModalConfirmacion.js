@@ -16,10 +16,10 @@ function ModalConfirmacion({periodoEnc, user, isEncRes, materiasEncuesta, showMo
       cursosSeleccionados: Object.entries(materiasEncuesta).map(
         ([claveUEA, {modalidad, horario, profesor}]) => {
           return {
-            claveUEA: claveUEA,
+            curso: claveUEA,
             modalidad: modalidad,
             turno: horario,
-            profesor: profesor
+            profesor: profesor == 'false' ? null : profesor
           }
         })
     }
@@ -32,6 +32,9 @@ function ModalConfirmacion({periodoEnc, user, isEncRes, materiasEncuesta, showMo
         alert("Error al enviar la encuesta");        
       }
       setShowModalConfirmacion(false);
+      return res.json();
+    }).then((res) =>{
+      console.log("res2", res);
     });
   }
 
