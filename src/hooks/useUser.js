@@ -8,17 +8,17 @@ const UserInitial = {
     authToken: null
 }
 
-export const useUser = () => {
+export const useUser = (key = 'user') => {
   const [ user, setUser ] = useState(UserInitial);
   const { setItem, getItem } = useLocalStorage();
 
   const addUser = (user) => {
     setUser(user);
-    setItem('user', JSON.stringify(user));
+    setItem(key, JSON.stringify(user));
   };
 
   const loadUser = () => {
-    const userStorage = JSON.parse(getItem('user'));
+    const userStorage = JSON.parse(getItem(key));
   
     if (!userStorage) {
       return null;
@@ -29,7 +29,7 @@ export const useUser = () => {
 
   const removeUser = () => {
     setUser(null);
-    setItem('user', '');
+    setItem(key, '');
   };
 
   return { user, addUser, loadUser, removeUser };

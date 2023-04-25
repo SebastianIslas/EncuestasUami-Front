@@ -12,9 +12,11 @@ import AdminProfesoresPage from "./pages/Admin/AdminProfesoresPage.js";
 import ProtectedRoute from './components/common/ProtectedRoute.js'
 import {AuthContext} from "./context/AuthContext.js";
 import HomeHeader from "./components/HomeHeader";
+import {AuthContextAlumnos} from "./context/AuthContextAlumnos.js";
 
 import AdminHomeHeader from './components/Admin/AdminHomeHeader';
 import { ModalProvider } from "./context/modalContext";
+import ProtectedRouteAlumnos from "./components/common/ProtectedRouteAlumnos.js";
 
 function App() {
 
@@ -25,8 +27,15 @@ function App() {
   
 
   const {verifyAuth, user} = useContext(AuthContext)
-  useEffect(() => {verifyAuth()}, [])
+  const {verifyAuth: verifyAuthAlumnos, user: alumno} = useContext(AuthContextAlumnos)
+
+  {/* Vefircacion al cargar o ingresar a la pagina directamente*/}
+  useEffect(() => {verifyAuth(); verifyAuthAlumnos();}, [])
+
+
   console.log("user", user);
+  console.log("alumno", alumno);
+
   return (
     <BrowserRouter>
 
@@ -42,7 +51,10 @@ function App() {
       <Routes>
         <Route index element={ <HomePage /> } />
         <Route path="login" element= { <LoginPage /> } />
-        <Route path="encuesta" element= { <EncuestaPage /> } />
+        <Route path="prueba" element={<EncuestaPage />} />
+        <Route path="encuesta" element= { <ProtectedRouteAlumnos /> } >
+          <Route index element= {<EncuestaPage /> } />
+        </Route>
 
 
 
