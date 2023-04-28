@@ -2,6 +2,7 @@ import {useContext, useEffect} from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.js"
 import LoginPage from "./pages/Alumno/LoginPage.js";
+import SignInPage from "./pages/Alumno/SignInPage.js";
 import AdminLoginPage from "./pages/Admin/AdminLoginPage.js";
 import EncuestaPage from "./pages/Alumno/EncuestaPage.js";
 import EstadisticasPage from "./pages/Estadisticas/EstadisticasPage.js";
@@ -53,6 +54,7 @@ function App() {
       <Routes>
         <Route index element={ <HomePage /> } />
         <Route path="login" element= { <LoginPage /> } />
+        <Route path="sign" element= { <SignInPage /> } />
         <Route path="prueba" element={<EncuestaPage />} />
         <Route path="encuesta" element= { <ProtectedRouteAlumnos /> } >
           <Route index element= {<EncuestaPage /> } />
