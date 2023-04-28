@@ -1,6 +1,6 @@
 import {useRef, useContext, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
-import ButtonLogin from '../../components/Login/ButtonLogin.js'
+import ButtonGroupLogin from '../../components/Login/ButtonGroupLogin.js'
 import CardLogin from '../../components/Login/CardLogin.js'
 import InfoLogin from '../../components/Login/InfoLogin.js'
 import InputLogin from '../../components/Login/InputLogin.js'
@@ -17,6 +17,10 @@ export default function LoginPage() {
         login(inputRefCorreo.current.value, inputRefPsswrd.current.value)
     }
 
+    const handleRedirect = () => {
+        navigate('/sign')
+    }
+
     useEffect(() => {
         if(user.authToken)
             navigate('/encuesta')
@@ -27,7 +31,7 @@ export default function LoginPage() {
             <p className="text-2xl text-center">Iniciar Sesión</p>
             <InputLogin name="Correo" inputRef={inputRefCorreo} placeHolderText="2202020201@titlani.uam.mx" />
             <InputPassword name="Contraseña"  inputRef={inputRefPsswrd} placeHolderText="30122000" info={<InfoLogin text="La contraseña inicial es tu fecha de nacimiento con el formato: DDMMAAAA" />} />
-            <ButtonLogin onClick={handleSubmit} />
+            <ButtonGroupLogin onClickLogin={handleSubmit} onClickSign={handleRedirect}/>
         </CardLogin>
     );
 }
