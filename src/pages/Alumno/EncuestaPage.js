@@ -18,7 +18,7 @@ function EncuestaPage() {
 //  user.matricula = 2183011316;
 //  user.matricula = 2183012662;
 //  user.matricula = 2183011630;
-user.matricula = 2183041399;
+  user.matricula = 2183041399;
 
   user.licenciatura = "Computación";
   user.claveLic = 30;

@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage.js"
 import LoginPage from "./pages/Alumno/LoginPage.js";
 import AdminLoginPage from "./pages/Admin/AdminLoginPage.js";
 import EncuestaPage from "./pages/Alumno/EncuestaPage.js";
+import EstadisticasPage from "./pages/Estadisticas/EstadisticasPage.js";
+import EstadisticasDetallesPage from "./pages/Estadisticas/EstadisticasDetallesPage.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
 import AdminInicioPage from "./pages/Admin/AdminInicioPage.js"
 import AdminLicPage from "./pages/Admin/AdminLicPage.js";
@@ -55,7 +57,8 @@ function App() {
         <Route path="encuesta" element= { <ProtectedRouteAlumnos /> } >
           <Route index element= {<EncuestaPage /> } />
         </Route>
-
+        <Route path="estadisticas" element={<EstadisticasPage />} />
+        <Route path="estadisticas/:periodo/:claveLic/:nombreLic" element={<EstadisticasDetallesPage />} />
 
 
         <Route path="admin/login" element= { <AdminLoginPage /> } />
