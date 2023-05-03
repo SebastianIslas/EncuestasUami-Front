@@ -40,10 +40,12 @@ function EstadisticasPage() {
     <React.Fragment>
       <div className="bg-base-200">
         <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
-            <HeaderEstadisticas user={user}/>
+          <HeaderEstadisticas user={user}/>
+          <div id="tabla-materias" className="overflow-x-auto rounded-lg bg-base-400">
+
             <table className="table table-compact md:table-normal w-full">
               <thead>
-                <TitleRowTablaMaterias titles={["Activa", "Periodo", "# Enc. Resueltas", "Max. materias", ""]} />
+                <TitleRowTablaMaterias titles={["Activa", "Periodo", "# Encuestas", "Materias", ""]} />
               </thead>
 
               <tbody>
@@ -68,6 +70,7 @@ function EstadisticasPage() {
               </tbody>
 
             </table>
+          </div>
         </div>
       </div>
       {showModalLicsByEnc ? 

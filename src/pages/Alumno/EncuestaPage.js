@@ -16,10 +16,11 @@ import { getLastEncRes } from "../../services/encuestas/getLastEncRes";
 function EncuestaPage() {
   let user = Object();
 //  user.matricula = 2183011316;
-//  user.matricula = 2183012662;
-//  user.matricula = 2183011630;
-  user.matricula = 2183041399;
-
+  user.matricula = 2183012662;
+//  user.matricula = 2183011630;  
+//    user.matricula = 2183072552;  //Electronica 22
+//    user.matricula = 2183077530;  //Biomedica 27
+//    user.matricula = 2183080699;  //Electronica 22
   user.licenciatura = "Computación";
   user.claveLic = 30;
 
