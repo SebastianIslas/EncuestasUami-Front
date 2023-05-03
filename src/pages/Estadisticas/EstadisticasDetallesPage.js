@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from '../../components/common/Button';
 import HeaderEstadisticas from '../../components/Estadisticas/HeaderEstadisticas';
@@ -19,15 +19,12 @@ function EstadisticasDetallesPage() {
 
   const [encuestasRes, setEncuestasRes] = useState([]);
   const { periodo, claveLic, nombreLic } = useParams();
-  const [charts, setCharts] = useState({});
 
-  console.log(periodo, claveLic)
   initTE({ Chart });
 
   useEffect(() => {
     document.title = "Estadisticas UAMI";
     getEncuestaRes(periodo, claveLic).then((res) => {
-      console.log("res", res);
       setEncuestasRes(res);
     })
   }, []);
@@ -37,59 +34,10 @@ function EstadisticasDetallesPage() {
     let canvas = document.getElementById('canvas'+encuesta[0]);
     canvas.innerHTML = "";
 
-    const modalidadChart = document.createElement('canvas');
-    modalidadChart.id = `modalidadChart${encuesta[0]}`;
-    canvas.appendChild(modalidadChart);
-    const turnoChart = document.createElement('canvas');
-    turnoChart.id = `turnoChart${encuesta[0]}`;
-    canvas.appendChild(turnoChart);
-    const profesoresChart = document.createElement('canvas');
-    profesoresChart.id = `profesoresChart${encuesta[0]}`;
-    canvas.appendChild(profesoresChart);
     const allChart = document.createElement('canvas');
     allChart.id = `allChart${encuesta[0]}`;
     canvas.appendChild(allChart);
 
-    const dataBarModalidad = {
-      type: 'bar',
-      data: {
-        labels: ['Presencial', 'Mixta' , 'Virtual'],
-        datasets: [{
-          label: 'Modalidad',
-          data: [
-            encuesta[1].modalidades.Presencial, 
-            encuesta[1].modalidades.Mixta,
-            encuesta[1].modalidades.Virtual
-          ],
-          backgroundColor: 'rgb(30,184,84)'
-        }],
-      }
-    };
-    const dataBarTurno = {
-      type: 'bar',
-      data: {
-        labels: ['Mañana', 'Tarde' , 'Noche'],
-        datasets: [{
-          label: 'Turno',
-          data: [
-            encuesta[1].turnos.Mañana, 
-            encuesta[1].turnos.Tarde,
-            encuesta[1].turnos.Noche
-          ],
-        }],
-      },
-    };
-    const dataBarProfesores = {
-      type: 'bar',
-      data: {
-        labels: Object.entries(encuesta[1].profesores).map(profesor => profesor[1].nombre),
-        datasets: [{
-          label: 'Profesores',
-          data: Object.entries(encuesta[1].profesores).map(profesor => profesor[1].votos),
-          backgroundColor: 'rgb(30,184,84)'
-        }],
-      },
-    };
 
     const dataBarAll = {
       type: 'bar',
@@ -98,7 +46,7 @@ function EstadisticasDetallesPage() {
         ...Object.entries(encuesta[1].profesores).map(([key, value]) => value.nombre)
         ],
         datasets: [{
-          label: 'Estadisticas',
+          label: 'Distribucion de   votos',
           data: [
             encuesta[1].modalidades.Presencial, 
             encuesta[1].modalidades.Mixta,
@@ -108,7 +56,6 @@ function EstadisticasDetallesPage() {
             encuesta[1].turnos.Noche,
             ...Object.values(encuesta[1].profesores).map(profesor => profesor.votos)
           ],
-//          backgroundColor: 'rgb(30,184,84)'
           backgroundColor: [
             'rgba(54, 162, 235)',
             'rgba(54, 162, 235)',
@@ -122,9 +69,6 @@ function EstadisticasDetallesPage() {
       }
     }
 
-    new Chart(document.getElementById(`modalidadChart${encuesta[0]}`), dataBarModalidad);
-    new Chart(document.getElementById(`turnoChart${encuesta[0]}`), dataBarTurno);
-    new Chart(document.getElementById(`profesoresChart${encuesta[0]}`), dataBarProfesores);
     new Chart(document.getElementById(`allChart${encuesta[0]}`), dataBarAll);
 
     const divCanvas = document.getElementById("trCanvas"+encuesta[0]);
