@@ -7,6 +7,7 @@ import { faBarChart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from "react-router-dom";
 import { Chart, initTE } from "tw-elements";
+import Buscador from "../../components/common/table/buscador";
 
 // Services
 import { getEncuestaRes } from "../../services/encuestas/getEncuestaRes";
@@ -19,6 +20,7 @@ function EstadisticasDetallesPage() {
 
   const [encuestasRes, setEncuestasRes] = useState([]);
   const { periodo, claveLic, nombreLic } = useParams();
+  const [query, setQuery] = useState(""); //Variable para buscador
 
   initTE({ Chart });
 
@@ -79,23 +81,38 @@ function EstadisticasDetallesPage() {
     }
   }
 
-
+  const filteredData = (datos, query) => {
+    const filteredData = Object.keys(datos).filter((key) => {
+      const dato = datos[key];
+      return (
+        //Se hace esto por que por ejemplo la clave en profesores es claveEmpleado
+        dato[0].toString().includes(query.toLowerCase())    ||  //Clave
+        dato[1].nombre.toLowerCase().includes(query.toLowerCase()) || //Nombre
+        dato[1].votos.toString().includes(query.toLowerCase())  //Votos
+      );
+    }).map((key) => datos[key]);
+    console.log("filteredData",filteredData);
+    return filteredData;
+  }
 
   return (
     <React.Fragment>
       <div className="bg-base-200">
         <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
+
             <HeaderEstadisticas user={user} />
             <h3>Estadisticas para la encuesta del periodo {periodo} de la {nombreLic}</h3>
+
+            <Buscador query={query} setQuery={setQuery}/>
             <div id="tabla-materias" className="overflow-x-auto rounded-lg bg-base-400">
               <table className="table table-compact md:table-normal w-full">
                 <thead>
-                  <TitleRowTablaMaterias titles={["Clave", "Nombre", "# Votos", ""]} />
+                  <TitleRowTablaMaterias titles={["Clave", "Nombre", "Votos", ""]} />
                 </thead>
 
                 <tbody>
-                    {Object.entries(encuestasRes).map(encuesta => {
-                      console.log(encuesta)
+                              {/* Renglón con ************* BARRA DE BUSQUEDA  */}
+                    {filteredData(Object.entries(encuestasRes), query).map(encuesta => {
                       return (
                         <React.Fragment key={encuesta[0]}>
                           <tr>

@@ -6,13 +6,15 @@ import Button from '../common/Button';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ModalContext } from "../../context/modalContext";
+import Buscador, {filteredData} from "../common/table/buscador";
 
 
 function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMateriasEncuesta }) {
   //Se usan checkbox con una lista que contiene las claves de la encuesta relacionadas al JSON de materias.
   const [listaClavesEncuesta, setListaClavesEncuesta] = useState(Object.keys(materiasEncuesta));
   const {toggleModal } = useContext(ModalContext);
-  
+  const [query, setQuery] = useState(""); //Variable para buscador
+
   //Desactivar checkbox que no están en la lista de materias seleccionadas
   // y que permita seleccionar solo la cantidad permitida de materias.
   const handleDisableCheckbox = (claveMateria) => {
@@ -59,17 +61,16 @@ function TablaMateriasEncuesta({ materias, maxMaterias, materiasEncuesta, setMat
   return (
     <React.Fragment>
     {/* Container de la tabla */}
-    <div id="tabla-materias"
-          className="overflow-x-auto rounded-lg">
-
+    <Buscador query={query} setQuery={setQuery}/>
+    <div id="tabla-materias" className="overflow-x-auto rounded-lg">
       <table className="table table-compact md:table-normal w-full">
         <thead>
           <TitleRowTablaMaterias titles={[" ", "Clave", "Nombre", ""]} />
         </thead>
 
         <tbody>
-          {/* Renglón */}
-          {materias.map(materia => 
+          {/* Renglón con ************* BARRA DE BUSQUEDA  */}
+          {filteredData(materias, query,["nombre", "clave"]).map(materia => 
             <tr className="hover" key={materia.clave}>
               {/* Checkbox */}
               <td className='w-8'>
