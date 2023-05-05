@@ -7,9 +7,9 @@ import InputLogin from '../../components/SignIn/InputLogin.js'
 import InputPassword from '../../components/SignIn/InputPassword.js'
 import SelectSignIn from '../../components/SignIn/SelectSignIn.js'
 import { AuthContextAlumnos } from '../../context/AuthContextAlumnos.js'
-import {createCuenta} from '../../services/auth/signIn.js'
+import {createCuenta} from '../../services/auth/signUp.js'
 
-export default function SignInPage() {
+export default function SignUpPage() {
     const inputRefCorreo = useRef(null);
     const inputRefMatricula = useRef(null);
     const inputRefPsswrd = useRef(null);
@@ -42,13 +42,13 @@ export default function SignInPage() {
         
         if(! errors){
             console.log(inputRefCorreo.current.value, inputRefMatricula.current.value, inputRefLic.current.value, inputRefPsswrd.current.value)
-            createCuenta(inputRefCorreo.current.value, inputRefPsswrd.current.value,  inputRefMatricula.current.value, inputRefLic.current.value).then((data) =>{
-                console.log(data)
-                if(! data.errorContent){
-                    alert('Se ha creado su usuario')
+            createCuenta(inputRefCorreo.current.value, inputRefPsswrd.current.value,  inputRefMatricula.current.value, inputRefLic.current.value).then((code) =>{
+                console.log(code)
+                if(code.status >= 200 && code.status < 300){
+                    alert('Se ha creado su usuario correctamente')
                     navigate('/login')
                 }else{
-                    alert("Ha ocurrido un error")
+                    alert("Ha ocurrido un error al crear la cuenta")
                 }
             })
         }else{

@@ -6,7 +6,7 @@ export function createCuenta(email, psswrd, matricula, clave_lic) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({email: email, matricula: matricula, clave_lic: clave_lic, password: psswrd})
     })
-    .then(response => response.json())
+    .then(response => ({...response.json(), status: response.status}))
     .then(res => {
       return res;
     }).catch(err => {
