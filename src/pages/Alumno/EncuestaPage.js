@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import Button from '../../components/common/Button';
 import HeaderEncuesta from '../../components/Encuesta/HeaderEncuesta';
@@ -7,6 +7,7 @@ import TablaMateriasEncuesta from "../../components/Encuesta/TablaMateriasEncues
 import EncuestaResuelta from "../../components/Encuesta/EncuestaResuelta";
 import ModalConfirmacion from "../../components/Encuesta/ModalConfirmacion";
 import { ModalProvider } from "../../context/modalContext";
+import {AuthContextAlumnos} from "../../context/AuthContextAlumnos.js";
 
 // Services
 import { getUEASByLic } from "../../services/licenciaturas/getUeasByLic";
@@ -14,15 +15,17 @@ import { consultarEncuestaActiva } from "../../services/encuestas/consultarEncue
 import { getLastEncRes } from "../../services/encuestas/getLastEncRes";
 
 function EncuestaPage() {
-  let user = Object();
+
+  const {user} = useContext(AuthContextAlumnos)
+  //let user = Object();
 //  user.matricula = 2183011316;
-  user.matricula = 21830126622;
+  //user.matricula = 21830126622;
 //  user.matricula = 2183011630;  
 //    user.matricula = 2183072552;  //Electronica 22
 //    user.matricula = 2183077530;  //Biomedica 27
 //    user.matricula = 2183080699;  //Electronica 22
-  user.licenciatura = "Computación";
-  user.claveLic = 30;
+  //user.licenciatura = "Computación";
+  //user.claveLic = 30;
 
   // Variables de materias máximas que se pueden elegir
   const [maxMaterias, setMaxMaterias] = useState(0);

@@ -17,7 +17,9 @@ export const useAuthAlumnos = () => {
     const dataRes = await loginAlumnos(email, password);
     if (dataRes.token) {
       addUser({
-          matricula: 2183011316,
+          matricula: dataRes.matricula,
+          claveLic: dataRes.claveLic,
+          licenciatura: dataRes.licenciatura, 
           nombre: 'alumno',
           email: email,
           authToken: dataRes.token
