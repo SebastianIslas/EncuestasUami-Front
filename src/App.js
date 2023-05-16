@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import HomePage from "./pages/HomePage.js"
 import LoginPage from "./pages/Alumno/LoginPage.js";
 import SignUpPage from "./pages/Alumno/SignUpPage.js";
+import RecuperarPass from "./pages/Alumno/RecuperarPass.js";
 import AdminLoginPage from "./pages/Admin/AdminLoginPage.js";
 import EncuestaPage from "./pages/Alumno/EncuestaPage.js";
 import EstadisticasPage from "./pages/Estadisticas/EstadisticasPage.js";
@@ -58,6 +59,7 @@ function App() {
         <Route index element={ <HomePage /> } />
         <Route path="login" element= { <LoginPage /> } />
         <Route path="sign" element= { <SignUpPage /> } />
+        <Route path="recuperarPass" element= { <RecuperarPass /> } />
         <Route path="prueba" element={<EncuestaPage />} />
         <Route path="encuesta" element= { <ProtectedRouteAlumnos /> } >
           <Route index element= {<EncuestaPage /> } />

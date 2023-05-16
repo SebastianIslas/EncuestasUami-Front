@@ -21,7 +21,8 @@ export default function InputPassword(props) {
                     <div className="swap-on">◎</div>
                     <div className="swap-off">◉</div>
                 </label>
-            </div> 
+            </div>
+            <a href="/recuperarPass" className="text-xs font-normal text-slate-500 pt-2">Olvide mi contraseña</a>
                 {props.info}
         </div>       
     );
