@@ -1,109 +1,127 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
-import ButtonEnviarEncuesta from '../../components/Encuesta/ButtonEnviarEncuesta';
+import Button from '../../components/common/Button';
 import HeaderEncuesta from '../../components/Encuesta/HeaderEncuesta';
 import InfoEncuesta from "../../components/Encuesta/InfoEncuesta";
 import TablaMateriasEncuesta from "../../components/Encuesta/TablaMateriasEncuesta";
+import EncuestaResuelta from "../../components/Encuesta/EncuestaResuelta";
+import ModalConfirmacion from "../../components/Encuesta/ModalConfirmacion";
+import { ModalProvider } from "../../context/modalContext";
+import {AuthContextAlumnos} from "../../context/AuthContextAlumnos.js";
 
 // Services
 import { getUEASByLic } from "../../services/licenciaturas/getUeasByLic";
+import { consultarEncuestaActiva } from "../../services/encuestas/consultarEncuestaActiva";
+import { getLastEncRes } from "../../services/encuestas/getLastEncRes";
 
-// Context de las materias en elegidas por el usuario
-// export const MateriasEncuestaContext = React.createContext({});
-
-// export function Encuesta({ user }) {
-// TODO: esto solo es de prueba
 function EncuestaPage() {
-  // TODO: user se pasa como prop, esto es solo para test
-  // O tal vez no, y tenemos que obtener estos datos en esta página desde la API
-  let user = Object();
-  user.matricula = 2183011316;
-  user.licenciatura = "Computación";
+
+  const {user} = useContext(AuthContextAlumnos)
+  //let user = Object();
+//  user.matricula = 2183011316;
+  //user.matricula = 21830126622;
+//  user.matricula = 2183011630;  
+//    user.matricula = 2183072552;  //Electronica 22
+//    user.matricula = 2183077530;  //Biomedica 27
+//    user.matricula = 2183080699;  //Electronica 22
+  //user.licenciatura = "Computación";
+  //user.claveLic = 30;
 
   // Variables de materias máximas que se pueden elegir
   const [maxMaterias, setMaxMaterias] = useState(0);
-
   // Lista de las materias de la licenciatura
-  // En esta vista solo usamos la clave y el nombre
   const [materias, setMaterias] = useState([]);
-
   // Lista de las materias elegidas
-  // Vamos a guardar un objeto que vamos a mandarle a la API con la selección
-  // Este objeto contiene el id del user, luego la clave de la uea, luego la
-  // modalidad y el horario
-  // NOTE: Es como un JSON con la siguiente estructura, es una idea mía, esto
-  // puede cambiar según los de backend
-  // {
-  //   "2183011316": [
-  //     {11111111: {"modalidad": "Virtual", "horario": "mañana"}},
-  //     {22222222: {"modalidad": "Virtual", "horario": "mañana"}},
-  //     {44444444: {"modalidad": "Virtual", "horario": "mañana"}},
-  //     {66666666: {"modalidad": "Virtual", "horario": "mañana"}},
-  //     {77777777: {"modalidad": "Virtual", "horario": "mañana"}},
-  //   ]
-  // }
   const [materiasEncuesta, setMateriasEncuesta] = useState({});
-  // TODO: diccionario para cuestiones de prueba
-  // const [materiasEncuesta, setMateriasEncuesta] = useState({
-  //   11111111: {"modalidad": "Presencial", "horario": "Sin preferencia"},
-  //   22222222: {"modalidad": "Presencial", "horario": "Sin preferencia"},
-  //   44444444: {"modalidad": "Presencial", "horario": "Sin preferencia"},
-  //   66666666: {"modalidad": "Presencial", "horario": "Sin preferencia"},
-  //   77777777: {"modalidad": "Presencial", "horario": "Sin preferencia"}
-  // });
-
-
-  // Hook a ejecutar al montar el componente
+  // Variable para el id de la encuesta
+  const [periodoEnc, setPeriodoEnc] = useState("");
+  // Variable para encuesta resuelta
+  const [encRes, setEncRes] = useState(null);
+  // Variable para modal enviar encuesta
+  const [showModalConfirmacion, setShowModalConfirmacion] = useState(false);
+  
+  //Valores para el context del modal de encuesta a resolver
+  const dataModal = {
+    clave: null,
+    nombre: null,
+    modalidad: null,
+    horario: null,
+    profesor: null
+  }
+  
   useEffect(() => {
-    document.title = "UEAncuestas UAMI";
+    document.title = "UEA Encuestas UAMI";
 
-    // TODO: Aquí van las funciones para cargar los datos de la API
-    // TODO: Tenemos que cargar las materias, el max de materias y el MaxdeMaterias
-    // TODO: Tal vez tengamos que obtener la licenciatura y boleta del alumno,
-    //       no sé si eso venga desde el Login
-
-    //setMaterias(getUeasEncuestaByLic(user.licenciatura));
-    getUEASByLic(30).then(setMaterias);
-
-    setMaxMaterias(4);
+    // Se cargan las materias, y el MaxdeMaterias
+    consultarEncuestaActiva().then((res)=>{
+      if(res.activo == false){
+        window.location.href = "/"; //Mandar a home o estadisticas, no hay encuesta activa
+      } else{
+        if(!isEncRes(res.periodo)){   //No hay encuesta contestada
+          setMaxMaterias(res.maxMaterias);
+          getUEASByLic(user.claveLic).then(setMaterias);
+//          console.log("materias", materias);
+          setPeriodoEnc(res.periodo);  
+        }
+      }
+    });
   }, []);
 
-  // TODO: Pruebas de las estructuras que tenemos para enviar
-  useEffect(() => {
-    console.log(materiasEncuesta);
-  }, [materiasEncuesta]);
-  // useEffect(() => {
-  //   console.log(listaClavesEncuesta);
-  // }, [listaClavesEncuesta]);
+  const isEncRes = (periodo) => {
+    getLastEncRes(periodo, user.matricula).then((response)=>{
+      if(response.encuesta){  //Ya contesto la encuesta
+        setEncRes(response);
+        return true;
+      } else{                 //Mostrar vista para conestar encuesta
+        setEncRes(null);
+        return false;
+      }
+    });
+  }
+
+  const handleBtnEnviar = () =>{
+    if(Object.keys(materiasEncuesta).length == 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   return (
-  <div className="bg-base-200">
-  <div className="min-h-screen bg-base-200 max-w-4xl container px-2 md:px-10 mx-auto">
+    <React.Fragment>
+      <div className="bg-base-200">
+        <div className="min-h-screen bg-base-200 container px-2 md:px-10 mx-auto">
+            <HeaderEncuesta user={user} periodoEnc={periodoEnc}/>
+            {!encRes ?
+              <div>
+                <InfoEncuesta maxMaterias={maxMaterias} />
+                <ModalProvider initialModalData={dataModal}>
+                  <TablaMateriasEncuesta materias={materias} 
+                                        maxMaterias={maxMaterias} 
+                                        materiasEncuesta={materiasEncuesta}
+                                        setMateriasEncuesta={setMateriasEncuesta}
+                  />
+                </ModalProvider>
 
-    {/* <MateriasEncuestaContext.Provider value={{materiasEncuesta, setMateriasEncuesta}}> */}
+                <div className="fixed bottom-4 left-4">
+                  <Button onClick={()=>{setShowModalConfirmacion(true)}} 
+                          disabled={handleBtnEnviar()} text={"Enviar encuesta"} />
+                </div>
+                <ModalConfirmacion  periodoEnc={periodoEnc}
+                                    user = {user}
+                                    isEncRes = {isEncRes}
+                                    materiasEncuesta = {materiasEncuesta}
+                                    showModalConfirmacion={showModalConfirmacion} 
+                                    setShowModalConfirmacion={setShowModalConfirmacion}
+                />
+              </div>
+              :<EncuestaResuelta periodoEnc={periodoEnc} encRes={encRes}/>
+            }
+        </div>
+      </div>
+    </React.Fragment>
 
-      <HeaderEncuesta user={user} maxMaterias={maxMaterias} />
-
-      {/*<ButtonEnviarEncuesta />*/}
-
-      <InfoEncuesta />
-
-      {/* Tabla */}
-      <TablaMateriasEncuesta materias={materias} 
-                             maxMaterias={maxMaterias} 
-                             materiasEncuesta={materiasEncuesta}
-                             setMateriasEncuesta={setMateriasEncuesta}
-      />
-      {/* <MateriasEncuestaContext.Consumer>
-        <TablaMateriasEncuesta materias={materias} maxMaterias={maxMaterias} />
-      </MateriasEncuestaContext.Consumer> */}
-
-      <ButtonEnviarEncuesta />
-
-    {/* </MateriasEncuestaContext.Provider> */}
-
-  </div>
-  </div>);
+  );
 }
 
 export default EncuestaPage

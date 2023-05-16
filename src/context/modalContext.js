@@ -1,7 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import ContainerOpciones from "../components/common/modal/ContainerOpciones";
-import ModalOpciones from '../components/AdminCursos/ModalOpciones';
-import ModalConfirmacion from '../components/AdminCursos/ModalConfirmacion';
 
 
 export const ModalContext = React.createContext(null);
@@ -9,7 +7,8 @@ export const ModalContext = React.createContext(null);
 
 export const ModalProvider = props => {
   const [modalData, setModalData] = useState(props.initialModalData);
-  const [keys, setKeys] = useState(Object.keys(modalData)); //Sirve para poder recorrer modalData sin obtener las keys por parametro de nuevo en funciones
+  //Sirve para recorrer modalData sin obtener las keys por parametro de nuevo en funciones
+  const [keys, setKeys] = useState(Object.keys(modalData)); 
 
   const [showModal, setShowModal] = useState({    
     agregar: false,
@@ -20,17 +19,31 @@ export const ModalProvider = props => {
   // Función que permite cambiar dentro del modal los valores de cada propiedad
   // o campo relacionado con la encuesta
   const changePropModal = (propiedad, valor) =>{
-    let copyObjectModalData = {...modalData};
+    console.log("propiedad, valor", propiedad, valor);
 
+/*    if(typeof propiedad != "string"){   //Parche rapido para pasar varios props a mod
+      for (let i = 0; i<propiedad.length; i++){
+        let copyObjectModalData = {...modalData};
+        copyObjectModalData[propiedad[i]] = valor[i];
+        setModalData(copyObjectModalData);
+      }
+    } else {
+      let copyObjectModalData = {...modalData};
+      copyObjectModalData[propiedad] = valor;
+      setModalData(copyObjectModalData);
+    }
+*/
+    let copyObjectModalData = {...modalData};
     copyObjectModalData[propiedad] = valor;
     setModalData(copyObjectModalData);
+
   }
 
   // Dentro del modal, si no se han elegido las dos propiedades que se piden no
   // se deja pulsar el botón de guardar opciones elegidas.
   const handleBtnAceptar = () =>{
     for (const key in modalData) {
-      //Habia modalData con null y otros con "" inicializados, me dio flojera poner todos igual
+      //Algunas propiedades del objeto modalData se inicializaron con null y otras con "". No se estandarizaron por flojera.
       if (modalData[key] == "" || modalData[key] == null){  
         return true;
       }
@@ -38,16 +51,12 @@ export const ModalProvider = props => {
     return false;
   }
 
-
-  // Cambiar estilo de los botones del modal dependiendo si
-  // están dentro de las opciones elegidas anteriormente por el usuario. Se
-  // basa en tomar una propiedad (modalidad o horario) y también considera el
-  // valor de esa proiedad
+  //Cambia estilo de los botones del modal según las opciones elegidas por el usuario.
+  // Considera la propiedad (modalidad o horario) y su valor.
   const handleClassBtnModal = (propiedad, valor) =>{
-  // Si la opción en esa propiedad ha sido elegida activamos el botón
+  //Activar o desactivar el boton si la opción en esa propiedad ha sido elegida
     if (modalData[propiedad] === valor){
       return "btn btn-active btn-accent";
-    // Desactivamos el botón si no está elegida esa opción
     } else {
       return "btn btn-active btn-ghost";
     }
@@ -55,7 +64,6 @@ export const ModalProvider = props => {
 
   //Para el modal que recibe valores de una tabla (si no usa modalData solo llamar onClick={()=>setShowModal(!showModal)} en el button)
   const toggleModal = (values, modalName) => {
-  //  console.log(values, modalName);
     if (!showModal[modalName]){
       let newObject = {};
       for (let i = 0; i < keys.length; i++) {
@@ -64,7 +72,6 @@ export const ModalProvider = props => {
       setModalData(newObject);
     }
     showModal[modalName] = true;
-//    console.log("Final", showModal);
   }
 
   const renderContainerOpciones = (texts) => {

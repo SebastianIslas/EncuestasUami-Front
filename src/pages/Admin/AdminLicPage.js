@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // Componentes
-import ModalAgregar from "../../components/AdminLic/ModalAgregar";
+import ModalAgregar from "../../components/Admin/AdminLicsPage/ModalAgregar";
 import { ModalProvider } from "../../context/modalContext";
-import { TablaUeasByLic } from "../../components/AdminLic/TablaUeasByLic";
+import { TablaUeasByLic } from "../../components/Admin/AdminCursosByLic/TablaUeasByLic";
 
 // Services
 import { getLicNameByClave } from "../../services/licenciaturas/getLicNameByClave";

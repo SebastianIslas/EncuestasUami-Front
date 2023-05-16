@@ -3,15 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import Logo24 from "../common/Logo24";
 import ModalEncuesta from "./ModalEncuesta";
 import { ModalContext } from "../../context/modalContext";
+import { AuthContext } from '../../context/AuthContext.js'
 
 // Head Board
 
 
 function AdminHomeHeader({}) {
-//  function AdminHomeHeader({_user}) {
-  const _user = {
-    matricula: 2183012662
-  }
+
+  const {user, logout} = useContext(AuthContext)
   const {pathname, hash} = useLocation()
   const {modalData, toggleModal} = useContext(ModalContext);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,7 +29,7 @@ function AdminHomeHeader({}) {
 
         <div className="flex-1 space-x-2">
           <h1 className="text-mg md:text-xl">Bienvenido Administrador</h1>
-          <h1 className="text-lg md:text-xl"><span className='font-bold'>{_user.matricula}</span></h1>
+          <h1 className="text-lg md:text-xl"><span className='font-bold'>{user.matricula}</span></h1>
         </div>
       </div>
 
@@ -50,6 +49,7 @@ function AdminHomeHeader({}) {
               <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
               <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
               <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
+              <li><Link to='/admin/login' onClick={()=> logout()}>Cerrar sesión</Link></li>
             </ul>
           </div>
         </div>
@@ -59,6 +59,7 @@ function AdminHomeHeader({}) {
           <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
           <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
           <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
+          <li><Link to='/admin/login' onClick={()=> logout()}>Cerrar sesión</Link></li>
         </ul>
       </div>
       

@@ -1,22 +1,17 @@
 import React from "react";
 
-import Logo24 from "./Logo24";
+import Logo24 from "../common/Logo24";
 
-function HeaderEncuesta({user, maxMaterias}) {
+function HeaderEncuesta({user, periodoEnc}) {
   return (
-    <div id="logo-info"
-         className='hero-content flex-col lg:flex-row px-3 pt-10'>
-
-      <Logo24 />
-
+    <div className='hero-content flex-col lg:flex-row px-3 pt-10'>
       <div className="text-center">
         <p>
-          Bienvenido estudiante <span className='font-bold'>{user.matricula}</span> de
-          la licenciatura <span className='font-bold'>{user.licenciatura}</span>.
+          Bienvenido estudiante <b>{user.matricula}</b> de
+          la licenciatura <b>{user.licenciatura}</b>.
           <br />
-          Gracias por llenar esta encuesta.
+          Gracias por responder esta encuesta correspondiente al periodo <b>{periodoEnc}</b>.
           <br />
-          Puedes elegir hasta <span className='font-bold'>{maxMaterias}</span> materias/UEAs.
         </p>
       </div>
     </div>

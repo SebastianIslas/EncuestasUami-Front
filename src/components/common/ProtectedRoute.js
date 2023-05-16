@@ -12,6 +12,7 @@ const ProtectedRoute = ({
     console.log(state)
 
     if (state.isLoginPending) {
+      {/* TODO: Crear una loading page*/}
       return 
     }else if(!state.isLoggedIn){
       return <Navigate to={redirectPath} replace />;
