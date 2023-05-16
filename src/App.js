@@ -1,5 +1,5 @@
 import {useContext, useEffect} from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import HomePage from "./pages/HomePage.js"
 import LoginPage from "./pages/Alumno/LoginPage.js";
 import SignUpPage from "./pages/Alumno/SignUpPage.js";
@@ -29,11 +29,17 @@ function App() {
   }
   
 
-  const {verifyAuth, user} = useContext(AuthContext)
-  const {verifyAuth: verifyAuthAlumnos, user: alumno} = useContext(AuthContextAlumnos)
+  const {verifyAuth, user, state} = useContext(AuthContext)
+  const {verifyAuth: verifyAuthAlumnos, user: alumno, state: stateAlumno} = useContext(AuthContextAlumnos)
 
   {/* Vefircacion al cargar o ingresar a la pagina directamente*/}
-  useEffect(() => {verifyAuth(); verifyAuthAlumnos();}, [])
+  useEffect(() => {
+    if(state.isLoggedIn) {
+      verifyAuth(); 
+    } else if(stateAlumno.isLoggedIn){
+      verifyAuthAlumnos();
+    }
+  }, [])
 
 
   console.log("user", user);
@@ -43,11 +49,8 @@ function App() {
     <BrowserRouter>
 
       {/*  METER ALGUNA CONDICIONAL SOLO PARA ADMIN */}
-      {user.authToken == 'admin' ? 
-      <ModalProvider initialModalData={dataModalEncuesta}>
-        <AdminHomeHeader />
-        {/* <AdminHomeHeader _user={user}/> */}
-      </ModalProvider>
+      {state.isLoggedIn ? 
+      ""
       : <HomeHeader/>
       }
 
@@ -65,10 +68,18 @@ function App() {
 
         <Route path="admin/login" element= { <AdminLoginPage /> } />
         <Route path="admin" element= { <ProtectedRoute /> } > 
-          <Route index element= {<AdminInicioPage /> } />
-          <Route path="licenciatura/:claveLic" element= { <AdminLicPage /> } />
-          <Route path="cursos" element= { <AdminCursosPage /> } />
-          <Route path="profesores" element= { <AdminProfesoresPage /> } />
+          <Route element={
+            <ModalProvider initialModalData={dataModalEncuesta}>
+              <AdminHomeHeader />
+              <Outlet /> {/* Renderiza la ruta */}
+            </ModalProvider>
+          }>
+            <Route index element= {<AdminInicioPage /> } />
+            <Route path="licenciatura/:claveLic" element= { <AdminLicPage /> } />
+            <Route path="cursos" element= { <AdminCursosPage /> } />
+            <Route path="profesores" element= { <AdminProfesoresPage /> } />
+          </Route>
+
         </Route>
 
         <Route path="*" element= { <NotFoundPage /> } />

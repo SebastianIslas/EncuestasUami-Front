@@ -10,7 +10,7 @@ import { AuthContextAlumnos } from '../../context/AuthContextAlumnos.js'
 export default function LoginPage() {
     const inputRefCorreo = useRef(null);
     const inputRefPsswrd = useRef(null);
-    const {login, user} = useContext(AuthContextAlumnos)
+    const {login, state} = useContext(AuthContextAlumnos)
     const navigate = useNavigate();
 
     const handleSubmit = () => {
@@ -22,9 +22,9 @@ export default function LoginPage() {
     }
 
     useEffect(() => {
-        if(user.authToken)
+        if(state.isLoggedIn)
             navigate('/encuesta')
-    }, [user])
+    }, [state])
 
     return (
         <CardLogin>

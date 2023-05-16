@@ -10,7 +10,7 @@ import { AuthContext } from '../../context/AuthContext.js'
 export default function LoginPage() {
     const inputRefID = useRef(null);
     const inputRefPsswrd = useRef(null);
-    const {login, user} = useContext(AuthContext)
+    const {login, state} = useContext(AuthContext)
     const navigate = useNavigate();
 
     const handleSubmit = () => {
@@ -20,9 +20,9 @@ export default function LoginPage() {
     }
 
     useEffect(() => {
-        if(user.authToken)
+        if(state.isLoggedIn)
             navigate('/admin')
-    }, [user])
+    }, [state])
 
     return (
         <CardLogin>

@@ -1,19 +1,20 @@
 import React, { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo24 from "../components/common/Logo24";
+import {AuthContextAlumnos} from "../context/AuthContextAlumnos.js";
 
 // Head Board
 
 
 function HomeHeader({}) {
-
+  const {logout, state} = useContext(AuthContextAlumnos)
   const {pathname, hash} = useLocation()
   const [menuOpen, setMenuOpen] = useState(false);
-
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  console.log("login", state);
   return (
     <>
       <div>
@@ -35,25 +36,27 @@ function HomeHeader({}) {
                   </svg>
                 </div>
                 <ul className={`menu bg-base-100 shadow-lg rounded-md py-1 w-48 absolute right-0 z-10 ${menuOpen ? 'block' : 'hidden'}`}>
-                  <li><Link className={(pathname === '/login' && !hash) ? 'active' : ''} to='/login'>Login</Link></li>
                   <li><Link className={(pathname === '/' && !hash) ? 'active' : ''} to='/'>Inicio</Link></li>
                   <li><Link className={pathname === '/encuesta' ? 'active' : ''} to="/encuesta">Encuesta</Link></li>
                   <li><Link className={hash === '/estadisticas' ? 'active' : ''} to="/estadisticas">Estadísticas</Link></li>
-                  {/*
-                  <li><Link className={hash === '#cerrarSesion' ? 'active' : ''} to="#cerrarSesion">Cerrar sesión</Link></li>
-                  */}
+                  {!state.isLoggedIn ? 
+                    <li><Link className={(pathname === '/login' && !hash) ? 'active' : ''} to='/login'>Login</Link></li>
+                  : 
+                    <li><Link to='/' onClick={()=> logout()}>Cerrar sesión</Link></li>
+                  }
                 </ul>
               </div>
             </div>
             
             <ul className="menu hidden md:flex items-center md:menu-horizontal text-ml w-fit md:text-xl p-0">
-              <li><Link className={(pathname === '/login' && !hash) ? 'active' : ''} to='/login'>Login</Link></li>
               <li><Link className={(pathname === '/' && !hash) ? 'active' : ''} to='/'>Inicio</Link></li>
               <li><Link className={pathname === '/encuesta' ? 'active' : ''} to="/encuesta">Encuesta</Link></li>
               <li><Link className={hash === '/estadisticas' ? 'active' : ''} to="/estadisticas">Estadísticas</Link></li>
-              {/*
-              <li><Link className={hash === '#cerrarSesion' ? 'active' : ''} to="#cerrarSesion">Cerrar sesión</Link></li>
-              */}
+              {!state.isLoggedIn ? 
+                <li><Link className={(pathname === '/login' && !hash) ? 'active' : ''} to='/login'>Login</Link></li>
+              : 
+                <li><Link to='/' onClick={()=> logout()}>Cerrar sesión</Link></li>
+              }
             </ul>
           </div>
         </div>
