@@ -45,7 +45,7 @@ export default function SignUpPage() {
             createCuenta(inputRefCorreo.current.value, inputRefPsswrd.current.value,  inputRefMatricula.current.value, inputRefLic.current.value).then((code) =>{
                 console.log(code)
                 if(code.status >= 200 && code.status < 300){
-                    alert('Se ha creado su usuario correctamente')
+                    alert('Confirme el enlace que hemos enviado a su correo para terminar el registro.')
                     navigate('/login')
                 }else{
                     alert("Ha ocurrido un error al crear la cuenta")

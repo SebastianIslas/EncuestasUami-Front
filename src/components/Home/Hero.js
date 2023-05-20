@@ -11,7 +11,17 @@ export default function Hero() {
             <div className="hero-content lg:pb-8 lg:pt-16 text-center">
                 <div>
                     <h1 className="text-5xl font-bold">La App de encuestas UAM!</h1>
-                    <p className="py-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non quam lacus suspendisse faucibus interdum posuere. Facilisis leo vel fringilla est ullamcorper eget. Curabitur gravida arcu ac tortor. Habitasse platea dictumst quisque sagittis purus sit amet. Facilisi morbi tempus iaculis urna id volutpat lacus laoreet non. Pellentesque elit eget gravida cum. Amet risus nullam eget felis eget nunc lobortis. Pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et. Felis donec et odio pellentesque diam volutpat commodo sed egestas. </p>
+                    <p className="py-6">
+                    ¡Hola estudiantes de UAM-Iztapalapa <br/>
+                    ¡Queremos escuchar tu voz y saber qué cursos te gustaría tomar en el próximo trimestre! Tu opinión es muy importante para nosotros y nos ayudará a diseñar una oferta académica que se ajuste a tus intereses y necesidades.
+                    </p>
+                    <p className="py-6">
+                    Te invitamos a contestar nuestra encuesta de cursos, donde podrás seleccionar los cursos que más te llamen la atención y compartir tus preferencias. Tu participación es anónima y solo tomará unos minutos completarla.
+                    Agradecemos de antemano tu colaboración y esperamos contar con tu valiosa opinión. 
+                    </p>
+                    <p className="py-6">
+                    ¡Esperamos recibir tus respuestas y ayudarte a tener una experiencia educativa excepcional
+                    </p>
                 </div>
             </div>
         </div>
