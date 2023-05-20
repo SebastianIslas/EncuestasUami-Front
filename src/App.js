@@ -80,6 +80,7 @@ function App() {
             <Route path="licenciatura/:claveLic" element= { <AdminLicPage /> } />
             <Route path="cursos" element= { <AdminCursosPage /> } />
             <Route path="profesores" element= { <AdminProfesoresPage /> } />
+            <Route path="estadisticas" element={<EstadisticasPage />} />
           </Route>
 
         </Route>

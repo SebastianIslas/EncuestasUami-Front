@@ -38,7 +38,7 @@ function HomeHeader({}) {
                 <ul className={`menu bg-base-100 shadow-lg rounded-md py-1 w-48 absolute right-0 z-10 ${menuOpen ? 'block' : 'hidden'}`}>
                   <li><Link className={(pathname === '/' && !hash) ? 'active' : ''} to='/'>Inicio</Link></li>
                   <li><Link className={pathname === '/encuesta' ? 'active' : ''} to="/encuesta">Encuesta</Link></li>
-                  <li><Link className={hash === '/estadisticas' ? 'active' : ''} to="/estadisticas">Estadísticas</Link></li>
+                  <li><Link className={pathname === '/estadisticas' ? 'active' : ''} to="/estadisticas">Estadísticas</Link></li>
                   {!state.isLoggedIn ? 
                     <li><Link className={(pathname === '/login' && !hash) ? 'active' : ''} to='/login'>Login</Link></li>
                   : 
@@ -51,7 +51,7 @@ function HomeHeader({}) {
             <ul className="menu hidden md:flex items-center md:menu-horizontal text-ml w-fit md:text-xl p-0">
               <li><Link className={(pathname === '/' && !hash) ? 'active' : ''} to='/'>Inicio</Link></li>
               <li><Link className={pathname === '/encuesta' ? 'active' : ''} to="/encuesta">Encuesta</Link></li>
-              <li><Link className={hash === '/estadisticas' ? 'active' : ''} to="/estadisticas">Estadísticas</Link></li>
+              <li><Link className={pathname === '/estadisticas' ? 'active' : ''} to="/estadisticas">Estadísticas</Link></li>
               {!state.isLoggedIn ? 
                 <li><Link className={(pathname === '/login' && !hash) ? 'active' : ''} to='/login'>Login</Link></li>
               : 

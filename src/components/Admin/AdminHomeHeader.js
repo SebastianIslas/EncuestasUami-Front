@@ -47,10 +47,10 @@ function AdminHomeHeader({}) {
               <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
               <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
               <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
-{ /*
-              <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
-  */}
-              <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
+
+              <li><Link className={pathname === '/admin/estadisticas' ? 'active' : ''} to="/admin/estadisticas">Estadísticas</Link></li>
+  
+              <li><Link className={pathname === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
               <li><Link to='/admin/login' onClick={()=> logout()}>Cerrar sesión</Link></li>
             </ul>
           </div>
@@ -59,10 +59,8 @@ function AdminHomeHeader({}) {
           <li><Link className={(pathname === '/admin' && !hash) ? 'active' : ''} to='/admin'>Inicio</Link></li>
           <li><Link className={pathname === '/admin/cursos' ? 'active' : ''} to="/admin/cursos">Cursos</Link></li>
           <li><Link className={pathname === '/admin/profesores' ? 'active' : ''} to="/admin/profesores">Profesores</Link></li>
-          { /*
-  <li><Link className={hash === '#Estadisticas' ? 'active' : ''} to="/admin#Estadisticas">Estadísticas</Link></li>
-*/}
-          <li><Link className={hash === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
+          <li><Link className={pathname === '/admin/estadisticas' ? 'active' : ''} to="/admin/estadisticas">Estadísticas</Link></li>
+          <li><Link className={pathname === '#ActivarEncuesta' ? 'active' : ''} to="/admin#ActivarEncuesta" onClick={() => {toggleModal([modalData.periodo, modalData.maxMaterias], "opciones")}}>Encuesta</Link></li>
           <li><Link to='/admin/login' onClick={()=> logout()}>Cerrar sesión</Link></li>
         </ul>
       </div>

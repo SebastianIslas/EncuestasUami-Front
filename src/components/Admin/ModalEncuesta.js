@@ -1,5 +1,6 @@
 // TODO: separar los botones en más componentes
 import React, {useState, useContext, useEffect} from "react";
+import {useNavigate} from 'react-router-dom'
 
 import Modal from "../common/modal/Modal";
 import BtnCancelar from "../common/BtnCancelar";
@@ -20,22 +21,26 @@ function ModalEncuesta() {
   const [encuesta, setEncuesta] = useState(null);
   const [checkboxCheckedEditar, setCheckboxCheckedEditar] = useState(false);
   const [checkboxCheckedDesactivar, setCheckboxCheckedDesactivar] = useState(false);
+  const navigate = useNavigate();
 
   const fetchActivar = () => {
     activarEnc(modalData).then(res => {
       alert(res.message)
+      navigate('/admin/estadisticas')
     });      
     setShowModal({...showModal, opciones: false}); // Oculta el modal
   }
   const fetchEditar = () => {
     editarEnc(modalData, encuesta.periodo).then(res => {
       alert(res.message)
+      navigate('/admin/estadisticas')
     });      
     setShowModal({...showModal, opciones: false}); // Oculta el modal
   }
   const fetchDesactivar = () => {
     desactivarEnc(modalData).then(res => {
       alert(res.message)
+      navigate('/admin/estadisticas')
     });      
     setShowModal({...showModal, opciones: false}); // Oculta el modal
   }
