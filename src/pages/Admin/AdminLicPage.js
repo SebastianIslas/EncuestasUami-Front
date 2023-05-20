@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // Componentes
-import ModalAgregar from "../../components/Admin/AdminLicsPage/ModalAgregar";
+import ModalAgregar from "../../components/Admin/AdminCursosByLic/ModalAgregar";
 import { ModalProvider } from "../../context/modalContext";
 import { TablaUeasByLic } from "../../components/Admin/AdminCursosByLic/TablaUeasByLic";
 

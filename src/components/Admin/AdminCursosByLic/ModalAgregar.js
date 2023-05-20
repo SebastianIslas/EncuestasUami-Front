@@ -1,14 +1,14 @@
 import React, {useState, useContext} from "react";
 
-import Modal from "../common/modal/Modal";
-import BtnCancelar from "../common/BtnCancelar";
-import Button from '../../components/common/Button';
-import { ModalContext } from "../../context/modalContext";
+import Modal from "../../common/modal/Modal";
+import BtnCancelar from "../../common/BtnCancelar";
+import Button from '../../common/Button';
+import { ModalContext } from "../../../context/modalContext";
 
 //Services
-import { addUEAtoLic } from "../../services/licenciaturas/addUea.js";
-import { getLicNameByClave } from "../../services/licenciaturas/getLicNameByClave";
-import { getCursos } from "../../services/cursos/getCursos";
+import { addUEAtoLic } from "../../../services/licenciaturas/addUea.js";
+import { getLicNameByClave } from "../../../services/licenciaturas/getLicNameByClave";
+import { getCursos } from "../../../services/cursos/getCursos";
 
 
 function ModalAgregar({setCursosLic, claveLic}) {

@@ -56,11 +56,12 @@ export default function SignUpPage() {
         }
     }
 
+/*
     useEffect(() => {
         if(user.authToken)
             navigate('/encuesta')
     }, [user])
-
+*/
     return (
         <CardLogin>
             <p className="text-2xl text-center">Registrarse</p>

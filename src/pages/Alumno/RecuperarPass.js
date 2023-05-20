@@ -60,12 +60,12 @@ export default function RecuperarPass() {
             alert('Las contraseñas no coinciden o el codigo es incorrecto')
         }
     }
-
+/*
     useEffect(() => {
         if(user.authToken)
             navigate('/encuesta')
     }, [user])
-
+*/
     return (
         <CardLogin>
             <p className="text-2xl text-center">Recuperar Contraseña</p>
